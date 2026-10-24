@@ -1,6 +1,7 @@
 import { put } from "@vercel/blob";
 import { randomUUID } from "node:crypto";
 import { inquirySchema } from "@/lib/inquiry-schema";
+import { notifyNewInquiry } from "@/lib/inquiry-notification";
 
 export const runtime = "nodejs";
 export async function POST(request: Request) {
@@ -40,6 +41,9 @@ export async function POST(request: Request) {
         addRandomSuffix: false,
       },
     );
+    // Best effort: the inquiry is already saved, so a failed email never
+    // turns a successful submission into an error for the client.
+    await notifyNewInquiry(reference, result.data);
     return reply({ reference }, 201);
   } catch (error) {
     if (error instanceof SyntaxError)

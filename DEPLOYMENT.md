@@ -19,22 +19,18 @@
 3. Update `siteConfig.url` in `src/lib/site-config.ts` to match the final domain — this feeds
    the sitemap, robots.txt, and Open Graph metadata.
 
-## Wiring the Contact Form to Send Email
+## Inquiry Notifications
 
-The form currently validates and logs client-side only (`src/app/contact/page.tsx`). To make it
-actually deliver inquiries:
+Inquiries are saved to private Vercel Blob storage (`inquiries/<date>/<id>.json`) by
+`src/app/api/inquiries/route.ts`, then emailed to the team via Resend
+(`src/lib/inquiry-notification.ts`). Set these in Vercel → **Settings → Environment Variables**:
 
-1. Create a [Resend](https://resend.com) account and API key.
-2. Add `RESEND_API_KEY` and `INQUIRY_NOTIFICATION_EMAIL` in Vercel → **Settings →
-   Environment Variables**.
-3. Add a server action or route handler (e.g. `src/app/contact/actions.ts`) that:
-   - Re-validates the payload server-side with `inquirySchema` (never trust client validation
-     alone)
-   - Rejects submissions where the honeypot `company` field is non-empty
-   - Sends via Resend to `INQUIRY_NOTIFICATION_EMAIL`
-4. Call that action from the form's `onSubmit` instead of the current `console.log`.
-5. Consider basic rate-limiting (e.g. Vercel's Edge Config or a simple IP-based check) if the
-   form becomes a spam target.
+- `RESEND_API_KEY` — Resend API key
+- `INQUIRY_NOTIFICATION_EMAIL` — where notifications go
+- `INQUIRY_FROM_EMAIL` — sender; its domain must be verified in Resend
+
+Replying to a notification replies straight to the client. If email fails, the inquiry is still
+saved and the client still sees success.
 
 ## Optional: CMS Migration
 
@@ -49,7 +45,6 @@ non-developer content editing:
 
 ## Launch Checklist
 
-- [ ] Real contact info added to `site-config.ts`, `hasContactInfo` flipped to `true`
 - [ ] Real portfolio photography and case studies replace placeholders
 - [ ] Real testimonials added and `showTestimonials` flipped to `true` (or left off)
 - [ ] Privacy Policy and Terms reviewed by legal counsel
