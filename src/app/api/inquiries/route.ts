@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     return reply(
       {
         error:
-          "We couldn't send your inquiry. Please try again or email bookings@radianteventsplanning.com.",
+          "We couldn't send your inquiry. Please try again in a moment.",
       },
       503,
     );

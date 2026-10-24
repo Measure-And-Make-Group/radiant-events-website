@@ -101,7 +101,7 @@ export default function InquiryForm() {
         form:
           error instanceof Error
             ? error.message
-            : "Please try again or email us.",
+            : "Please try again in a moment.",
       });
     } finally {
       setBusy(false);

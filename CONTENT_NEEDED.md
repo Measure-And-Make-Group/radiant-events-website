@@ -4,11 +4,7 @@ Nothing below was invented for the live site — every item here is a placeholde
 in the UI, that must be replaced with real content before launch.
 
 ## Contact & Business Details
-- [ ] Public business email address
-- [ ] Public phone number (if the business wants one listed)
 - [ ] Physical address, if any (many event businesses intentionally omit this)
-- [ ] Confirm `siteConfig.hasContactInfo = true` in `src/lib/site-config.ts` once real contact
-      details are added to `siteConfig.contact`
 
 ## Social
 - [ ] Instagram handle/URL

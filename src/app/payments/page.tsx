@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/sections/PageHero";
+import Link from "next/link";
 import ArrowIcon from "@/components/ArrowIcon";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Payments & Deposits",
@@ -73,12 +73,9 @@ export default function Payments() {
               Include your name and event date so we can match it to your
               proposal.
             </p>
-            <a
-              className="button-primary"
-              href={`mailto:${siteConfig.contact.bookingsEmail}?subject=Payment%20link%20request%20%E2%80%93%20Radiant%20booking`}
-            >
+            <Link className="button-primary" href="/contact">
               Request your payment link <ArrowIcon />
-            </a>
+            </Link>
           </div>
         )}
       </section>

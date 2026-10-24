@@ -76,7 +76,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   alternateName: "Radiant Events",
                   url: siteConfig.url,
                   logo: siteConfig.url + "/brand/radiant-olive-logo.webp",
-                  email: siteConfig.contact.bookingsEmail,
                   description: siteConfig.oneLiner,
                   areaServed: {
                     "@type": "City",

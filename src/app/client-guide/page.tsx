@@ -2,7 +2,6 @@ import Link from "next/link";
 import PageHero from "@/components/sections/PageHero";
 import ArrowIcon from "@/components/ArrowIcon";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "Your Radiant Client Guide",
@@ -58,12 +57,9 @@ export default function Guide() {
           <Link className="button-primary" href="/payments">
             Make a payment or deposit <ArrowIcon />
           </Link>
-          <a
-            className="text-link"
-            href={`mailto:${siteConfig.contact.bookingsEmail}`}
-          >
+          <Link className="text-link" href="/contact">
             Ask about your booking <ArrowIcon />
-          </a>
+          </Link>
           <Link className="text-link" href="/faq">
             Common questions <ArrowIcon />
           </Link>
