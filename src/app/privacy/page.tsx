@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site-config";
+import Link from "next/link";
 export const metadata: Metadata = {
   title: "Inquiry Privacy",
   description:
@@ -24,8 +24,7 @@ export default function Privacy() {
         <p>
           Your inquiry is submitted directly through this website and stored in
           private storage on Vercel for Radiant to review. It is not published
-          on the website or shared for advertising. You can also contact Radiant
-          by email if you prefer.
+          on the website or shared for advertising. 
         </p>
         <h2 className="text-2xl">What to include</h2>
         <p>
@@ -36,13 +35,10 @@ export default function Privacy() {
         <h2 className="text-2xl">Questions or changes</h2>
         <p>
           To ask about information you have shared, request a correction, or
-          discuss a deletion request, email{" "}
-          <a
-            className="underline break-all"
-            href={"mailto:" + siteConfig.contact.bookingsEmail}
-          >
-            {siteConfig.contact.bookingsEmail}
-          </a>
+          discuss a deletion request, send a message through the{" "}
+          <Link className="underline" href="/contact">
+            contact form
+          </Link>
           .
         </p>
       </div>

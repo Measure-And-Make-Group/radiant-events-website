@@ -47,16 +47,6 @@ export default function SiteFooter() {
           </h3>
           <ul className="space-y-2 text-cream/90">
             <li>{siteConfig.location}</li>
-            {siteConfig.hasContactInfo && siteConfig.contact.email && (
-              <li className="footer-email">
-                <a href={"mailto:" + siteConfig.contact.email}>
-                  {siteConfig.contact.email}
-                </a>
-              </li>
-            )}
-            {siteConfig.hasContactInfo && siteConfig.contact.phone && (
-              <li>{siteConfig.contact.phone}</li>
-            )}
             <li>
               <Link
                 href="/contact"

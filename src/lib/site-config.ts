@@ -6,14 +6,7 @@ export const siteConfig = {
   oneLiner:
     "Event planning, design, custom balloon installations, and backdrops in Atlanta, Georgia. Personal celebrations, thoughtful details, and beauty without the burden.",
   url: "https://www.radianteventsplanning.com",
-  // Google Workspace is active; bookings is the public contact address.
-  hasContactInfo: true,
-  contact: {
-    email: "bookings@radianteventsplanning.com" as string | null,
-    bookingsEmail: "bookings@radianteventsplanning.com",
-    phone: null as string | null,
-    address: null as string | null,
-  },
+  // No public phone number or email is listed; clients reach us via /contact.
   // No social handles were supplied.
   social: {
     instagram: "https://www.instagram.com/radiant.events.planning/" as

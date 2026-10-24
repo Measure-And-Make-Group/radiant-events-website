@@ -58,6 +58,6 @@ export const faqs = [
     group: "Booking & event day",
     question: "What if my date, venue, or plans change?",
     answer:
-      "Contact bookings@radianteventsplanning.com as soon as possible. Changes, rescheduling, cancellations, and any related costs are handled according to your agreement and the availability of materials or vendors.",
+      "Send us a message through the contact form as soon as possible. Changes, rescheduling, cancellations, and any related costs are handled according to your agreement and the availability of materials or vendors.",
   },
 ] as const;

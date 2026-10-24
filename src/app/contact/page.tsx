@@ -1,7 +1,6 @@
 import InquiryForm from "@/components/InquiryForm";
 import ArrowIcon from "@/components/ArrowIcon";
 import PageHero from "@/components/sections/PageHero";
-import { siteConfig } from "@/lib/site-config";
 export default function Contact() {
   return (
     <div>
@@ -38,13 +37,6 @@ export default function Contact() {
               Understand your event investment <ArrowIcon />
             </a>
           </div>
-          <p className="eyebrow">Prefer to email?</p>
-          <a
-            className="text-link footer-email"
-            href={"mailto:" + siteConfig.contact.bookingsEmail}
-          >
-            {siteConfig.contact.bookingsEmail}
-          </a>
           <p className="mt-6">Atlanta, Georgia &amp; surrounding areas.</p>
         </aside>
         <InquiryForm />
