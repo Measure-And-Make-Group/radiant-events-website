@@ -176,6 +176,8 @@ export async function deliverInquiryEmails(
       } else {
         d.status = "failed";
         d.error = result.error;
+        // Provider status only: no addresses, names or message content.
+        console.error(`Inquiry email not accepted (${kind}): ${result.error}`);
       }
     }
   });
