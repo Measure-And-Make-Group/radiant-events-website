@@ -25,7 +25,7 @@ affected. Record the previous production deployment id before every release.
 | --- | --- |
 | `BLOB_READ_WRITE_TOKEN` / `BLOB_STORE_ID` | Private Blob store for inquiries. Records are written with `access: "private"`. |
 | `RESEND_API_KEY` | Resend key. A sending-only key is enough. |
-| `INQUIRY_FROM_EMAIL` | Sender, e.g. `Radiant Events Planning <info@radianteventsplanning.com>`. The domain must be verified in Resend. |
+| `INQUIRY_FROM_EMAIL` | Sender, e.g. `Radiant Events Planning <bookings@radianteventsplanning.com>`. The domain must be verified in Resend. |
 | `INQUIRY_NOTIFICATION_EMAIL` | Where owner notifications and reminders go. It is also the default sign-in allow-list. |
 | `INQUIRY_REPLY_TO` | Optional. Reply-to for client emails (defaults to `INQUIRY_NOTIFICATION_EMAIL`). |
 | `INQUIRY_FORM_SECRET` | Secret (16+ chars) that signs form tokens, sign-in links and sessions. Rotating it signs everyone out and invalidates open forms. |
