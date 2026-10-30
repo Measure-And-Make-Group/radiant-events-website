@@ -51,12 +51,37 @@ checklist.
 
 ## Current State
 
-- All 24 routes build successfully (`npm run build`), lint clean, no TypeScript errors.
-- No CMS is wired up — content is typed and local (`src/content/`). It can be migrated to a
-  headless CMS later without changing page components, since pages read from typed getters
-  (`getServiceBySlug`, `getProjectBySlug`, `getArticleBySlug`).
-- The contact form validates client-side with Zod + React Hook Form and includes a honeypot
-  field. It does **not** yet send email — see `DEPLOYMENT.md` for wiring a provider like Resend.
-- All portfolio projects and testimonials are placeholders, clearly labeled as such in the UI.
-  Testimonials are hidden entirely (`siteConfig.showTestimonials = false`) until real,
-  attributable client quotes are supplied.
+- Content is typed and local (`src/content/`); no CMS is wired up.
+- The contact page uses the native four-step `InquiryForm`, which posts to `POST /api/inquiries`.
+  Inquiries are validated on the server, saved to a **private** Vercel Blob store, and then two
+  transactional emails are sent through Resend (owner notification and client confirmation).
+- A passwordless private inbox lives at `/admin/inquiries` (see `DEPLOYMENT.md`).
+- Public phone numbers and email addresses are intentionally not listed; clients use the form.
+- Testimonials and published pricing stay hidden (`siteConfig.showTestimonials`,
+  `siteConfig.showPricing`) until approved content exists.
+
+## Inquiry system at a glance
+
+| Piece | File |
+| --- | --- |
+| Form (client) | `src/components/InquiryForm.tsx` |
+| Validation (shared client/server) | `src/lib/inquiry-schema.ts` |
+| Submit handler | `src/app/api/inquiries/route.ts` |
+| Storage (private Blob, ETag-safe updates) | `src/lib/inquiry-store.ts` |
+| Email templates + delivery state | `src/lib/inquiry-emails.ts`, `src/lib/email.ts` |
+| Tokens / admin session | `src/lib/auth.ts` |
+| Inbox UI and actions | `src/app/admin/**`, `src/app/api/admin/**` |
+| Daily retry + reminder job | `src/app/api/cron/inquiries/route.ts`, `vercel.json` |
+| Delivery webhook (optional) | `src/app/api/webhooks/resend/route.ts` |
+
+### Testing
+
+```bash
+npm run lint && npm run build
+npm run test:inquiry   # starts next dev + a mock Resend API; sends no real email
+```
+
+`test:inquiry` covers valid, invalid, missing-consent, honeypot, duplicate, storage-failure,
+email-failure-then-recovery, reminder, admin protection, magic-link sign-in, webhook signature
+and rate-limit cases. It uses a local directory instead of Blob, so Blob-specific behaviour
+must still be confirmed on a deployment.

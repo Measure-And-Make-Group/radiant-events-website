@@ -28,7 +28,8 @@ export default function Contact() {
           <div className="inquiry-next">
             <h3>What happens next?</h3>
             <p>
-              We review your date, location, and priorities, then discuss
+              We aim to reply personally within 12 to 24 hours. We review your
+              date, location, and priorities, then discuss
               availability and the right scope. If it feels like a fit, your
               custom proposal sets out the design, responsibilities, and booking
               steps.

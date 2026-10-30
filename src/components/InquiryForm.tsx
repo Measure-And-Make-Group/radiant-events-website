@@ -1,7 +1,7 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { inquirySchema } from "@/lib/inquiry-schema";
+import { guestCounts, inquirySchema } from "@/lib/inquiry-schema";
 import { siteConfig } from "@/lib/site-config";
 
 const occasions = [
@@ -11,6 +11,10 @@ const occasions = [
   "Brand or community gathering",
   "Something else",
 ];
+const newSubmissionId = () =>
+  typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : "00000000-0000-4000-8000-" + Date.now().toString(16).padStart(12, "0");
 const steps = ["Your occasion", "Your vision", "Your details", "Review & send"];
 type Details = {
   name: string;
@@ -47,6 +51,22 @@ export default function InquiryForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [reference, setReference] = useState("");
+  const [confirmationSent, setConfirmationSent] = useState(false);
+  // Reused across retries so a retry can never create a second inquiry.
+  const submissionId = useRef(newSubmissionId());
+  const token = useRef<{ value: string; at: number } | null>(null);
+  async function loadToken() {
+    try {
+      const res = await fetch("/api/inquiries/token", { cache: "no-store" });
+      const data = await res.json();
+      if (res.ok && data.token) token.current = { value: data.token, at: Date.now() };
+    } catch {
+      /* the send step reports a retryable error */
+    }
+  }
+  useEffect(() => {
+    void loadToken();
+  }, []);
   const heading = useRef<HTMLHeadingElement>(null);
   function update(key: keyof Details, value: string | boolean) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -84,16 +104,28 @@ export default function InquiryForm() {
     setBusy(true);
     setErrors({});
     try {
+      if (!token.current || Date.now() - token.current.at > 5 * 3600_000) {
+        await loadToken();
+        if (!token.current) throw new Error("We couldn't reach the server. Your details are still here; please try again.");
+      }
       const response = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          submissionId: submissionId.current,
+          token: token.current.value,
+        }),
       });
-      const result = await response.json();
-      if (!response.ok)
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        if (result.code === "session") await loadToken();
         throw new Error(
-          result.error || "We couldn't send your inquiry. Please try again.",
+          result.error ||
+            "We couldn't send your inquiry. Your details are still here; please try again.",
         );
+      }
+      setConfirmationSent(result.confirmationEmail === "sent");
       setReference(result.reference);
       requestAnimationFrame(() => heading.current?.focus());
     } catch (error) {
@@ -189,7 +221,13 @@ export default function InquiryForm() {
         </h2>
         <p>
           Your inquiry has been received. We look forward to learning more about
-          your celebration and will follow up using the email you shared.
+          your celebration and will reply personally, usually within 12 to 24
+          hours, using the email you shared.
+        </p>
+        <p className="inquiry-note" role="status">
+          {confirmationSent
+            ? "A confirmation is on its way to your inbox. If you don't see it, please check your spam folder."
+            : "Your inquiry is saved. Our confirmation email is taking longer than usual, so please keep your reference below."}
         </p>
         <p className="inquiry-note">
           This begins a conversation; your date is reserved once your proposal
@@ -278,19 +316,7 @@ export default function InquiryForm() {
                 true,
               )}
               {field("venueOrCity", "Venue or city")}
-              {select(
-                "guestCount",
-                "Estimated guests",
-                [
-                  "Under 25",
-                  "25–50",
-                  "51–100",
-                  "101–200",
-                  "200+",
-                  "Still deciding",
-                ],
-                true,
-              )}
+              {select("guestCount", "Estimated guests", guestCounts, true)}
             </div>
             <p className="inquiry-note">
               No date or venue yet? A season and city are a lovely place to
