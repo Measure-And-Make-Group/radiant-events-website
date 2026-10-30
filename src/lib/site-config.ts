@@ -9,7 +9,7 @@ export const siteConfig = {
   // No public phone number or email is listed; clients reach us via /contact.
   // No social handles were supplied.
   social: {
-    instagram: "https://www.instagram.com/radiant.events.planning/" as
+    instagram: "https://www.instagram.com/radianteventsplanning?cplk=MTdrNXhteDh4eXRzdg==" as
       string | null,
     pinterest: null as string | null,
     facebook: null as string | null,
