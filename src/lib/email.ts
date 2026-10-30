@@ -53,15 +53,21 @@ export async function sendEmail(message: EmailMessage): Promise<SendResult> {
         tags: message.tags,
       }),
     });
-    const body = (await response.json().catch(() => ({}))) as {
-      id?: string;
-      message?: string;
-      name?: string;
-    };
+    const raw = await response.text();
+    let body: { id?: string; message?: string; name?: string } = {};
+    try {
+      body = JSON.parse(raw);
+    } catch {
+      body = { message: raw };
+    }
     if (response.ok && body.id) return { ok: true, id: body.id };
     return {
       ok: false,
-      error: `Resend ${response.status}${body.name ? ` ${body.name}` : ""}`.slice(0, 120),
+      error: `Resend ${response.status}${body.name ? ` ${body.name}` : ""}${
+        body.message
+          ? `: ${String(body.message).replace(/\S+@\S+/g, "[email]").slice(0, 160)}`
+          : ""
+      }`.slice(0, 240),
       // 4xx other than rate limiting / idempotency races will not fix themselves.
       retryable:
         response.status >= 500 ||
