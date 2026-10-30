@@ -1,6 +1,6 @@
 import { getAdminSession, sameOrigin } from "@/lib/auth";
 import { deliverInquiryEmails } from "@/lib/inquiry-emails";
-import { getInquiry, updateInquiry } from "@/lib/inquiry-store";
+import { deleteInquiry, getInquiry, updateInquiry } from "@/lib/inquiry-store";
 import { INQUIRY_STATUSES, type InquiryStatus } from "@/lib/inquiry-types";
 
 export const runtime = "nodejs";
@@ -55,6 +55,11 @@ export async function POST(
       (k) => (!only || only === k) && updated.emails[k].status !== "sent",
     );
     return detail(failed ? "error=email" : "saved=email");
+  }
+  if (action === "delete") {
+    if (form.get("confirm") !== "yes") return detail("error=confirm");
+    await deleteInquiry(reference);
+    return Response.redirect(new URL("/admin/inquiries?deleted=1", request.url), 303);
   }
   return detail("error=action");
 }

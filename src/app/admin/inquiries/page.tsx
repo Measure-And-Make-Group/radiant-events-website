@@ -22,10 +22,10 @@ export function deliveryLabel(d: EmailDelivery | undefined) {
 export default async function Inbox({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; deleted?: string }>;
 }) {
   if (!(await getAdminSession())) redirect("/admin/login");
-  const { status } = await searchParams;
+  const { status, deleted } = await searchParams;
   const filter = INQUIRY_STATUSES.includes(status as InquiryStatus)
     ? (status as InquiryStatus)
     : null;
@@ -49,6 +49,11 @@ export default async function Inbox({
           </button>
         </form>
       </div>
+      {deleted && (
+        <p role="status" className="mb-4 border border-current p-3 text-sm">
+          Inquiry deleted.
+        </p>
+      )}
       {attention > 0 && (
         <p role="status" className="mb-4 border border-current p-3 text-sm">
           {attention} inquir{attention === 1 ? "y has" : "ies have"} an email

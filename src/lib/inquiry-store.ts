@@ -210,6 +210,16 @@ export async function updateInquiry(
   throw new Error("Inquiry update conflict");
 }
 
+export async function deleteInquiry(reference: string) {
+  if (!REFERENCE_PATTERN.test(reference)) return false;
+  const name = recordName(reference);
+  if (blobEnabled()) {
+    const { del } = await import("@vercel/blob");
+    await del(name);
+  } else await unlink(localPath(name)).catch(() => {});
+  return true;
+}
+
 /** Small counters / markers (rate limits, one-time login links). */
 export async function incrementCounter(name: string): Promise<number> {
   for (let attempt = 0; attempt < 3; attempt++) {

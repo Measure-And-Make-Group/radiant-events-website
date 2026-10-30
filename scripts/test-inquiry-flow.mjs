@@ -295,6 +295,17 @@ await check("8c signed-in owner sees inquiry, updates status, notes, resends", a
   assert.ok(bad.headers.get("location").includes("error=status"));
 });
 
+await check("8d delete needs confirmation, then removes the record", async () => {
+  const url = base(A) + `/api/admin/inquiries/${failRef}`;
+  const h = { origin: base(A), cookie };
+  const no = await fetch(url, { method: "POST", redirect: "manual", headers: h, body: new URLSearchParams({ action: "delete" }) });
+  assert.ok(no.headers.get("location").includes("error=confirm"));
+  assert.ok((await files()).includes(`${failRef}.json`));
+  const yes = await fetch(url, { method: "POST", redirect: "manual", headers: h, body: new URLSearchParams({ action: "delete", confirm: "yes" }) });
+  assert.equal(yes.status, 303);
+  assert.ok(!(await files()).includes(`${failRef}.json`));
+});
+
 await check("webhook: rejects bad signature, records delivery, tolerates replay/out-of-order", async () => {
   const secret = Buffer.from("webhook-test-secret");
   const send = (type, ts = Math.floor(Date.now() / 1000), badSig = false) => {

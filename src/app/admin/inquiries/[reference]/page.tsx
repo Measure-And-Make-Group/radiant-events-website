@@ -15,6 +15,7 @@ const flashes: Record<string, string> = {
   "error=legacy": "This inquiry was saved before email delivery existed, so it is never emailed automatically.",
   "error=status": "That status is not valid.",
   "error=action": "That action is not valid.",
+  "error=confirm": "Tick the confirmation box to delete this inquiry.",
 };
 
 export default async function InquiryDetail({
@@ -136,6 +137,21 @@ export default async function InquiryDetail({
                 </div>
               );
             })}
+          </div>
+          <div>
+            <h2 className="text-2xl mb-3">Delete this inquiry</h2>
+            <p className="mb-3 text-xs">
+              Permanently removes the stored record, for example when a client asks for deletion
+              or for a test entry. Emails already sent cannot be recalled.
+            </p>
+            <form method="post" action={`/api/admin/inquiries/${record.reference}`} className="space-y-3">
+              <input type="hidden" name="action" value="delete" />
+              <label className="flex items-start gap-2 text-sm">
+                <input type="checkbox" name="confirm" value="yes" />
+                <span>I understand this cannot be undone.</span>
+              </label>
+              <button className="text-link" type="submit">Delete inquiry</button>
+            </form>
           </div>
         </div>
       </div>
