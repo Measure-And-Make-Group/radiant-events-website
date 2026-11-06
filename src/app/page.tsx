@@ -1,311 +1,181 @@
-import ArrowIcon from "@/components/ArrowIcon";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
-import HomeHero from "@/components/sections/HomeHero";
-import DesignStudio from "@/components/sections/DesignStudio";
+import ArrowIcon from "@/components/ArrowIcon";
 import { siteConfig } from "@/lib/site-config";
-import MeetRickya from "@/components/sections/MeetRickya";
-import CollectionCarousel from "@/components/sections/CollectionCarousel";
+import { portfolioProjects } from "@/content/portfolio";
+import "./radiant-editorial.css";
+
 export const metadata: Metadata = {
-  title: { absolute: "Radiant Events | Atlanta Event Planning & Design" },
+  title: { absolute: "Radiant Events Planning | Thoughtful Event Design in Atlanta" },
   description: siteConfig.oneLiner,
   alternates: { canonical: "/" },
 };
+
+const specialties = [
+  {
+    number: "01",
+    name: "Signature installations",
+    text: "Custom balloons, beautiful backdrops, and thoughtful focal moments that set the tone for your celebration.",
+    href: "/services/signature-installations",
+    image: "/images/pink-arch.webp",
+    alt: "Soft pink balloons arranged around a circular gold backdrop",
+  },
+  {
+    number: "02",
+    name: "Design & room styling",
+    text: "A considered palette, carefully styled tables, and details that make your space feel entirely your own.",
+    href: "/services/design-room-styling",
+    image: "/images/styled-table-detail.webp",
+    alt: "A carefully styled event table featuring delicate details",
+  },
+  {
+    number: "03",
+    name: "Planning & coordination",
+    text: "The right support for the moving pieces, so you can enjoy the celebration and the people who matter most.",
+    href: "/services/planning-coordination",
+    image: "/images/celebration-detail.webp",
+    alt: "Coordinated celebration details at a styled event",
+  },
+];
+
 export default function Home() {
   return (
-    <div>
-      <HomeHero />
-      <div className="occasion-strip" aria-label="Celebrations we design">
-        <span>Birthdays &amp; milestones</span>
-        <span>Showers &amp; celebrations</span>
-        <span>Brand &amp; community gatherings</span>
-      </div>
-      <nav className="experience-nav" aria-label="Explore Radiant">
-        <a href="#meet-rickya">Meet Rickya</a>
-        <a href="#design-studio">Find your feeling</a>
-        <a href="#the-collection">The collection</a>
-        <a href="#your-journey">Your journey</a>
-        <Link href="/contact">Begin your celebration</Link>
-      </nav>
-      <section className="section-wrap occasion-intro">
-        <p className="eyebrow">Your reason to gather</p>
-        <h2>What are you celebrating?</h2>
-        <div className="support-grid">
-          {[
-            [
-              "Milestones & private celebrations",
-              "Birthday moments, anniversaries, and the people you love.",
-              "milestone-celebrations",
-            ],
-            [
-              "Showers & intimate gatherings",
-              "A beautiful beginning, surrounded by your people.",
-              "showers-intimate-gatherings",
-            ],
-            [
-              "Brand & community gatherings",
-              "Spaces that bring people around a shared purpose.",
-              "brand-community-gatherings",
-            ],
-          ].map(([title, copy, slug]) => (
-            <Link key={slug} href={`/occasions/${slug}`}>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-              <span className="text-link">
-                Explore the occasion <ArrowIcon />
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-      <MeetRickya />
-      <DesignStudio />
-      <section
-        className="detail-editorial section-wrap"
-        data-enter
-        aria-labelledby="detail-title"
-      >
-        <div className="detail-portrait">
+    <div className="re-home">
+      <section className="re-opening" aria-labelledby="re-title">
+        <div className="re-opening-photo">
           <Image
-            src="/images/styled-table-detail.webp"
-            alt="A pink acrylic table sign, shimmering runner, and golden rose detail"
-            fill
-            sizes="(max-width:767px) 80vw, 35vw"
+            src="/images/pink-arch.webp"
+            alt="Radiant Events Planning pink balloon installation with a circular gold backdrop"
+            fill priority sizes="100vw"
+            className="re-cover"
           />
         </div>
-        <div className="detail-narrative">
-          <p className="eyebrow">The details make the difference</p>
-          <h2 id="detail-title">
-            Not just a backdrop.
-            <br />
-            <em>A world of little details.</em>
-          </h2>
-          <p>
-            A palette that carries through. A table with personality. A welcome
-            that feels considered. Beautiful moments come together when the
-            details speak the same language.
+        <div className="re-opening-shade" aria-hidden="true" />
+        <div className="re-opening-inner">
+          <p className="re-kicker re-kicker-light">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
+          <h1 id="re-title">For moments <em>worth remembering.</em></h1>
+          <p className="re-opening-intro">
+            Thoughtfully planned. Beautifully designed. A celebration that feels
+            as meaningful as the people gathered around you.
           </p>
-          <Link href="/services/design-room-styling" className="text-link">
-            Explore design &amp; room styling <ArrowIcon />
-          </Link>
-          <div className="detail-landscape">
-            <Image
-              src="/images/celebration-detail.webp"
-              alt="A coordinated pink celebration display with styled books and accessories"
-              fill
-              sizes="(max-width:767px) 90vw, 45vw"
-            />
+          <div className="re-opening-actions">
+            <Link className="re-cta re-cta-light" href="/contact">Plan your event <ArrowIcon /></Link>
+            <Link className="re-text-link re-text-light" href="#re-work">Explore our work <ArrowIcon /></Link>
           </div>
         </div>
+        <div className="re-opening-bottom">
+          <span>PLANNING WITH PURPOSE. SERVING WITH GRACE.</span>
+          <a href="#re-intro" aria-label="Scroll to discover Radiant">SCROLL TO DISCOVER ↓</a>
+        </div>
       </section>
-      <section className="section-wrap introduction" data-enter>
-        <p className="eyebrow">Beauty without the burden</p>
+
+      <section className="re-statement" id="re-intro" aria-labelledby="re-statement-title">
+        <div className="re-statement-number">01 / THE RADIANT APPROACH</div>
         <div>
-          <h2>
-            More than a beautiful room.
-            <br />
-            <em>A feeling you remember.</em>
-          </h2>
+          <p className="re-kicker">A celebration should feel like you.</p>
+          <h2 id="re-statement-title">More than a beautiful event. <em>A feeling that stays.</em></h2>
           <p>
-            Your celebration has a story. We help tell it through a palette, a
-            focal moment, and the small details that make the whole space feel
-            like you. From the first idea to the final placement, our approach
-            is thoughtful, personal, and full of care.
+            The best gatherings are felt long after the last guest leaves.
+            We combine personal attention, considered styling, and purposeful
+            planning to make room for the moments that matter.
           </p>
-          <Link href="/about" className="text-link">
-            The heart behind Radiant <ArrowIcon />
-          </Link>
+          <Link href="/about" className="re-text-link">Discover the heart behind Radiant <ArrowIcon /></Link>
         </div>
       </section>
-      <section className="work-section" id="the-collection" data-enter>
-        <div className="section-wrap">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">02 / A closer look</p>
-              <h2>
-                Little details.
-                <br />
-                <em>Lasting impressions.</em>
-              </h2>
-            </div>
-            <Link href="/portfolio" className="text-link">
-              View the collection <ArrowIcon />
-            </Link>
-          </div>
-          <p className="collection-hint">
-            Three real installations. Three different personalities.{" "}
-            <span>Swipe to explore.</span>
-          </p>
-          <CollectionCarousel />
+
+      <section className="re-services" aria-labelledby="re-services-title">
+        <div className="re-section-heading">
+          <p className="re-kicker">WHAT WE CREATE</p>
+          <h2 id="re-services-title">Your occasion. <em>Beautifully considered.</em></h2>
+          <p>From a single statement piece to the whole room, we help you bring your vision into focus.</p>
         </div>
-      </section>
-      <section className="section-wrap services-editorial" data-enter>
-        <div>
-          <p className="eyebrow">03 / Bring it together</p>
-          <h2>
-            Your vision.
-            <br />
-            <em>Our thoughtful touch.</em>
-          </h2>
-          <p>
-            One statement piece or a space brought together. Choose the support
-            your celebration needs.
-          </p>
-          <Link href="/services" className="text-link">
-            Explore services <ArrowIcon />
-          </Link>
-        </div>
-        <div className="service-lines">
-          {[
-            [
-              "01",
-              "Signature Installations",
-              "Custom balloons, backdrops, and photo moments that bring your celebration's personality into focus.",
-              "signature-installations",
-            ],
-            [
-              "02",
-              "Design + Room Styling",
-              "A cohesive palette, tablescape, and room design, thoughtfully arranged around your vision.",
-              "design-room-styling",
-            ],
-            [
-              "03",
-              "Planning + Coordination",
-              "Tell us the details you need help bringing together. We'll recommend support for your event and scope.",
-              "planning-coordination",
-            ],
-          ].map(([n, t, c, s]) => (
-            <Link key={s} href={"/services/" + s}>
-              <span>{n}</span>
-              <div>
-                <h3>{t}</h3>
-                <p>{c}</p>
+        <div className="re-service-grid">
+          {specialties.map((item) => (
+            <Link className="re-service" href={item.href} key={item.number}>
+              <div className="re-service-photo">
+                <Image src={item.image} alt={item.alt} fill sizes="(max-width: 760px) 95vw, 31vw" />
               </div>
-              <ArrowIcon />
+              <div className="re-service-meta"><span>{item.number} / SERVICE</span><ArrowIcon /></div>
+              <h3>{item.name}</h3>
+              <p>{item.text}</p>
+            </Link>
+          ))}
+        </div>
+        <Link href="/services" className="re-text-link re-services-link">Explore all services <ArrowIcon /></Link>
+      </section>
+
+      <section className="re-pause" aria-label="Our design philosophy">
+        <p>BEAUTY WITHOUT THE BURDEN</p>
+        <h2>Be present for <em>the beautiful part.</em></h2>
+        <span>WE'LL HELP BRING THE DETAILS TOGETHER.</span>
+      </section>
+
+      <section className="re-collection" id="re-work" aria-labelledby="re-work-title">
+        <div className="re-collection-head">
+          <div>
+            <p className="re-kicker">A LOOK INSIDE OUR WORK</p>
+            <h2 id="re-work-title">A collection of <em>meaningful moments.</em></h2>
+          </div>
+          <Link href="/portfolio" className="re-text-link">View the collection <ArrowIcon /></Link>
+        </div>
+        <div className="re-work-grid">
+          {portfolioProjects.slice(0, 3).map((project, i) => (
+            <Link href={`/portfolio/${project.slug}`} className={`re-work-card re-work-card-${i + 1}`} key={project.slug}>
+              <div className="re-work-photo">
+                <Image src={project.image} alt={project.alt} fill sizes="(max-width: 760px) 94vw, 45vw" />
+              </div>
+              <div className="re-work-info">
+                <span>{project.category}</span>
+                <h3>{project.title}</h3>
+                <ArrowIcon />
+              </div>
             </Link>
           ))}
         </div>
       </section>
-      <section id="your-journey" className="process-home" data-enter>
-        <div className="section-wrap">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">04 / Enjoy the journey</p>
-              <h2>
-                From an idea
-                <br />
-                <em>to “it&apos;s perfect.”</em>
-              </h2>
-            </div>
-            <Link href="/process" className="text-link">
-              Our process <ArrowIcon />
-            </Link>
-          </div>
-          <div className="process-grid">
-            {[
-              [
-                "01",
-                "Share the occasion",
-                "Tell us your date, your space, and what you're imagining. Inspiration is welcome; a finished plan isn't required.",
-              ],
-              [
-                "02",
-                "Make it personal",
-                "We shape the design and scope around your celebration, with a custom proposal and clear next steps.",
-              ],
-              [
-                "03",
-                "Enjoy the moment",
-                "We bring the agreed details to life so you can welcome your guests and be present for the celebration.",
-              ],
-            ].map(([n, t, c]) => (
-              <div key={n}>
-                <span className="step-number">{n}</span>
-                <h3>{t}</h3>
-                <p>{c}</p>
-              </div>
-            ))}
-          </div>
+
+      <section className="re-founder" aria-labelledby="re-founder-title">
+        <div className="re-founder-image">
+          <Image src="/images/rickya-fandino.webp" alt="Rickya Fandino, founder of Radiant Events Planning" fill sizes="(max-width: 760px) 100vw, 45vw" />
+        </div>
+        <div className="re-founder-content">
+          <p className="re-kicker re-kicker-light">A NOTE FROM THE FOUNDER</p>
+          <h2 id="re-founder-title">The details matter. <em>But the people matter more.</em></h2>
+          <p>
+            I'm Rickya. I believe celebrations deserve both beauty and intention.
+            My heart is to help you create a gathering that feels personal,
+            cared for, and full of the moments you hoped for.
+          </p>
+          <Link className="re-text-link re-text-light" href="/about">Get to know Rickya <ArrowIcon /></Link>
         </div>
       </section>
-      <section className="section-wrap faq-home" data-enter>
-        <div>
-          <p className="eyebrow">Before we begin</p>
-          <h2>
-            A few things
-            <br />
-            <em>you might wonder.</em>
-          </h2>
+
+      <section className="re-journey" aria-labelledby="re-journey-title">
+        <div className="re-section-heading">
+          <p className="re-kicker">SIMPLE, PERSONAL, THOUGHTFUL</p>
+          <h2 id="re-journey-title">A beautiful experience <em>from the beginning.</em></h2>
         </div>
-        <div>
+        <div className="re-steps">
           {[
-            [
-              "Can I book just balloons or a backdrop?",
-              "Yes. Signature installations can be the whole project. Tell us your palette, venue, and the focal moment you have in mind.",
-            ],
-            [
-              "Do I need to know exactly what I want?",
-              "No. Bring a few inspiration images, a color you love, or simply the occasion. We can help you shape the direction.",
-            ],
-            [
-              "Where do you work?",
-              "Radiant is based in Atlanta and serves surrounding areas. Include your venue location so we can confirm availability and travel details.",
-            ],
-            [
-              "How much will my event cost?",
-              "Every proposal is scoped to your design, materials, location, and setup needs. Share a comfortable budget in your inquiry so we can guide the conversation.",
-            ],
-          ].map(([q, a]) => (
-            <details key={q}>
-              <summary>
-                {q}
-                <span aria-hidden="true">+</span>
-              </summary>
-              <p>{a}</p>
-            </details>
+            ["01", "Tell us your vision", "Share the occasion, the location, your inspiration, and the feeling you hope to create."],
+            ["02", "Let's shape the details", "We'll discuss the right design and support, with a proposal tailored to the agreed scope."],
+            ["03", "Enjoy your moment", "Once booked, we bring the agreed details together so you can focus on your guests."],
+          ].map(([number, title, text]) => (
+            <div className="re-step" key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
           ))}
         </div>
       </section>
-      <section className="section-wrap service-choice">
-        <div>
-          <p className="eyebrow">Clear from the beginning</p>
-          <h2>
-            A personal proposal.
-            <br />
-            <em>A confident next step.</em>
-          </h2>
-        </div>
-        <div>
-          <p>
-            Your scope is shaped around your priorities, design, venue, and
-            setup needs. We’ll help you understand what belongs in the plan
-            before you book.
-          </p>
-          <Link href="/investment" className="text-link">
-            Explore your investment <ArrowIcon />
-          </Link>
-          <br />
-          <Link href="/faq" className="text-link">
-            More questions, thoughtfully answered <ArrowIcon />
-          </Link>
-        </div>
-      </section>
-      <section className="closing-cta" data-enter>
-        <span className="closing-script" aria-hidden="true">
-          with purpose, with grace
-        </span>
-        <p className="eyebrow">Let&apos;s make something meaningful</p>
-        <h2>
-          You bring the occasion.
-          <br />
-          <em>We&apos;ll bring the radiance.</em>
-        </h2>
-        <p>Start with a few details. We&apos;ll take it from there.</p>
-        <Link href="/contact" className="button-light">
-          Start your event inquiry <ArrowIcon />
-        </Link>
+
+      <section className="re-finale" aria-labelledby="re-finale-title">
+        <p className="re-kicker re-kicker-light">LET'S MAKE SOMETHING MEANINGFUL</p>
+        <h2 id="re-finale-title">You bring the occasion. <em>We'll bring the radiance.</em></h2>
+        <p>Tell us what you're celebrating. We'll help you explore what comes next.</p>
+        <Link href="/contact" className="re-cta re-cta-light">Begin your event inquiry <ArrowIcon /></Link>
       </section>
     </div>
   );
