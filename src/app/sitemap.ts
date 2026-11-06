@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
+    "/service-areas",
     "/services",
     "/portfolio",
     "/process",
@@ -31,6 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({
     url: `${siteConfig.url}${route}`,
-    lastModified: new Date("2026-10-09"),
+    lastModified: new Date("2026-11-06"),
   }));
 }
