@@ -43,25 +43,28 @@ export default function Home() {
   return (
     <div className="re-home">
       <section className="re-opening" aria-labelledby="re-title">
-        <div className="re-opening-photo">
+        <div className="re-opening-ambience" aria-hidden="true">
+          <span className="re-ambience-ring re-ambience-ring-one" />
+          <span className="re-ambience-ring re-ambience-ring-two" />
           <Image
-            src="/images/pink-arch.webp"
-            alt="Radiant Events Planning pink balloon installation with a circular gold backdrop"
-            fill priority sizes="100vw"
-            className="re-cover"
+            src="/brand/radiant-olive-logo.webp"
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 760px) 90vw, 60vw"
+            className="re-opening-watermark"
           />
         </div>
-        <div className="re-opening-shade" aria-hidden="true" />
         <div className="re-opening-inner">
-          <p className="re-kicker re-kicker-light">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
+          <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
           <h1 id="re-title">For moments <em>worth remembering.</em></h1>
           <p className="re-opening-intro">
             Thoughtfully planned. Beautifully designed. A celebration that feels
             as meaningful as the people gathered around you.
           </p>
           <div className="re-opening-actions">
-            <Link className="re-cta re-cta-light" href="/contact">Plan your event <ArrowIcon /></Link>
-            <Link className="re-text-link re-text-light" href="#re-work">Explore our work <ArrowIcon /></Link>
+            <Link className="re-cta re-cta-olive" href="/contact">Plan your event <ArrowIcon /></Link>
+            <Link className="re-text-link" href="#re-work">Explore our work <ArrowIcon /></Link>
           </div>
         </div>
         <div className="re-opening-bottom">
