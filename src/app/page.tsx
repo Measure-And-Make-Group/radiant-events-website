@@ -8,7 +8,7 @@ import { portfolioProjects } from "@/content/portfolio";
 import "./radiant-editorial.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "Radiant Events Planning | Thoughtful Event Design in Atlanta" },
+  title: { absolute: "Radiant Events Planning | Event Planning & Design in Atlanta, Alpharetta & Milton" },
   description: siteConfig.oneLiner,
   alternates: { canonical: "/" },
 };
