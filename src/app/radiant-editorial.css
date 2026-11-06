@@ -143,3 +143,46 @@
  .re-home .re-service:hover img,.re-home .re-work-card:hover img { will-change:transform; }
 }
 @keyframes re-enter { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+
+/* 2026-11 Radiant: logo-first hero. No balloon backdrop on arrival. */
+.re-home .re-opening { min-height:min(820px, calc(100svh - 70px)); background:radial-gradient(circle at 80% 35%,#e7e8d9 0%,#f8f6ee 48%,#eeeadd 100%);color:#2b2b26; }
+.re-opening-ambience { position:absolute;inset:0;overflow:hidden;z-index:-1;pointer-events:none; }
+.re-opening-watermark { object-fit:contain;object-position:center;opacity:.16;transform:translate(21%, 1%) scale(.96);filter:saturate(.65); }
+.re-ambience-ring { position:absolute;display:block;border:1px solid rgba(89,102,74,.22);border-radius:50%;aspect-ratio:1; }
+.re-ambience-ring-one { width:min(85vw,900px);right:-15%;top:-55%; }
+.re-ambience-ring-two { width:min(64vw,670px);right:-8%;bottom:-64%; }
+.re-home .re-opening .re-kicker { color:#59664a; }
+.re-home .re-opening h1 { color:#2b2b26;max-width:930px; }
+.re-home .re-opening h1 em { color:#59664a; }
+.re-home .re-opening-intro { color:#3f4538; }
+.re-home .re-opening-bottom,.re-home .re-opening-bottom a { color:#59664a; }
+.re-home .re-cta-olive { background:#59664a;color:#f8f6ee; }
+.re-home .re-cta-olive:hover { background:#35412e; }
+.re-home .re-opening .re-text-link { color:#59664a; }
+@media(max-width:760px) {
+  .re-home .re-opening { min-height:min(780px, calc(100svh - 60px)); background:linear-gradient(145deg,#f8f6ee,#e7e7d8); }
+  .re-opening-watermark { opacity:.13;transform:translate(15%, -17%) scale(1.1); }
+  .re-ambience-ring-one { width:120vw;right:-65%;top:-20%; }
+  .re-ambience-ring-two { width:98vw;right:-60%;bottom:-24%; }
+}
+
+/* First-visit brand reveal, respectful of motion preference. */
+.radiant-intro { position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;background:#f8f6ee;color:#59664a;isolation:isolate; }
+.radiant-intro-panel { position:absolute;inset:0;background:radial-gradient(ellipse at center,#f8f6ee 10%,#e8e9df 100%); }
+.radiant-intro-center { position:relative;width:min(620px,90vw);display:flex;align-items:center;flex-direction:column;text-align:center; }
+.radiant-intro-overline { display:block;font-family:var(--font-montserrat),sans-serif;font-size:10px;letter-spacing:.2em;line-height:1.6;font-weight:600;color:#59664a;opacity:0;transform:translateY(12px);animation:radiant-intro-appear .55s .14s ease forwards; }
+.radiant-intro-mark { width:min(290px,57vw);margin:18px 0 0;aspect-ratio:1;display:grid;place-items:center;opacity:0;transform:scale(.85);animation:radiant-intro-logo .85s .2s cubic-bezier(.16,1,.3,1) forwards; }
+.radiant-intro-mark img { width:100%;height:auto;object-fit:contain; }
+.radiant-intro-rule { height:1px;width:0;background:#59664a;margin:8px 0 17px;animation:radiant-intro-rule .65s .52s ease forwards; }
+.radiant-intro-center p { font-family:var(--font-cormorant),Georgia,serif;font-style:italic;font-size:clamp(22px,3vw,32px);line-height:1.2;opacity:0;animation:radiant-intro-appear .55s .75s ease forwards; }
+.radiant-intro-skip { position:absolute;right:24px;bottom:22px;color:#59664a;background:transparent;border:1px solid #a7b096;padding:10px 14px;font:600 11px var(--font-montserrat),sans-serif;letter-spacing:.08em;cursor:pointer; }
+.radiant-intro-skip:focus-visible { outline:3px solid #59664a;outline-offset:3px; }
+.radiant-intro-leaving { animation:radiant-intro-curtain .65s cubic-bezier(.76,0,.24,1) both; }
+@keyframes radiant-intro-appear { to { opacity:1;transform:translateY(0); } }
+@keyframes radiant-intro-logo { to { opacity:1;transform:scale(1); } }
+@keyframes radiant-intro-rule { to { width:min(160px,38vw); } }
+@keyframes radiant-intro-curtain { to { transform:translateY(-105%); } }
+@media(prefers-reduced-motion:reduce) {
+ .radiant-intro,.radiant-intro * { animation:none!important;transition:none!important; }
+}
