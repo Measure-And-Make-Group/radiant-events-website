@@ -77,11 +77,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   url: siteConfig.url,
                   logo: siteConfig.url + "/brand/radiant-olive-logo.webp",
                   description: siteConfig.oneLiner,
-                  areaServed: {
+                  areaServed: siteConfig.serviceAreas.map((name) => ({
                     "@type": "City",
-                    name: "Atlanta",
+                    name,
                     containedInPlace: { "@type": "State", name: "Georgia" },
-                  },
+                  })),
+                  slogan: siteConfig.tagline,
+                  knowsAbout: [
+                    "Event planning and coordination",
+                    "Event design and room styling",
+                    "Custom balloon installations",
+                    "Event backdrops",
+                  ],
                   sameAs: [siteConfig.social.instagram],
                   founder: { "@id": siteConfig.url + "/#rickya" },
                 },
