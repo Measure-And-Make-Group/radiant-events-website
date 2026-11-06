@@ -59,10 +59,9 @@ export default function Home() {
         </div>
         <div className="re-opening-inner">
           <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
-          <h1 id="re-title">For moments <em>worth remembering.</em></h1>
+          <h1 id="re-title">Planning with purpose. <em>Serving with grace.</em></h1>
           <p className="re-opening-intro">
-            Thoughtfully planned. Beautifully designed. A celebration that feels
-            as meaningful as the people gathered around you.
+            Planning with purpose. Serving with grace. Beautiful events, thoughtful details, and room for the people who matter most.
           </p>
           <div className="re-opening-actions">
             <Link className="re-cta re-cta-olive" href="/contact">Plan your event <ArrowIcon /></Link>
@@ -70,7 +69,7 @@ export default function Home() {
           </div>
         </div>
         <div className="re-opening-bottom">
-          <span>PLANNING WITH PURPOSE. SERVING WITH GRACE.</span>
+          <span>ATLANTA · ALPHARETTA · MILTON · NORTH ATLANTA</span>
           <a href="#re-intro" aria-label="Scroll to discover Radiant">SCROLL TO DISCOVER ↓</a>
         </div>
       </section>
@@ -79,7 +78,7 @@ export default function Home() {
         <div className="re-statement-number">01 / THE RADIANT APPROACH</div>
         <div>
           <p className="re-kicker">A celebration should feel like you.</p>
-          <h2 id="re-statement-title">More than a beautiful event. <em>A feeling that stays.</em></h2>
+          <h2 id="re-statement-title">Beautifully planned. <em>Personally cared for.</em></h2>
           <p>
             The best gatherings are felt long after the last guest leaves.
             We combine personal attention, considered styling, and purposeful
