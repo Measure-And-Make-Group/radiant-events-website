@@ -287,4 +287,5 @@
 @media(max-width:760px) and (prefers-reduced-motion:no-preference) {
  .re-home .re-opening-watermark { animation:none; }
 }
-\n.re-area-grid{max-width:970px;margin:42px auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #b7a898;border-left:1px solid #b7a898}.re-area-city{padding:18px 12px;border-right:1px solid #b7a898;border-bottom:1px solid #b7a898;font:600 12px var(--font-montserrat),sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#59664a}@media(max-width:760px){.re-area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}\n
+
+.re-area-grid{max-width:970px;margin:42px auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #b7a898;border-left:1px solid #b7a898}.re-area-city{padding:18px 12px;border-right:1px solid #b7a898;border-bottom:1px solid #b7a898;font:600 12px var(--font-montserrat),sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#59664a}@media(max-width:760px){.re-area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
