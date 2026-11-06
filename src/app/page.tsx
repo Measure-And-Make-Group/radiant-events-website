@@ -61,7 +61,7 @@ export default function Home() {
           <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
           <h1 id="re-title">Planning with purpose. <em>Serving with grace.</em></h1>
           <p className="re-opening-intro">
-            Planning with purpose. Serving with grace. Beautiful events, thoughtful details, and room for the people who matter most.
+            Thoughtful event planning, expressive design, and meaningful details—so you can be fully present with the people who matter most.
           </p>
           <div className="re-opening-actions">
             <Link className="re-cta re-cta-olive" href="/contact">Plan your event <ArrowIcon /></Link>
