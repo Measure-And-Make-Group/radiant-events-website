@@ -1,50 +1,46 @@
 "use client";
+
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const KEY = "radiant-home-welcome-2026-v4";
 export default function BrandEntrance() {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    let seen = false;
+    if (pathname !== "/" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     try {
-      const key =
-        pathname === "/about"
-          ? "radiant-founder-welcome-v3"
-          : "radiant-welcome-v3";
-      seen = sessionStorage.getItem(key) === "seen";
-      sessionStorage.setItem(key, "seen");
-    } catch {}
-    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const hide = setTimeout(() => setVisible(false), 0);
-      return () => clearTimeout(hide);
+      if (sessionStorage.getItem(KEY) === "seen") return;
+      sessionStorage.setItem(KEY, "seen");
+    } catch {
+      // Welcome is purely decorative; unavailable storage must never block content.
     }
-    const start = setTimeout(() => setVisible(true), 0);
-    const end = setTimeout(() => setVisible(false), 1600);
-    const escape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setVisible(false);
+    const show = window.setTimeout(() => setVisible(true), 0);
+    const hide = window.setTimeout(() => setVisible(false), 1350);
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setVisible(false);
     };
-    document.addEventListener("keydown", escape);
+    document.addEventListener("keydown", dismiss);
     return () => {
-      clearTimeout(start);
-      clearTimeout(end);
-      document.removeEventListener("keydown", escape);
+      window.clearTimeout(show);
+      window.clearTimeout(hide);
+      document.removeEventListener("keydown", dismiss);
     };
   }, [pathname]);
   if (!visible) return null;
   return (
-    <div className="brand-intro" aria-label="Welcome to Radiant Events">
+    <div className="brand-intro brand-intro-refined" aria-label="Welcome to Radiant Events">
       <Image
         src="/brand/radiant-olive-logo.webp"
-        alt="Radiant Events Planning · Design and Decor · Psalm 52:8"
+        alt="Radiant Events Planning"
         width={440}
         height={440}
-        unoptimized
-        loading="eager"
-        fetchPriority="high"
+        priority
+        sizes="(max-width: 600px) 72vw, 360px"
       />
-      <p>A little beauty. A lot of meaning.</p>
-      <button onClick={() => setVisible(false)}>Skip welcome</button>
+      <p>Beauty without the burden.</p>
+      <button type="button" onClick={() => setVisible(false)}>Skip welcome</button>
     </div>
   );
 }
