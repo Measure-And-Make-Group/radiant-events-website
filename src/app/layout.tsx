@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Allura, Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
 import BrandEntrance from "@/components/BrandEntrance";
+import InteriorMotion from "@/components/InteriorMotion";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { siteConfig } from "@/lib/site-config";
@@ -114,6 +115,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <BrandEntrance />
+        <InteriorMotion />
         <SiteHeader />
         <main id="main-content" className="flex-1">
           {children}
