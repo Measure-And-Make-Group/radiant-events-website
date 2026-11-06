@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ArrowIcon from "@/components/ArrowIcon";
+import PageMotion from "@/components/PageMotion";
 import { siteConfig } from "@/lib/site-config";
 import { portfolioProjects } from "@/content/portfolio";
 import "./radiant-editorial.css";
@@ -16,7 +17,7 @@ const specialties = [
   {
     number: "01",
     name: "Signature installations",
-    text: "Custom balloons, beautiful backdrops, and thoughtful focal moments that set the tone for your celebration.",
+    text: "For a photo-ready focal point: custom balloon installations and backdrops. Ideal when the rest of your event is already planned.",
     href: "/services/signature-installations",
     image: "/images/pink-arch.webp",
     alt: "Soft pink balloons arranged around a circular gold backdrop",
@@ -24,7 +25,7 @@ const specialties = [
   {
     number: "02",
     name: "Design & room styling",
-    text: "A considered palette, carefully styled tables, and details that make your space feel entirely your own.",
+    text: "For a cohesive setting: palette direction, tablescape styling, and decorative details tailored to your space and event.",
     href: "/services/design-room-styling",
     image: "/images/styled-table-detail.webp",
     alt: "A carefully styled event table featuring delicate details",
@@ -32,7 +33,7 @@ const specialties = [
   {
     number: "03",
     name: "Planning & coordination",
-    text: "The right support for the moving pieces, so you can enjoy the celebration and the people who matter most.",
+    text: "For help with the moving pieces: planning and coordination matched to your event and confirmed in your proposal.",
     href: "/services/planning-coordination",
     image: "/images/celebration-detail.webp",
     alt: "Coordinated celebration details at a styled event",
@@ -42,6 +43,7 @@ const specialties = [
 export default function Home() {
   return (
     <div className="re-home">
+      <PageMotion />
       <section className="re-opening" aria-labelledby="re-title">
         <div className="re-opening-ambience" aria-hidden="true">
           <span className="re-ambience-ring re-ambience-ring-one" />
@@ -73,7 +75,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="re-statement" id="re-intro" aria-labelledby="re-statement-title">
+      <section className="re-statement" data-reveal id="re-intro" aria-labelledby="re-statement-title">
         <div className="re-statement-number">01 / THE RADIANT APPROACH</div>
         <div>
           <p className="re-kicker">A celebration should feel like you.</p>
@@ -87,15 +89,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="re-services" aria-labelledby="re-services-title">
+      <section className="re-services" data-reveal aria-labelledby="re-services-title">
         <div className="re-section-heading">
           <p className="re-kicker">WHAT WE CREATE</p>
           <h2 id="re-services-title">Your occasion. <em>Beautifully considered.</em></h2>
-          <p>From a single statement piece to the whole room, we help you bring your vision into focus.</p>
+          <p>Whether you need a single focal installation, cohesive styling, or help coordinating the details, we can help you find the right fit.</p>
         </div>
         <div className="re-service-grid">
           {specialties.map((item) => (
-            <Link className="re-service" href={item.href} key={item.number}>
+            <Link className="re-service" data-reveal href={item.href} key={item.number}>
               <div className="re-service-photo">
                 <Image src={item.image} alt={item.alt} fill sizes="(max-width: 760px) 95vw, 31vw" />
               </div>
@@ -108,13 +110,33 @@ export default function Home() {
         <Link href="/services" className="re-text-link re-services-link">Explore all services <ArrowIcon /></Link>
       </section>
 
-      <section className="re-pause" aria-label="Our design philosophy">
+      <section className="re-client-guide" id="find-your-fit" aria-labelledby="re-guide-title" data-reveal>
+        <div className="re-client-guide-intro">
+          <p className="re-kicker">FIND YOUR CELEBRATION</p>
+          <h2 id="re-guide-title">What are you <em>celebrating?</em></h2>
+          <p>Discover how we approach the moments that bring people together. Not sure which service fits? Start with your occasion.</p>
+        </div>
+        <div className="re-client-guide-links">
+          {[
+            ["01", "Milestones & private celebrations", "Birthdays, anniversaries, and moments worth marking.", "/occasions/milestone-celebrations"],
+            ["02", "Showers & intimate gatherings", "Warm, personal celebrations for life's new chapters.", "/occasions/showers-intimate-gatherings"],
+            ["03", "Brand & community gatherings", "Thoughtful environments for shared purpose and connection.", "/occasions/brand-community-gatherings"],
+          ].map(([number, title, copy, href]) => (
+            <Link className="re-guide-link" href={href} key={href} data-reveal>
+              <span className="re-guide-number">{number}</span>
+              <span className="re-guide-text"><strong>{title}</strong><small>{copy}</small></span>
+              <ArrowIcon />
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section className="re-pause" data-reveal aria-label="Our design philosophy">
         <p>BEAUTY WITHOUT THE BURDEN</p>
         <h2>Be present for <em>the beautiful part.</em></h2>
         <span>WE'LL HELP BRING THE DETAILS TOGETHER.</span>
       </section>
 
-      <section className="re-collection" id="re-work" aria-labelledby="re-work-title">
+      <section className="re-collection" data-reveal id="re-work" aria-labelledby="re-work-title">
         <div className="re-collection-head">
           <div>
             <p className="re-kicker">A LOOK INSIDE OUR WORK</p>
@@ -124,7 +146,7 @@ export default function Home() {
         </div>
         <div className="re-work-grid">
           {portfolioProjects.slice(0, 3).map((project, i) => (
-            <Link href={`/portfolio/${project.slug}`} className={`re-work-card re-work-card-${i + 1}`} key={project.slug}>
+            <Link href={`/portfolio/${project.slug}`} className={`re-work-card re-work-card-${i + 1}`} data-reveal key={project.slug}>
               <div className="re-work-photo">
                 <Image src={project.image} alt={project.alt} fill sizes="(max-width: 760px) 94vw, 45vw" />
               </div>
@@ -138,7 +160,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="re-founder" aria-labelledby="re-founder-title">
+      <section className="re-founder" data-reveal aria-labelledby="re-founder-title">
         <div className="re-founder-image">
           <Image src="/images/rickya-fandino.webp" alt="Rickya Fandino, founder of Radiant Events Planning" fill sizes="(max-width: 760px) 100vw, 45vw" />
         </div>
@@ -154,7 +176,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="re-journey" aria-labelledby="re-journey-title">
+      <section className="re-journey" data-reveal aria-labelledby="re-journey-title">
         <div className="re-section-heading">
           <p className="re-kicker">SIMPLE, PERSONAL, THOUGHTFUL</p>
           <h2 id="re-journey-title">A beautiful experience <em>from the beginning.</em></h2>
@@ -165,7 +187,7 @@ export default function Home() {
             ["02", "Let's shape the details", "We'll discuss the right design and support, with a proposal tailored to the agreed scope."],
             ["03", "Enjoy your moment", "Once booked, we bring the agreed details together so you can focus on your guests."],
           ].map(([number, title, text]) => (
-            <div className="re-step" key={number}>
+            <div className="re-step" data-reveal key={number}>
               <span>{number}</span>
               <h3>{title}</h3>
               <p>{text}</p>
@@ -174,10 +196,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="re-finale" aria-labelledby="re-finale-title">
+      <section className="re-client-faq" aria-labelledby="re-faq-title" data-reveal>
+        <div className="re-faq-intro">
+          <p className="re-kicker">BEFORE WE BEGIN</p>
+          <h2 id="re-faq-title">A few helpful <em>answers.</em></h2>
+          <p>We want you to feel confident and informed from the first conversation.</p>
+          <Link href="/faq" className="re-text-link">Read all questions <ArrowIcon /></Link>
+        </div>
+        <div className="re-faq-items">
+          <details><summary>Can I book only a backdrop or balloon installation?<span aria-hidden="true">+</span></summary><p>Yes. Signature installations can be booked on their own. Tell us the occasion, location, and what you envision.</p></details>
+          <details><summary>What if I don't have a full vision yet?<span aria-hidden="true">+</span></summary><p>That's fine. Share your date, occasion, venue, and inspiration. We'll help shape the appropriate design and support.</p></details>
+          <details><summary>How does pricing work?<span aria-hidden="true">+</span></summary><p>Each proposal is custom to the agreed scope, materials, location, and setup needs. An inquiry doesn't reserve your date.</p></details>
+          <details><summary>What happens after I inquire?<span aria-hidden="true">+</span></summary><p>We aim to reply personally within 12 to 24 hours, review your priorities and availability, and discuss next steps.</p></details>
+        </div>
+      </section>
+      <section className="re-finale" data-reveal aria-labelledby="re-finale-title">
         <p className="re-kicker re-kicker-light">LET'S MAKE SOMETHING MEANINGFUL</p>
         <h2 id="re-finale-title">You bring the occasion. <em>We'll bring the radiance.</em></h2>
-        <p>Tell us what you're celebrating. We'll help you explore what comes next.</p>
+        <p>Share your date, location, inspiration, and comfortable budget. We'll respond personally, usually within 12 to 24 hours.</p>
         <Link href="/contact" className="re-cta re-cta-light">Begin your event inquiry <ArrowIcon /></Link>
       </section>
     </div>
