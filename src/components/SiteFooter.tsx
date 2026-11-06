@@ -32,7 +32,7 @@ export default function SiteFooter() {
                 </Link>
               </li>
             ))}
-            {[{href:"/investment",label:"Investment"},{href:"/faq",label:"Questions"},{href:"/client-guide",label:"Client guide"},{href:"/journal",label:"Journal"}].map(link => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}
+            {[{href:"/service-areas",label:"Service areas"},{href:"/investment",label:"Investment"},{href:"/faq",label:"Questions"},{href:"/client-guide",label:"Client guide"},{href:"/journal",label:"Journal"}].map(link => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}
             <li>
               <Link href="/contact" className="hover:text-white">
                 Contact
