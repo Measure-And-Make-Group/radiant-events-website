@@ -115,6 +115,54 @@ const post = (p, body, extra = {}) =>
     body: JSON.stringify(body),
   });
 const files = async () => (await readdir(path.join(dataDir, "inquiries")).catch(() => [])).sort();
+// Replays a stored inquiry the way the app does: the record is written once and
+// every later change is its own create-only event file (see inquiry-store.ts).
+const RANK = { sent: 1, delivery_delayed: 2, delivered: 3, complained: 4, bounced: 4, failed: 4 };
+const eventFiles = async (r) => {
+  const dir = path.join(dataDir, "inquiry-events", r);
+  return (await readdir(dir).catch(() => [])).sort().map((f) => path.join(dir, f));
+};
+const stored = async (r) => {
+  const rec = JSON.parse(await readFile(path.join(dataDir, "inquiries", `${r}.json`), "utf8"));
+  rec.statusHistory = rec.statusHistory ?? [];
+  const evs = [];
+  for (const f of await eventFiles(r)) evs.push(JSON.parse(await readFile(f, "utf8")));
+  evs.sort((a, b) => a.at.localeCompare(b.at));
+  for (const e of evs) {
+    if (e.type === "status" && rec.status !== e.status) { rec.status = e.status; rec.statusHistory.push({ status: e.status, at: e.at }); }
+    if (e.type === "note") rec.note = e.note;
+    if (e.type === "reminder") rec.reminderSentAt ??= e.at;
+    if (e.type === "email-attempt") {
+      const d = rec.emails[e.kind];
+      if (d.status === "sent") continue;
+      d.attempts += 1; d.lastAttemptAt = e.at;
+      if (e.ok) { d.status = "sent"; d.messageId = e.messageId; } else { d.status = "failed"; d.error = e.error; }
+    }
+    if (e.type === "provider-event") {
+      const d = rec.emails[e.kind];
+      if ((RANK[d.event] ?? 0) < (RANK[e.event] ?? 0)) { d.event = e.event; d.eventAt = e.at; }
+    }
+  }
+  for (const k of ["owner", "customer"]) {
+    try { await readFile(path.join(dataDir, "delivery", r, `${k}.json`)); rec.emails[k].status = "sent"; } catch {}
+  }
+  return rec;
+};
+// Simulates time passing by back-dating a record's attempt events.
+const ageAttempts = async (r, at = "2020-01-01T00:00:00.000Z") => {
+  for (const f of await eventFiles(r)) {
+    const e = JSON.parse(await readFile(f, "utf8"));
+    if (e.type === "email-attempt") { e.at = at; await writeFile(f, JSON.stringify(e)); }
+  }
+};
+const setReceived = async (r, receivedAt, name) => {
+  const f = path.join(dataDir, "inquiries", `${r}.json`);
+  const rec = JSON.parse(await readFile(f, "utf8"));
+  rec.receivedAt = receivedAt;
+  if (name) rec.details.name = name;
+  await writeFile(f, JSON.stringify(rec));
+};
+const cron = () => fetch(base(A) + "/api/cron/inquiries", { headers: { authorization: "Bearer cron-test-secret" } }).then((x) => x.json());
 let ref, firstId;
 
 // ---- tests -----------------------------------------------------------------
@@ -139,7 +187,7 @@ await check("1 valid inquiry is stored and both emails are sent", async () => {
   assert.ok(cust.text.includes(ref) && /does not reserve/.test(cust.text));
   assert.ok(owner.tags.some((t) => t.name === "inquiry_ref" && t.value === ref));
   assert.ok(!JSON.stringify(sent).includes("blob.vercel"), "no storage urls in email");
-  const record = JSON.parse(await readFile(path.join(dataDir, "inquiries", `${ref}.json`), "utf8"));
+  const record = await stored(ref);
   assert.equal(record.emails.owner.status, "sent");
   assert.ok(record.emails.owner.messageId && record.emails.customer.messageId);
   assert.equal(record.status, "new");
@@ -198,14 +246,13 @@ await check("7 email failure after storage keeps the inquiry; cron recovers it w
   const body = await res.json();
   failRef = body.reference;
   assert.equal(body.confirmationEmail, "pending");
-  const rec = () => readFile(path.join(dataDir, "inquiries", `${failRef}.json`), "utf8").then(JSON.parse);
+  const rec = () => stored(failRef);
   let r = await rec();
   assert.equal(r.emails.owner.status, "failed");
   assert.equal(r.emails.customer.status, "failed");
   mockMode = "ok";
   // Cron ignores records whose last attempt was under 10 minutes ago; age it.
-  r.emails.owner.lastAttemptAt = r.emails.customer.lastAttemptAt = "2020-01-01T00:00:00Z";
-  await writeFile(path.join(dataDir, "inquiries", `${failRef}.json`), JSON.stringify(r));
+  await ageAttempts(failRef);
   const noAuth = await fetch(base(A) + "/api/cron/inquiries");
   assert.equal(noAuth.status, 401);
   const cron = await fetch(base(A) + "/api/cron/inquiries", { headers: { authorization: "Bearer cron-test-secret" } });
@@ -225,18 +272,51 @@ await check("7b untouched legacy records are never emailed", async () => {
   assert.equal(sent.length, mails);
 });
 
-await check("7c reminder: inquiry still New after 12h gets one internal reminder", async () => {
-  const f = path.join(dataDir, "inquiries", `${ref}.json`);
-  const r = JSON.parse(await readFile(f, "utf8"));
-  r.receivedAt = new Date(Date.now() - 13 * 3600_000).toISOString();
-  await writeFile(f, JSON.stringify(r));
-  const run = () => fetch(base(A) + "/api/cron/inquiries", { headers: { authorization: "Bearer cron-test-secret" } }).then((x) => x.json());
-  const first = await run();
-  assert.ok(first.reminded >= 1);
+await check("7c reminder: inquiry still New after 12h gets exactly one internal reminder", async () => {
+  await setReceived(ref, new Date(Date.now() - 13 * 3600_000).toISOString(), "Avery Morgan");
+  // Two overlapping cron runs must not both remind.
+  const [one, two] = await Promise.all([cron(), cron()]);
+  assert.equal(one.reminded + two.reminded, 1);
   const rem = sent.filter((m) => m.subject.startsWith("Reminder"));
   assert.equal(rem.length, 1);
   assert.deepEqual(rem[0].to, ["owner@example.test"]);
-  assert.equal((await run()).reminded, 0);
+  assert.ok(rem[0].text.includes(ref));
+  assert.equal((await cron()).reminded, 0);
+  assert.ok((await stored(ref)).reminderSentAt);
+});
+
+await check("7d reminder that the provider rejects is retried later, still only once", async () => {
+  const id = randomUUID();
+  const res = await post(A, { ...valid(), name: "Jordan Lee", email: "jordan@example.test", submissionId: id, token: await token(A) });
+  const r = (await res.json()).reference;
+  await setReceived(r, new Date(Date.now() - 13 * 3600_000).toISOString());
+  mockMode = "fail";
+  assert.equal((await cron()).reminded, 0);
+  mockMode = "ok";
+  assert.equal((await cron()).reminded, 1, "released claim lets the next run send");
+  assert.equal((await cron()).reminded, 0);
+  assert.equal(sent.filter((m) => m.subject.startsWith("Reminder") && m.text.includes(r)).length, 1);
+});
+
+await check("7e inquiries labelled TEST never trigger reminders", async () => {
+  const res = await post(A, { ...valid(), name: "TEST Owner Check", submissionId: randomUUID(), token: await token(A) });
+  const r = (await res.json()).reference;
+  await setReceived(r, new Date(Date.now() - 13 * 3600_000).toISOString());
+  await cron();
+  assert.equal(sent.filter((m) => m.subject.startsWith("Reminder") && m.text.includes(r)).length, 0);
+});
+
+await check("7f failed emails older than 24h are not retried automatically", async () => {
+  mockMode = "fail";
+  const res = await post(A, { ...valid(), name: "Old Failure", email: "old-failure@example.test", submissionId: randomUUID(), token: await token(A) });
+  const r = (await res.json()).reference;
+  mockMode = "ok";
+  await ageAttempts(r);
+  await setReceived(r, new Date(Date.now() - 30 * 3600_000).toISOString());
+  const before = sent.length;
+  await cron();
+  assert.equal(sent.filter((m, i) => i >= before && m.key?.startsWith(`inquiry/${r}/`)).length, 0);
+  assert.equal((await stored(r)).emails.customer.status, "failed");
 });
 
 await check("8 inbox and admin APIs are protected", async () => {
@@ -278,13 +358,13 @@ await check("8b magic-link sign-in, single use, allow-list only", async () => {
 
 await check("8c signed-in owner sees inquiry, updates status, notes, resends", async () => {
   const list = await (await fetch(base(A) + "/admin/inquiries", { headers: { cookie } })).text();
-  assert.ok(list.includes(ref) && list.includes("Test Client"));
+  assert.ok(list.includes(ref) && list.includes("Avery Morgan"));
   assert.ok(list.includes("Accepted by provider"));
   const detail = await (await fetch(base(A) + `/admin/inquiries/${ref}`, { headers: { cookie } })).text();
   assert.ok(detail.includes("garden-style") && detail.includes("&lt;b&gt;test&lt;/b&gt;"));
   const up = await fetch(base(A) + `/api/admin/inquiries/${ref}`, { method: "POST", redirect: "manual", headers: { origin: base(A), cookie }, body: new URLSearchParams({ action: "status", status: "consultation_scheduled" }) });
   assert.equal(up.status, 303);
-  const r = JSON.parse(await readFile(path.join(dataDir, "inquiries", `${ref}.json`), "utf8"));
+  const r = await stored(ref);
   assert.equal(r.status, "consultation_scheduled");
   assert.equal(r.statusHistory.at(-1).status, "consultation_scheduled");
   await fetch(base(A) + `/api/admin/inquiries/${ref}`, { method: "POST", redirect: "manual", headers: { origin: base(A), cookie }, body: new URLSearchParams({ action: "note", note: "Call booked Friday" }) });
@@ -319,8 +399,34 @@ await check("webhook: rejects bad signature, records delivery, tolerates replay/
   assert.equal((await send("email.delivered")).status, 200);
   assert.equal((await send("email.delivered")).status, 200);
   assert.equal((await send("email.sent")).status, 200);
-  const r = JSON.parse(await readFile(path.join(dataDir, "inquiries", `${ref}.json`), "utf8"));
+  const r = await stored(ref);
   assert.equal(r.emails.customer.event, "delivered");
+});
+
+await check("concurrency: simultaneous inbox, webhook and delivery writes are all kept", async () => {
+  const h = { origin: base(A), cookie };
+  const act = (body) => fetch(base(A) + `/api/admin/inquiries/${ref}`, { method: "POST", redirect: "manual", headers: h, body: new URLSearchParams(body) });
+  const secret = Buffer.from("webhook-test-secret");
+  const hook = () => {
+    const ts = Math.floor(Date.now() / 1000);
+    const body = JSON.stringify({ type: "email.delivered", created_at: new Date().toISOString(), data: { tags: { inquiry_ref: ref, kind: "owner" } } });
+    const id = "msg_" + randomUUID();
+    const sig = createHmac("sha256", secret).update(`${id}.${ts}.${body}`).digest("base64");
+    return fetch(base(A) + "/api/webhooks/resend", { method: "POST", headers: { "svix-id": id, "svix-timestamp": String(ts), "svix-signature": `v1,${sig}` }, body });
+  };
+  const results = await Promise.all([
+    act({ action: "status", status: "proposal_sent" }),
+    act({ action: "note", note: "Sent proposal v2" }),
+    hook(),
+  ]);
+  assert.ok(results.every((x) => [200, 303].includes(x.status)));
+  const r = await stored(ref);
+  assert.equal(r.status, "proposal_sent");
+  assert.equal(r.note, "Sent proposal v2");
+  assert.equal(r.emails.owner.event, "delivered");
+  assert.ok(r.statusHistory.some((x) => x.status === "consultation_scheduled"), "earlier status kept");
+  const page = await (await fetch(base(A) + `/admin/inquiries/${ref}`, { headers: { cookie } })).text();
+  assert.ok(page.includes("Sent proposal v2"), "inbox shows the replayed note");
 });
 
 await check("rate limit: more than 8 accepted submissions per hour per client is refused", async () => {

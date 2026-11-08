@@ -4,7 +4,7 @@ import { deliverInquiryEmails } from "@/lib/inquiry-emails";
 import { inquirySchema } from "@/lib/inquiry-schema";
 import {
   createInquiry,
-  incrementCounter,
+  takeRateSlot,
   referenceFor,
   submissionKeyOf,
 } from "@/lib/inquiry-store";
@@ -98,10 +98,11 @@ export async function POST(request: Request) {
 
   const hour = new Date().toISOString().slice(0, 13).replace(/\D/g, "");
   try {
-    const count = await incrementCounter(
-      `ratelimit/submit-${clientHash(request)}-${hour}`,
+    const allowed = await takeRateSlot(
+      `submit-${clientHash(request)}-${hour}`,
+      MAX_SUBMISSIONS_PER_IP_PER_HOUR,
     );
-    if (count > MAX_SUBMISSIONS_PER_IP_PER_HOUR)
+    if (!allowed)
       return reply(
         { error: "Too many submissions. Please try again later." },
         429,

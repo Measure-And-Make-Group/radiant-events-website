@@ -5,7 +5,14 @@ import {
   needsEmailRetry,
   reminderEmail,
 } from "@/lib/inquiry-emails";
-import { claimMarker, hasMarker, listInquiries, purgeOld, updateInquiry } from "@/lib/inquiry-store";
+import {
+  appendInquiryEvent,
+  claimMarker,
+  listInquiries,
+  purgeOld,
+  releaseMarker,
+  reminderMarker,
+} from "@/lib/inquiry-store";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -52,29 +59,33 @@ export async function GET(request: Request) {
       Date.now() - Date.parse(r.receivedAt) < 7 * 86_400_000 &&
       !/^TEST\b/i.test(r.details.name),
   );
-  const due = [];
-  for (const record of dueCandidates) {
-    if (!(await hasMarker(`delivery-reminder/${record.reference}.json`)))
-      due.push(record);
-  }
-  if (config && due.length) {
-    const built = reminderEmail(due);
-    const result = await sendEmail({
-      ...built,
-      to: config.ownerTo,
-      idempotencyKey: `reminder/${due.map((r) => r.reference).sort().join(",")}`.slice(0, 250),
-    });
-    if (result.ok) {
-      await Promise.all(due.map((r) => claimMarker(`delivery-reminder/${r.reference}.json`)));
-      const at = new Date().toISOString();
-      await Promise.allSettled(
-        due.map((r) =>
-          updateInquiry(r.reference, (x) => {
-            x.reminderSentAt = at;
-          }),
-        ),
-      );
-      reminded = due.length;
+  // Claim first, then send: each inquiry's reminder marker can be created
+  // only once, so two overlapping runs (or a run after a partial failure)
+  // can never remind about the same inquiry twice. If sending fails the
+  // claims are released so tomorrow's run can try again.
+  if (config && dueCandidates.length) {
+    const due = [];
+    for (const record of dueCandidates) {
+      const claimed = await claimMarker(reminderMarker(record.reference)).catch(() => false);
+      if (claimed) due.push(record);
+    }
+    if (due.length) {
+      const built = reminderEmail(due);
+      const result = await sendEmail({
+        ...built,
+        to: config.ownerTo,
+        idempotencyKey: `reminder/${due.map((r) => r.reference).sort().join(",")}`.slice(0, 250),
+      });
+      if (result.ok) {
+        const at = new Date().toISOString();
+        await Promise.allSettled(
+          due.map((r) => appendInquiryEvent(r.reference, { type: "reminder", at })),
+        );
+        reminded = due.length;
+      } else {
+        console.error(`Reminder email not accepted: ${result.error}`);
+        await Promise.allSettled(due.map((r) => releaseMarker(reminderMarker(r.reference))));
+      }
     }
   }
 

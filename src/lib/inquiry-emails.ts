@@ -1,6 +1,16 @@
 import { emailConfig, sendEmail } from "@/lib/email";
-import { claimMarker, hasMarker, updateInquiry } from "@/lib/inquiry-store";
-import { STATUS_LABELS, type InquiryRecord } from "@/lib/inquiry-types";
+import {
+  appendInquiryEvent,
+  applyEvents,
+  claimMarker,
+  deliveryMarker,
+  hasMarker,
+} from "@/lib/inquiry-store";
+import {
+  STATUS_LABELS,
+  type InquiryEvent,
+  type InquiryRecord,
+} from "@/lib/inquiry-types";
 import { siteConfig } from "@/lib/site-config";
 
 const OLIVE = "#59664a";
@@ -139,20 +149,30 @@ const MAX_ATTEMPTS = 5;
 export async function deliverInquiryEmails(
   record: InquiryRecord,
   only?: "owner" | "customer",
-) {
+): Promise<InquiryRecord> {
   const config = emailConfig();
   if (!record.emails) return record;
-  // Each delivered message has its own immutable acknowledgement. This
-  // survives ETag conflicts when the main inquiry record cannot be updated.
   const targets = (["owner", "customer"] as const).filter(
     (kind) => (!only || only === kind) && record.emails[kind].status !== "sent",
   );
-  const results = await Promise.all(
+  if (!targets.length) return record;
+
+  const acknowledged = new Set<"owner" | "customer">();
+  const events: InquiryEvent[] = [];
+  await Promise.all(
     targets.map(async (kind) => {
-      const marker = `delivery/${record.reference}/${kind}.json`;
-      if (await hasMarker(marker)) return [kind, { ok: true, id: "acknowledged" }] as const;
-      if (!config)
-        return [kind, { ok: false, error: "Email is not configured", retryable: true } as const] as const;
+      const marker = deliveryMarker(record.reference, kind);
+      // An immutable marker means the provider already accepted this message.
+      // If the marker cannot be read, fall through: the idempotency key below
+      // still stops Resend from sending a second copy within its 24h window.
+      if (await hasMarker(marker).catch(() => false)) {
+        acknowledged.add(kind);
+        return;
+      }
+      if (!config) {
+        events.push({ type: "email-attempt", kind, ok: false, error: "Email is not configured", at: new Date().toISOString() });
+        return;
+      }
       const built = kind === "owner" ? ownerEmail(record) : customerEmail(record);
       const result = await sendEmail({
         ...built,
@@ -164,35 +184,28 @@ export async function deliverInquiryEmails(
           { name: "kind", value: kind },
         ],
       });
+      const at = new Date().toISOString();
       if (result.ok) {
-        // Acknowledge *after* provider acceptance; never claim a delivery
-        // before it actually happened. An existing marker is also success.
-        await claimMarker(marker);
+        // Acknowledge only *after* provider acceptance. A failed marker write
+        // is not fatal: the attempt event below also records the success.
+        await claimMarker(marker).catch(() =>
+          console.error(`Delivery marker not written (${kind})`),
+        );
+        events.push({ type: "email-attempt", kind, ok: true, messageId: result.id, at });
+      } else {
+        console.error(`Inquiry email not accepted (${kind}): ${result.error}`);
+        events.push({ type: "email-attempt", kind, ok: false, error: result.error, at });
       }
-      return [kind, result] as const;
     }),
   );
-  if (!results.length) return record;
-  const now = new Date().toISOString();
-  const updated = await updateInquiry(record.reference, (r) => {
-    if (!r.emails) return;
-    for (const [kind, result] of results) {
-      const d = r.emails[kind];
-      if (d.status === "sent") continue;
-      d.attempts += 1;
-      d.lastAttemptAt = now;
-      if (result.ok) {
-        d.status = "sent";
-        if (result.id !== "acknowledged") d.messageId = result.id;
-        delete d.error;
-      } else {
-        d.status = "failed";
-        d.error = result.error;
-        console.error(`Inquiry email not accepted (${kind}): ${result.error}`);
-      }
-    }
-  });
-  return updated ?? record;
+
+  const written = await Promise.allSettled(
+    events.map((event) => appendInquiryEvent(record.reference, event)),
+  );
+  if (written.some((w) => w.status === "rejected"))
+    console.error(`Inquiry delivery event not recorded (${record.reference})`);
+  // Reflect what actually happened, whether or not the event writes landed.
+  return applyEvents(record, events, acknowledged);
 }
 
 export const needsEmailRetry = (r: InquiryRecord, olderThanMs = 0) =>
