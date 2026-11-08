@@ -464,3 +464,6 @@ html[data-intro="playing"] body { overflow: hidden; }
 }
 /* Event photos keep their subject (tables, installations) rather than ceilings. */
 .work-image img, .rs-related .rs-photo img, .re-service-photo img { object-position: 50% 68%; }
+
+/* Three-up project galleries hold portrait event photos. */
+.rs-gallery-3 .rs-photo { aspect-ratio: 3 / 4; }

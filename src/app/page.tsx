@@ -226,13 +226,13 @@ export default function Home() {
           <details><summary>Can I book only a backdrop or balloon installation?<span aria-hidden="true">+</span></summary><p>Yes. Signature installations can be booked on their own. Tell us the occasion, location, and what you envision.</p></details>
           <details><summary>What if I don’t have a full vision yet?<span aria-hidden="true">+</span></summary><p>That’s fine. Share your date, occasion, venue, and inspiration. We’ll help shape the appropriate design and support.</p></details>
           <details><summary>How does pricing work?<span aria-hidden="true">+</span></summary><p>Each proposal is custom to the agreed scope, materials, location, and setup needs. An inquiry doesn’t reserve your date.</p></details>
-          <details><summary>What happens after I inquire?<span aria-hidden="true">+</span></summary><p>We aim to reply personally within 12 to 24 hours, review your priorities and availability, and discuss next steps.</p></details>
+          <details><summary>What happens after I inquire?<span aria-hidden="true">+</span></summary><p>Rickya usually reaches out within a few minutes by phone or text to talk through your priorities, availability, and next steps.</p></details>
         </div>
       </section>
       <section className="re-finale" data-reveal aria-labelledby="re-finale-title">
         <p className="re-kicker re-kicker-light">LET’S MAKE SOMETHING MEANINGFUL</p>
         <h2 id="re-finale-title">You bring the occasion. <em>We’ll bring the radiance.</em></h2>
-        <p>Share your date, location, inspiration, and comfortable budget. We’ll respond personally, usually within 12 to 24 hours.</p>
+        <p>Share your date, location, inspiration, and comfortable budget. Rickya usually reaches out within a few minutes by phone or text.</p>
         <Link href="/contact" className="re-cta re-cta-light">Begin your event inquiry <ArrowIcon /></Link>
       </section>
     </div>

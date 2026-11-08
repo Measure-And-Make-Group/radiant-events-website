@@ -79,8 +79,16 @@ export function ownerEmail(record: InquiryRecord) {
     ["Reference", record.reference],
     ["Received", new Date(record.receivedAt).toUTCString()],
   ];
+  // Rickya replies by phone or text within minutes, so the number leads.
+  const phone = d.phone ? oneLine(d.phone) : "";
+  const tel = phone.replace(/[^\d+]/g, "");
+  const callLine = phone
+    ? `Call or text ${oneLine(d.name)}: ${phone}`
+    : `No phone number shared. Reply by email to ${oneLine(d.name)}.`;
   const text = [
     `New inquiry ${record.reference}`,
+    "",
+    callLine,
     "",
     ...[...meta, ...rows].map(([l, v]) => `${l}: ${v}`),
     "",
@@ -89,7 +97,10 @@ export function ownerEmail(record: InquiryRecord) {
   const html = shell(
     "New event inquiry",
     `Reference <strong>${escapeHtml(record.reference)}</strong>`,
-    table([...meta, ...rows]),
+    (phone && tel
+      ? `<p style="margin:0 0 20px;font-size:18px;line-height:1.5;"><a href="tel:${escapeHtml(tel)}" style="display:inline-block;background:#59664a;color:#f8f6ee;padding:12px 20px;text-decoration:none;font-weight:600;">Call or text ${escapeHtml(oneLine(d.name))}: ${escapeHtml(phone)}</a></p>`
+      : `<p style="margin:0 0 20px;font-size:16px;">${escapeHtml(callLine)}</p>`) +
+      table([...meta, ...rows]),
     `Reply to this email to respond to ${escapeHtml(oneLine(d.name))} directly. Manage this inquiry in the private inbox at ${escapeHtml(siteConfig.url)}/admin/inquiries.`,
   );
   return {
@@ -99,7 +110,11 @@ export function ownerEmail(record: InquiryRecord) {
   };
 }
 
-export const RESPONSE_WINDOW = "within 12 to 24 hours";
+/** Owner-confirmed 2026-11-08: Rickya usually replies within minutes by phone or text. */
+export const responseLine = (hasPhone: boolean) =>
+  hasPhone
+    ? "Rickya usually reaches out within a few minutes by phone or text."
+    : "Rickya usually reaches out within a few minutes. Since no phone number was shared, she'll reply by email.";
 
 export function customerEmail(record: InquiryRecord) {
   const d = record.details;
@@ -116,7 +131,7 @@ export function customerEmail(record: InquiryRecord) {
     ...rows.map(([l, v]) => `- ${l}: ${v}`),
     "",
     "What happens next",
-    `Rickya will review your details and reply personally, usually ${RESPONSE_WINDOW}. If it feels like a fit, we will talk through availability, scope, and your custom proposal.`,
+    `${responseLine(!!d.phone)} If it feels like a fit, you'll talk through availability, scope, and your custom proposal.`,
     "",
     "Please note: sending an inquiry does not reserve your event date. Your date is held once your proposal and booking steps are confirmed.",
     "",
@@ -132,7 +147,7 @@ export function customerEmail(record: InquiryRecord) {
 <h2 style="margin:0 0 8px;font-size:20px;font-weight:normal;color:#35412e;">What you shared</h2>
 ${table(rows)}
 <h2 style="margin:28px 0 8px;font-size:20px;font-weight:normal;color:#35412e;">What happens next</h2>
-<p style="margin:0 0 12px;font-size:16px;line-height:1.6;">Rickya will review your details and reply personally, usually ${RESPONSE_WINDOW}. If it feels like a fit, we will talk through availability, scope, and your custom proposal.</p>
+<p style="margin:0 0 12px;font-size:16px;line-height:1.6;">${escapeHtml(responseLine(!!d.phone))} If it feels like a fit, you'll talk through availability, scope, and your custom proposal.</p>
 <p style="margin:0;font-size:16px;line-height:1.6;"><strong>Please note:</strong> sending an inquiry does not reserve your event date. Your date is held once your proposal and booking steps are confirmed.</p>`,
     "To add anything, simply reply to this email and mention your reference.<br><em>Planning with purpose, serving with grace.</em><br>Radiant Events Planning &middot; Metro Atlanta, Georgia",
   );

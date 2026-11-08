@@ -220,9 +220,10 @@ export default function InquiryForm() {
           <em>in good hands.</em>
         </h2>
         <p>
-          Your inquiry has been received. We look forward to learning more about
-          your celebration and will reply personally, usually within 12 to 24
-          hours, using the email you shared.
+          Your inquiry has been received.{" "}
+          {values.phone
+            ? "Rickya usually reaches out within a few minutes by phone or text, so keep your phone close."
+            : "Rickya usually reaches out within a few minutes. Since you didn't share a phone number, she'll reply by email."}
         </p>
         <p className="inquiry-note" role="status">
           {confirmationSent
@@ -367,7 +368,7 @@ export default function InquiryForm() {
             <div className="inquiry-grid">
               {field("name", "Full name")}
               {field("email", "Email address", "email")}
-              {field("phone", "Phone number", "tel", true)}
+              {field("phone", "Mobile number · fastest reply", "tel", true)}
               {select(
                 "referral",
                 "How did you discover Radiant?",

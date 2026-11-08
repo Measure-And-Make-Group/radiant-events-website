@@ -135,9 +135,9 @@ export const services: ServiceDetail[] = [
       "Collection or breakdown according to the confirmed arrangements",
     ],
     image: {
-      src: "/images/pink-arch.webp",
-      alt: "Pink balloon installation framing a gold circular backdrop",
-      caption: "Balloon installation",
+      src: "/images/pink-sixteen.webp",
+      alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers",
+      caption: "Balloon installation · Sweet sixteen",
       position: "50% 60%",
     },
     related: ["pink-balloon-circle", "colorful-sequin-backdrop", "game-night-balloon-moment"],

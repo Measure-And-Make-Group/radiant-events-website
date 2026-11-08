@@ -46,9 +46,10 @@ export default function ProcessPage() {
         title={<>A clear path, <em>beautifully finished.</em></>}
         subtitle="A clear path from your first idea to a beautifully finished space."
         image={{
-          src: "/images/candlelight-detail.webp",
-          alt: "Place settings with navy plates, gold chargers and ribbon-tied napkins beside candlelight",
-          caption: "Table styling · Roswell",
+          src: "/images/pink-install.webp",
+          alt: "A pink balloon garland being installed around a gold circular frame, with a step ladder still in place",
+          caption: "Installation in progress",
+          position: "50% 60%",
         }}
       />
 

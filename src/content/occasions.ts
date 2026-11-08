@@ -20,8 +20,8 @@ export const occasions = [
       "Which moments matter most to your family?",
     ],
     project: "pink-balloon-circle",
-    image: "/images/pink-arch.webp",
-    alt: "Pink balloons arranged around a gold circular photo backdrop",
+    image: "/images/pink-sixteen.webp",
+    alt: "Pink balloon garland, ribbon streamers and marquee 16 numbers for a sweet sixteen",
   },
   {
     slug: "showers-intimate-gatherings",
@@ -44,7 +44,7 @@ export const occasions = [
       "How many guests should the space comfortably welcome?",
     ],
     project: "colorful-sequin-backdrop",
-    image: "/images/colorful-backdrop.webp",
+    image: "/images/colorful-wide.webp",
     alt: "Turquoise and lime balloon installation with a purple shimmer backdrop",
   },
   {
