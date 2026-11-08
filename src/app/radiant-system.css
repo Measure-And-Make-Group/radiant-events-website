@@ -456,5 +456,3 @@ html[data-intro="playing"] body { overflow: hidden; }
 .re-home .re-pause h2, .re-home .re-finale h2, .re-home .re-founder h2 { color: var(--rs-ivory); }
 .re-home .re-pause h2 em, .re-home .re-finale h2 em, .re-home .re-founder h2 em { color: var(--rs-sand); }
 
-/* The faint logo watermark is decoration; never let it compete for loading on phones. */
-@media (max-width: 900px) { .re-home .re-opening-watermark { display: none; } }

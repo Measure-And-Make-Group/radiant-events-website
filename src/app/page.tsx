@@ -49,14 +49,6 @@ export default function Home() {
         <div className="re-opening-ambience" aria-hidden="true">
           <span className="re-ambience-ring re-ambience-ring-one" />
           <span className="re-ambience-ring re-ambience-ring-two" />
-          <Image
-            src="/brand/radiant-olive-logo.webp"
-            alt=""
-            fill
-            loading="lazy"
-            sizes="40vw"
-            className="re-opening-watermark"
-          />
         </div>
         <div className="re-opening-inner">
           <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
