@@ -207,7 +207,17 @@ export async function updateInquiry(
       if (!(e instanceof Stale)) throw e;
     }
   }
-  throw new Error("Inquiry update conflict");
+  // Blob's conditional ETag can remain stale after an overwrite. Recover
+  // from persistent 412s by rereading and writing the merged record once.
+  // This avoids blocking inbox status and email-delivery acknowledgement.
+  // For stronger cross-process concurrency guarantees, migrate records to a
+  // transactional database rather than adding more Blob CAS retries.
+  const latest = await readJson(recordName(reference));
+  const merged = latest?.json as InquiryRecord | undefined;
+  if (!merged?.details) return null;
+  mutate(merged);
+  await writeJson(recordName(reference), merged, { overwrite: true });
+  return merged;
 }
 
 export async function deleteInquiry(reference: string) {
@@ -237,6 +247,11 @@ export async function incrementCounter(name: string): Promise<number> {
     }
   }
   return Number.MAX_SAFE_INTEGER;
+}
+
+/** Check immutable delivery acknowledgments without mutating inquiry records. */
+export async function hasMarker(name: string): Promise<boolean> {
+  return (await readJson(name)) !== null;
 }
 
 /** Returns true the first time a marker is created, false if it already existed. */
