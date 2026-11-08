@@ -19,7 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/investment",
     "/faq",
     "/client-guide",
-    // /privacy and /terms are noindex drafts until the owner approves them.
+    "/privacy",
+    "/terms",
   ];
 
   const dynamicRoutes = [

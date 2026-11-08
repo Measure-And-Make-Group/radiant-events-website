@@ -7,15 +7,15 @@ or worded generally until confirmed.
 - [ ] **Reply window.** The site promises a personal reply "usually within 12 to 24 hours"
       (homepage, contact page, confirmation email). Confirm, or give the window to use.
 - [ ] **Budget ranges** in the inquiry form (currently Under $500 … $5,000+, Need guidance).
-- [ ] **Privacy Policy and Terms.** Both are `noindex` drafts and excluded from the sitemap
-      until Rickya (and ideally counsel) approve them.
+- [x] **Privacy Policy and Terms.** Approved for publication by MMG on 2026-11-08; indexed
+      and in the sitemap.
 - [ ] **Portfolio filters by event type.** Filters are by service today. Event types are
       verified for three projects (men's evening event, church ministry backdrop, birthday
       game night) but not for "A Moment in Pink".
-- [ ] **Venue naming.** The Roswell project says "historic downtown Roswell" but does not
-      name the venue. Confirm if Social House may be credited.
-- [ ] **Game night sign.** A portfolio photo shows a client's first name and party date on
-      the welcome sign. Confirm that is fine to publish, or we can crop it out.
+- [x] **Venue naming.** Social House is credited on the Roswell project (MMG, 2026-11-08).
+- [x] **Client details in photos.** Names, ages, dates, house numbers and host branding were
+      removed from every published photo (MMG request, 2026-11-08). Re-check any new photo
+      for signs, slides, book covers and addresses before adding it.
 
 ## Content to supply
 - [ ] Testimonials (real, attributable, with permission). Hidden until supplied.

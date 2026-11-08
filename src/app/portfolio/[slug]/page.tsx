@@ -21,7 +21,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const p = getProjectBySlug(slug);
   if (!p) return {};
-  const where = p.location ? ` in ${p.location.split(",")[0]}` : "";
+  // "Venue, City, State" → "City" for the title.
+  const parts = p.location?.split(",").map((x) => x.trim()) ?? [];
+  const where = parts.length ? ` in ${parts[Math.max(0, parts.length - 2)]}` : "";
   const meta = pageMetadata(`${p.title}: ${p.category}${where}`, p.overview, "/portfolio/" + slug, p.image);
   // The portfolio layout sets its own title, which resets the root template.
   return { ...meta, title: { absolute: `${meta.title} | Radiant Events Planning` } };

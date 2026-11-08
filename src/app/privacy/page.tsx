@@ -5,9 +5,6 @@ export const metadata: Metadata = {
   description:
     "How Radiant Events Planning handles your inquiry information and contact details through our private inquiry form and email.",
   alternates: { canonical: "/privacy" },
-  // Draft legal copy: keep out of search until the owner (and ideally counsel)
-  // approves it. Remove `robots` and re-add the route to sitemap.ts after sign-off.
-  robots: { index: false, follow: true },
 };
 export default function Privacy() {
   return (

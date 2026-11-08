@@ -23,15 +23,17 @@ export type PortfolioProject = {
 };
 // Authentic Radiant photographs. Descriptions cover visible design; no invented
 // clients, venues, or outcomes. The Roswell project was approved for
-// publication by MMG on 2026-11-08 (Radiant designed the full room; the host
-// organization is intentionally not named).
+// publication by MMG on 2026-11-08 (Radiant designed the full room; the venue
+// may be credited, the host organization is intentionally not named).
+// Client names, dates, ages, addresses and host branding are removed from all
+// photos before publishing (signs inpainted, slides and book covers blurred).
 export const portfolioProjects: PortfolioProject[] = [
   {
     slug: "candlelight-and-conversation",
     title: "Candlelight & Conversation",
     category: "Tablescapes + Room Styling",
     occasion: "Men's evening event",
-    location: "Roswell, Georgia",
+    location: "Social House, Roswell, Georgia",
     headline: ["A neutral hall,", "transformed by candlelight."],
     image: "/images/candlelight-hall.webp",
     alt: "Rows of long banquet tables dressed in black linen and lit by candles in an event hall",
@@ -41,7 +43,7 @@ export const portfolioProjects: PortfolioProject[] = [
       { src: "/images/candlelight-detail.webp", alt: "Navy plates on gold chargers with ribbon-tied napkins, tan runners and greenery" },
     ],
     overview:
-      "An evening built around conversation. Radiant styled a blank-canvas event hall in historic downtown Roswell into long, candlelit banquet tables meant for lingering.",
+      "An evening built around conversation. Radiant styled Social House, a blank-canvas event hall in historic downtown Roswell, into long, candlelit banquet tables meant for lingering.",
     challenge:
       "Seat a full room at long communal tables while keeping the setting warm, intimate and conversation-ready.",
     designDirection:

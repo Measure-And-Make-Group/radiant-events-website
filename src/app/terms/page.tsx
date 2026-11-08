@@ -4,9 +4,6 @@ export const metadata: Metadata = {
   description:
     "Understand Radiant Events Planning website information, custom proposals, booking agreements, and payment responsibilities.",
   alternates: { canonical: "/terms" },
-  // Draft legal copy: keep out of search until the owner (and ideally counsel)
-  // approves it. Remove `robots` and re-add the route to sitemap.ts after sign-off.
-  robots: { index: false, follow: true },
 };
 export default function Terms() {
   return (
