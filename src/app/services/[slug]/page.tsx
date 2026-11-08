@@ -1,13 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import ArrowIcon from "@/components/ArrowIcon";
 import PageHero from "@/components/sections/PageHero";
-import PlaceholderMedia from "@/components/PlaceholderMedia";
-import { Reveal } from "@/components/motion/Reveal";
-import { services, getServiceBySlug } from "@/content/services";
-import { pageMetadata, absoluteUrl } from "@/lib/seo";
 import StructuredData from "@/components/StructuredData";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { services, getServiceBySlug } from "@/content/services";
+import { getProjectBySlug } from "@/content/portfolio";
+import { pageMetadata, absoluteUrl } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export function generateStaticParams() {
@@ -23,9 +24,10 @@ export async function generateMetadata({
   const service = getServiceBySlug(slug);
   if (!service) return {};
   return pageMetadata(
-    service.title + " in Atlanta",
+    `${service.title} in Atlanta & North Atlanta`,
     service.summary,
     "/services/" + slug,
+    service.image.src,
   );
 }
 
@@ -37,6 +39,10 @@ export default async function ServiceDetailPage({
   const { slug } = await params;
   const service = getServiceBySlug(slug);
   if (!service) notFound();
+  const related = service.related
+    .map((s) => getProjectBySlug(s))
+    .filter((p): p is NonNullable<typeof p> => !!p);
+  const others = services.filter((s) => s.slug !== slug);
 
   return (
     <div>
@@ -45,140 +51,148 @@ export default async function ServiceDetailPage({
           "@context": "https://schema.org",
           "@type": "Service",
           name: service.title,
+          serviceType: service.title,
           description: service.summary,
           url: absoluteUrl("/services/" + slug),
+          image: absoluteUrl(service.image.src),
           provider: { "@id": absoluteUrl("/#organization") },
-          areaServed: { "@type": "City", name: "Atlanta" },
+          areaServed: siteConfig.serviceAreas.map((name) => ({
+            "@type": "City",
+            name,
+            containedInPlace: { "@type": "State", name: "Georgia" },
+          })),
         }}
       />
       <PageHero
-        eyebrow="Services"
+        eyebrow={`Services · ${service.tagline}`}
         title={service.title}
-        subtitle={service.tagline}
-        mediaIndex={2}
+        subtitle={service.summary}
+        image={service.image}
+        actions={
+          <Link href="/contact" className="button-primary">
+            {siteConfig.primaryCta} <ArrowIcon />
+          </Link>
+        }
       />
 
-      <section className="mx-auto max-w-3xl px-6 py-16">
+      <section className="rs-section">
         <Breadcrumbs
           items={[
             { label: "Services", href: "/services" },
             { label: service.title, href: "/services/" + slug },
           ]}
         />
-        <Reveal>
-          <p className="font-sans text-ink leading-relaxed mb-6">
-            {service.summary}
-          </p>
-          <p className="font-sans text-stone leading-relaxed">
-            <span className="font-semibold text-ink">Ideal for: </span>
-            {service.idealFor}
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="bg-cream px-6 py-16">
-        <div className="mx-auto max-w-3xl grid gap-12 sm:grid-cols-2">
-          <Reveal>
-            <h2 className="font-display text-2xl text-aubergine mb-4">
-              Outcomes
+        <div className="rs-detail-grid" style={{ marginTop: 40 }}>
+          <div data-reveal="">
+            <p className="eyebrow">Is this the right fit?</p>
+            <h2 className="rs-project-title">
+              Who it’s <em>for.</em>
             </h2>
-            <ul className="space-y-2">
+            <div className="rs-ideal">
+              <strong>Best for</strong>
+              {service.idealFor}
+            </div>
+            <h3>What you can expect</h3>
+            <ul className="rs-list">
               {service.outcomes.map((o) => (
-                <li
-                  key={o}
-                  className="flex items-start gap-2 font-sans text-sm text-ink"
-                >
-                  <span className="mt-2 h-1 w-1 rounded-full bg-tangerine flex-shrink-0" />
-                  {o}
-                </li>
+                <li key={o}>{o}</li>
               ))}
             </ul>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="font-display text-2xl text-aubergine mb-4">
-              What&rsquo;s Included
-            </h2>
-            <ul className="space-y-2">
+          </div>
+          <div data-reveal="">
+            <h3>What can be included</h3>
+            <ul className="rs-list">
               {service.includes.map((inc) => (
-                <li
-                  key={inc}
-                  className="flex items-start gap-2 font-sans text-sm text-ink"
-                >
-                  <span className="mt-2 h-1 w-1 rounded-full bg-tangerine flex-shrink-0" />
-                  {inc}
-                </li>
+                <li key={inc}>{inc}</li>
               ))}
             </ul>
-          </Reveal>
+            <p className="rs-note">
+              Every proposal is scoped to your event, so exactly what is
+              included is confirmed with you before you book.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-16">
-        <Reveal>
-          <h2 className="font-display text-2xl text-aubergine mb-6">
-            How It Works
+      <section className="rs-section rs-section-tint">
+        <div className="rs-head" data-reveal="">
+          <p className="eyebrow">How it works</p>
+          <h2>
+            From first idea <em>to finished room.</em>
           </h2>
-          <ol className="space-y-4">
-            {service.process.map((step, i) => (
-              <li key={step} className="flex gap-4 font-sans text-sm text-ink">
-                <span className="font-display text-xl text-blush flex-shrink-0">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="pt-1">{step}</span>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
+        </div>
+        <ol className="rs-steps">
+          {service.process.map((step, i) => (
+            <li className="rs-step rs-step-compact" key={step} data-reveal="">
+              <span className="rs-step-number">{String(i + 1).padStart(2, "0")}</span>
+              <p>{step}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="bg-cream px-6 py-16">
-        <div className="mx-auto max-w-3xl">
-          <Reveal className="mb-8">
-            <h2 className="font-display text-2xl text-aubergine">
-              Frequently Asked
+      {related.length > 0 && (
+        <section className="rs-section">
+          <div className="rs-head" data-reveal="">
+            <p className="eyebrow">In practice</p>
+            <h2>
+              Real Radiant <em>work.</em>
             </h2>
-          </Reveal>
-          <div className="space-y-8">
+          </div>
+          <div className="rs-related" data-reveal="stagger">
+            {related.map((p) => (
+              <Link href={"/portfolio/" + p.slug} key={p.slug}>
+                <div className="rs-photo">
+                  <Image src={p.image} alt={p.alt} fill sizes="(max-width: 860px) 100vw, 31vw" />
+                </div>
+                <span>{p.occasion ?? p.category}</span>
+                <strong>{p.title}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="rs-section rs-section-sand">
+        <div className="rs-detail-grid">
+          <div data-reveal="">
+            <p className="eyebrow">Good to know</p>
+            <h2 className="rs-project-title">
+              Questions, <em>answered.</em>
+            </h2>
+            <p className="rs-body">
+              Also exploring{" "}
+              {others.map((o, i) => (
+                <span key={o.slug}>
+                  <Link href={"/services/" + o.slug} className="rs-inline-link">{o.title}</Link>
+                  {i < others.length - 1 ? " or " : "?"}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className="rs-faq" data-reveal="">
             {service.faq.map((f) => (
-              <Reveal key={f.question}>
-                <h3 className="font-display text-lg text-ink mb-1">
-                  {f.question}
-                </h3>
-                <p className="font-sans text-sm text-stone leading-relaxed">
-                  {f.answer}
-                </p>
-              </Reveal>
+              <details key={f.question}>
+                <summary>{f.question}</summary>
+                <p>{f.answer}</p>
+              </details>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16 text-center">
-        <PlaceholderMedia
-          index={0}
-          className="aspect-[3/1] rounded-sm mb-8"
-          label="Related work"
-        />
-        <Link
-          href="/portfolio"
-          className="font-sans text-sm uppercase tracking-wide-lg text-aubergine border-b border-tangerine hover:text-tangerine"
-        >
-          View Related Portfolio Work
+      <section className="closing-cta">
+        <p className="eyebrow">Let’s talk it through</p>
+        <h2>
+          Ready when <em>you are.</em>
+        </h2>
+        <p>
+          Share your date, venue and what you’re imagining. We’ll recommend the
+          right mix of support for your event.
+        </p>
+        <Link href="/contact" className="button-light">
+          {siteConfig.primaryCta} <ArrowIcon />
         </Link>
-      </section>
-
-      <section className="bg-aubergine text-cream-light">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <h2 className="font-display text-4xl mb-6">
-            Ready to talk through your event?
-          </h2>
-          <Link
-            href="/contact"
-            className="inline-block rounded-full bg-tangerine px-8 py-4 font-sans uppercase tracking-wide-lg text-sm text-cream-light hover:bg-coral transition-colors"
-          >
-            {siteConfig.primaryCta}
-          </Link>
-        </div>
       </section>
     </div>
   );

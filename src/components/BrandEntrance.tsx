@@ -1,48 +1,72 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { INTRO_KEY } from "@/lib/intro";
 
-const KEY = "radiant-cinematic-intro-2026-v1";
 type Phase = "closed" | "reveal" | "leaving";
 
+/**
+ * First-visit brand intro on the homepage.
+ *
+ * The inline script in layout.tsx marks <html data-intro="playing"> before
+ * first paint, which covers the page and holds the hero's entrance. This
+ * component plays the logo sequence, then wipes upward and clears the mark at
+ * the same moment so the hero animates in as the curtain lifts.
+ *
+ * Plays once per session, never on other routes, never with reduced motion,
+ * and can be skipped with the button or Escape.
+ */
 export default function BrandEntrance() {
-  const pathname = usePathname();
   const [phase, setPhase] = useState<Phase>("closed");
+  const timers = useRef<number[]>([]);
+  const leaveRef = useRef<(fast?: boolean) => void>(() => {});
 
   useEffect(() => {
-    if (pathname !== "/") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const root = document.documentElement;
+    if (root.getAttribute("data-intro") !== "playing") return;
     try {
-      if (sessionStorage.getItem(KEY) === "seen") return;
-      sessionStorage.setItem(KEY, "seen");
+      sessionStorage.setItem(INTRO_KEY, "seen");
     } catch {
-      // Storage restrictions never block navigation.
+      // Storage restrictions never block the page.
     }
 
-    const opening = window.setTimeout(() => setPhase("reveal"), 0);
-    const leaving = window.setTimeout(() => setPhase("leaving"), 1450);
-    const finish = window.setTimeout(() => setPhase("closed"), 2120);
-    const dismiss = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPhase("closed");
+    const later = (fn: () => void, ms: number) =>
+      timers.current.push(window.setTimeout(fn, ms));
+    const leave = (fast = false) => {
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+      setPhase("leaving");
+      // Releasing the hero as the wipe starts makes the two feel continuous.
+      root.removeAttribute("data-intro");
+      later(() => setPhase("closed"), fast ? 420 : 820);
     };
-    document.addEventListener("keydown", dismiss);
+
+    later(() => setPhase("reveal"), 0);
+    later(() => leave(), 1750);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") leave(true);
+    };
+    document.addEventListener("keydown", onKey);
+    leaveRef.current = leave;
     return () => {
-      window.clearTimeout(opening);
-      window.clearTimeout(leaving);
-      window.clearTimeout(finish);
-      document.removeEventListener("keydown", dismiss);
+      timers.current.forEach(clearTimeout);
+      document.removeEventListener("keydown", onKey);
+      root.removeAttribute("data-intro");
     };
-  }, [pathname]);
+  }, []);
 
   if (phase === "closed") return null;
 
   return (
-    <div className={`radiant-intro radiant-intro-${phase}`} aria-label="Radiant Events Planning welcome">
-      <div className="radiant-intro-panel" aria-hidden="true" />
+    <div
+      className={`radiant-intro radiant-intro-${phase}`}
+      role="dialog"
+      aria-modal="false"
+      aria-label="Welcome to Radiant Events Planning"
+    >
       <div className="radiant-intro-center">
-        <span className="radiant-intro-overline">THOUGHTFULLY DESIGNED · BEAUTIFULLY REMEMBERED</span>
+        <span className="radiant-intro-overline">Atlanta · Event planning &amp; design</span>
         <div className="radiant-intro-mark">
           <Image
             src="/brand/radiant-olive-logo.webp"
@@ -50,14 +74,16 @@ export default function BrandEntrance() {
             width={350}
             height={350}
             priority
-            sizes="(max-width: 600px) 58vw, 290px"
+            sizes="(max-width: 600px) 58vw, 260px"
           />
         </div>
         <div className="radiant-intro-rule" aria-hidden="true" />
-        <p>Planning with purpose. Serving with grace.</p>
+        <p className="radiant-intro-tagline">
+          <span>Planning with purpose.</span> <span>Serving with grace.</span>
+        </p>
       </div>
-      <button type="button" className="radiant-intro-skip" onClick={() => setPhase("closed")} aria-label="Skip welcome animation">
-        Skip intro <span aria-hidden="true">↗</span>
+      <button type="button" className="radiant-intro-skip" onClick={() => leaveRef.current(true)}>
+        Skip intro <span aria-hidden="true">→</span>
       </button>
     </div>
   );

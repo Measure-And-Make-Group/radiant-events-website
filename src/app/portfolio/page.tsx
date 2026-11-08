@@ -4,8 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import PageHero from "@/components/sections/PageHero";
-import { portfolioProjects } from "@/content/portfolio";
-const categories = ["All", "Balloons + Backdrops", "Styled Moments"] as const;
+import { PORTFOLIO_CATEGORIES, portfolioProjects } from "@/content/portfolio";
+
+// Only show a filter when at least one project belongs to it.
+const categories = [
+  "All",
+  ...PORTFOLIO_CATEGORIES.filter((c) => portfolioProjects.some((p) => p.category === c)),
+];
+
 export default function PortfolioPage() {
   const [filter, setFilter] = useState<string>("All");
   const selected = portfolioProjects.filter(
@@ -14,15 +20,16 @@ export default function PortfolioPage() {
   return (
     <div>
       <PageHero
-        eyebrow="The collection"
-        title="Celebrations with personality."
-        subtitle="A closer look at Radiant's balloon installations, backdrops, and styled focal moments. Real details. Real joy."
+        eyebrow="Portfolio"
+        title={<>Real rooms. <em>Real celebrations.</em></>}
+        subtitle="A closer look at Radiant's work across Atlanta and North Atlanta, from candlelit tablescapes and full-room styling to balloon installations and backdrops."
       />
       <section className="section-wrap">
-        <div className="portfolio-filters" aria-label="Filter portfolio">
+        <div className="portfolio-filters" role="group" aria-label="Filter projects by category">
           {categories.map((c) => (
             <button
               key={c}
+              type="button"
               aria-pressed={filter === c}
               onClick={() => setFilter(c)}
             >
@@ -30,24 +37,18 @@ export default function PortfolioPage() {
             </button>
           ))}
         </div>
+        <p className="sr-only" aria-live="polite">
+          Showing {selected.length} project{selected.length === 1 ? "" : "s"}
+        </p>
         <div className="portfolio-grid">
           {selected.map((p) => (
-            <Link
-              key={p.slug}
-              href={"/portfolio/" + p.slug}
-              className="work-card"
-            >
+            <Link key={p.slug} href={"/portfolio/" + p.slug} className="work-card">
               <div className="work-image">
-                <Image
-                  src={p.image}
-                  alt={p.alt}
-                  fill
-                  sizes="(max-width:760px) 100vw, 33vw"
-                />
+                <Image src={p.image} alt={p.alt} fill sizes="(max-width:600px) 100vw, (max-width:900px) 50vw, 33vw" />
               </div>
               <div className="work-caption">
                 <div>
-                  <span className="eyebrow">{p.category}</span>
+                  <span className="eyebrow">{p.occasion ?? p.category}</span>
                   <h3>{p.title}</h3>
                 </div>
                 <ArrowIcon />
@@ -59,14 +60,9 @@ export default function PortfolioPage() {
       <section className="closing-cta">
         <p className="eyebrow">Your occasion, your way</p>
         <h2>
-          What will your
-          <br />
-          <em>moment look like?</em>
+          What will your <em>moment look like?</em>
         </h2>
-        <p>
-          Tell us what you&apos;re celebrating. Let&apos;s create something
-          personal.
-        </p>
+        <p>Tell us what you&apos;re celebrating, and we&apos;ll shape something personal.</p>
         <Link href="/contact" className="button-light">
           Start your event inquiry <ArrowIcon />
         </Link>

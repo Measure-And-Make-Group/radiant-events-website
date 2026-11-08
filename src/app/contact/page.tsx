@@ -3,13 +3,13 @@ import ArrowIcon from "@/components/ArrowIcon";
 import PageHero from "@/components/sections/PageHero";
 export default function Contact() {
   return (
-    <div>
+    <div className="rs-contact">
       <PageHero
-        eyebrow="Let's create together"
-        title="Your celebration starts here."
-        subtitle="A few details are all we need to begin. Share your occasion, your date, and what you're imagining."
+        eyebrow="Let’s create together"
+        title={<>Your celebration <em>starts here.</em></>}
+        subtitle="A few details are all we need to begin. Share your occasion, your date, and what you’re imagining."
       />
-      <section className="section-wrap contact-layout">
+      <section className="section-wrap contact-layout contact-section">
         <aside>
           <p className="eyebrow">A thoughtful first step</p>
           <h2>

@@ -36,7 +36,7 @@ import {
 const blobEnabled = () =>
   !!process.env.BLOB_READ_WRITE_TOKEN || process.env.NODE_ENV === "production";
 const localDir = () =>
-  path.resolve(process.env.INQUIRY_LOCAL_STORE_DIR || ".inquiry-data");
+  path.resolve(/*turbopackIgnore: true*/ process.env.INQUIRY_LOCAL_STORE_DIR || ".inquiry-data");
 const localPath = (name: string) => {
   const target = path.resolve(/*turbopackIgnore: true*/ localDir(), name);
   if (!target.startsWith(localDir() + path.sep)) throw new Error("bad path");

@@ -136,10 +136,6 @@
  .re-statement h2,.re-section-heading h2,.re-collection-head h2 { font-size:55px; }
 }
 @media(prefers-reduced-motion:no-preference) {
- .re-opening-inner > * { animation: re-enter .8s ease both; }
- .re-opening-inner > *:nth-child(2) { animation-delay:.1s; }
- .re-opening-inner > *:nth-child(3) { animation-delay:.2s; }
- .re-opening-inner > *:nth-child(4) { animation-delay:.3s; }
  .re-home .re-service:hover img,.re-home .re-work-card:hover img { will-change:transform; }
 }
 @keyframes re-enter { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -166,27 +162,6 @@
   .re-ambience-ring-one { width:120vw;right:-65%;top:-20%; }
   .re-ambience-ring-two { width:98vw;right:-60%;bottom:-24%; }
 }
-
-/* First-visit brand reveal, respectful of motion preference. */
-.radiant-intro { position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;background:#f8f6ee;color:#59664a;isolation:isolate; }
-.radiant-intro-panel { position:absolute;inset:0;background:radial-gradient(ellipse at center,#f8f6ee 10%,#e8e9df 100%); }
-.radiant-intro-center { position:relative;width:min(620px,90vw);display:flex;align-items:center;flex-direction:column;text-align:center; }
-.radiant-intro-overline { display:block;font-family:var(--font-montserrat),sans-serif;font-size:10px;letter-spacing:.2em;line-height:1.6;font-weight:600;color:#59664a;opacity:0;transform:translateY(12px);animation:radiant-intro-appear .55s .14s ease forwards; }
-.radiant-intro-mark { width:min(290px,57vw);margin:18px 0 0;aspect-ratio:1;display:grid;place-items:center;opacity:0;transform:scale(.85);animation:radiant-intro-logo .85s .2s cubic-bezier(.16,1,.3,1) forwards; }
-.radiant-intro-mark img { width:100%;height:auto;object-fit:contain; }
-.radiant-intro-rule { height:1px;width:0;background:#59664a;margin:8px 0 17px;animation:radiant-intro-rule .65s .52s ease forwards; }
-.radiant-intro-center p { font-family:var(--font-cormorant),Georgia,serif;font-style:italic;font-size:clamp(22px,3vw,32px);line-height:1.2;opacity:0;animation:radiant-intro-appear .55s .75s ease forwards; }
-.radiant-intro-skip { position:absolute;right:24px;bottom:22px;color:#59664a;background:transparent;border:1px solid #a7b096;padding:10px 14px;font:600 11px var(--font-montserrat),sans-serif;letter-spacing:.08em;cursor:pointer; }
-.radiant-intro-skip:focus-visible { outline:3px solid #59664a;outline-offset:3px; }
-.radiant-intro-leaving { animation:radiant-intro-curtain .65s cubic-bezier(.76,0,.24,1) both; }
-@keyframes radiant-intro-appear { to { opacity:1;transform:translateY(0); } }
-@keyframes radiant-intro-logo { to { opacity:1;transform:scale(1); } }
-@keyframes radiant-intro-rule { to { width:min(160px,38vw); } }
-@keyframes radiant-intro-curtain { to { transform:translateY(-105%); } }
-@media(prefers-reduced-motion:reduce) {
- .radiant-intro,.radiant-intro * { animation:none!important;transition:none!important; }
-}
-
 
 /* Visitor guidance and progressive editorial motion. */
 .re-client-guide { background:#e7e8dc; padding:110px max(28px,calc((100vw - 1320px)/2 + 35px)); display:grid; grid-template-columns:minmax(0, .82fr) minmax(0,1.18fr); gap:8%; }
@@ -219,21 +194,6 @@
   .re-guide-text strong { font-size:29px; }
   .re-client-guide-intro h2,.re-faq-intro h2 { font-size:60px; }
 }
-/* Safe progressive enhancement: content defaults visible if JS never runs. */
-@media(prefers-reduced-motion:no-preference) {
-  .re-home [data-reveal].re-motion-pending { opacity:0; transform:translate3d(0,27px,0); }
-  .re-home [data-reveal] { transition:opacity .8s cubic-bezier(.2,.65,.2,1),transform .8s cubic-bezier(.2,.65,.2,1); }
-  .re-home [data-reveal].re-motion-visible { opacity:1;transform:translate3d(0,0,0); }
-  .re-home .re-service-grid [data-reveal]:nth-child(2) { transition-delay:.09s; }
-  .re-home .re-service-grid [data-reveal]:nth-child(3) { transition-delay:.18s; }
-  .re-home .re-guide-link[data-reveal]:nth-child(2) { transition-delay:.08s; }
-  .re-home .re-guide-link[data-reveal]:nth-child(3) { transition-delay:.16s; }
-}
-@media(prefers-reduced-motion:reduce) {
- .re-home [data-reveal] { opacity:1!important;transform:none!important;transition:none!important; }
-}
-
-
 /* Service journey redesign and considered interactive motion. */
 .re-services-page .re-subpage-hero { position:relative;overflow:hidden;background:radial-gradient(circle at 85% 35%,#e5e8dc,#f8f6ee 55%);padding:clamp(88px,10vw,155px) max(26px,calc((100vw - 1270px)/2 + 40px)) 105px; }
 .re-services-page .re-subpage-hero::after { content:"";position:absolute;width:44vw;max-width:610px;aspect-ratio:1;border:1px solid #b7c1ab;border-radius:50%;right:-9vw;top:-23vw;pointer-events:none; }

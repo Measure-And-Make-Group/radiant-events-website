@@ -1,11 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isCurrent = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -41,7 +46,20 @@ export default function SiteHeader() {
   return (
     <header className="site-header sticky top-0 z-50 bg-cream-light/95 backdrop-blur border-b border-taupe/40">
       <div className="header-inner">
-        <Link href="/" className="header-brand" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          className="header-brand"
+          aria-label="Radiant Events Planning, home"
+          onClick={() => setOpen(false)}
+        >
+          <Image
+            src="/brand/radiant-olive-logo.webp"
+            alt=""
+            width={46}
+            height={46}
+            className="header-emblem"
+            priority
+          />
           <span className="header-wordmark">
             Radiant Events<small>PLANNING · DESIGN &amp; DECOR</small>
           </span>
@@ -55,6 +73,7 @@ export default function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={isCurrent(link.href) ? "page" : undefined}
               className="hover:text-aubergine transition-colors focus-visible:outline-2 focus-visible:outline-tangerine focus-visible:outline-offset-4 rounded-sm"
             >
               {link.label}
@@ -97,7 +116,7 @@ export default function SiteHeader() {
         <div
           id="mobile-menu"
           ref={panelRef}
-          className="lg:hidden border-t border-taupe/40 bg-cream-light"
+          className="mobile-menu-panel lg:hidden border-t border-taupe/40 bg-cream-light"
         >
           <nav
             aria-label="Mobile"
@@ -108,6 +127,7 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
+                aria-current={isCurrent(link.href) ? "page" : undefined}
                 className="hover:text-aubergine focus-visible:outline-2 focus-visible:outline-tangerine focus-visible:outline-offset-4 rounded-sm"
               >
                 {link.label}

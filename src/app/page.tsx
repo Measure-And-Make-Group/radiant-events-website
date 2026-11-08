@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ArrowIcon from "@/components/ArrowIcon";
-import PageMotion from "@/components/PageMotion";
 import { siteConfig } from "@/lib/site-config";
 import { portfolioProjects } from "@/content/portfolio";
 import "./radiant-editorial.css";
@@ -16,34 +15,36 @@ export const metadata: Metadata = {
 const specialties = [
   {
     number: "01",
-    name: "Signature installations",
-    text: "For a photo-ready focal point: custom balloon installations and backdrops. Ideal when the rest of your event is already planned.",
-    href: "/services/signature-installations",
-    image: "/images/pink-arch.webp",
-    alt: "Soft pink balloons arranged around a circular gold backdrop",
+    name: "Planning & coordination",
+    text: "For help with the moving pieces: timelines, vendors, logistics, and a calm presence on the day, matched to your event and confirmed in your proposal.",
+    best: "Hosts who want one trusted partner holding every thread.",
+    href: "/services/planning-coordination",
+    image: "/images/candlelight-hall.webp",
+    alt: "Rows of candlelit banquet tables set for an evening event in Roswell",
   },
   {
     number: "02",
     name: "Design & room styling",
-    text: "For a cohesive setting: palette direction, tablescape styling, and decorative details tailored to your space and event.",
+    text: "For a cohesive setting: palette direction, tablescapes, and decorative details carried through the whole room.",
+    best: "A venue and a vision that need one considered look.",
     href: "/services/design-room-styling",
-    image: "/images/styled-table-detail.webp",
-    alt: "A carefully styled event table featuring delicate details",
+    image: "/images/candlelight-detail.webp",
+    alt: "Navy plates on gold chargers with ribbon-tied napkins, greenery and candlelight",
   },
   {
     number: "03",
-    name: "Planning & coordination",
-    text: "For help with the moving pieces: planning and coordination matched to your event and confirmed in your proposal.",
-    href: "/services/planning-coordination",
-    image: "/images/celebration-detail.webp",
-    alt: "Coordinated celebration details at a styled event",
+    name: "Signature installations",
+    text: "For a photo-ready focal point: custom balloon installations and backdrops, booked on their own or alongside other services.",
+    best: "One exceptional moment when the rest is already planned.",
+    href: "/services/signature-installations",
+    image: "/images/pink-arch.webp",
+    alt: "Soft pink balloons arranged around a circular gold backdrop",
   },
 ];
 
 export default function Home() {
   return (
     <div className="re-home">
-      <PageMotion />
       <section className="re-opening" aria-labelledby="re-title">
         <div className="re-opening-ambience" aria-hidden="true">
           <span className="re-ambience-ring re-ambience-ring-one" />
@@ -59,14 +60,40 @@ export default function Home() {
         </div>
         <div className="re-opening-inner">
           <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
-          <h1 id="re-title">Planning with purpose. <em>Serving with grace.</em></h1>
+          <h1 id="re-title">
+            <span className="rm-line"><span>Planning</span></span>
+            <span className="rm-line"><span>with purpose.</span></span>
+            <em className="rm-line"><span>Serving with grace.</span></em>
+          </h1>
           <p className="re-opening-intro">
-            Thoughtful event planning, expressive design, and meaningful details—so you can be fully present with the people who matter most.
+            Event planning, room styling, and signature installations across
+            Atlanta and North Atlanta, so you can be fully present with the
+            people who matter most.
           </p>
           <div className="re-opening-actions">
-            <Link className="re-cta re-cta-olive" href="/contact">Plan your event <ArrowIcon /></Link>
+            <Link className="re-cta re-cta-olive" href="/contact">Start your event inquiry <ArrowIcon /></Link>
             <Link className="re-text-link" href="#re-work">Explore our work <ArrowIcon /></Link>
           </div>
+        </div>
+        <div className="re-opening-media">
+          <figure className="re-hero-main">
+            <Image
+              src="/images/candlelight-hero.webp"
+              alt="Long banquet tables dressed in black linen with gold chargers, greenery runners and rows of candlelight"
+              fill
+              priority
+              sizes="(max-width: 900px) 95vw, 46vw"
+            />
+          </figure>
+          <figure className="re-hero-inset">
+            <Image
+              src="/images/pink-arch.webp"
+              alt="Pink balloon installation around a gold circular frame"
+              fill
+              sizes="(max-width: 900px) 34vw, 15vw"
+            />
+          </figure>
+          <p className="re-hero-caption">Real Radiant work · Candlelit tables, Roswell</p>
         </div>
         <div className="re-opening-bottom">
           <span>ATLANTA · ALPHARETTA · MILTON · NORTH ATLANTA</span>
@@ -97,12 +124,13 @@ export default function Home() {
         <div className="re-service-grid">
           {specialties.map((item) => (
             <Link className="re-service" data-reveal href={item.href} key={item.number}>
-              <div className="re-service-photo">
+              <div className="re-service-photo" data-reveal="mask">
                 <Image src={item.image} alt={item.alt} fill sizes="(max-width: 760px) 95vw, 31vw" />
               </div>
               <div className="re-service-meta"><span>{item.number} / SERVICE</span><ArrowIcon /></div>
               <h3>{item.name}</h3>
               <p>{item.text}</p>
+              <span className="re-service-best"><b>Best for</b>{item.best}</span>
             </Link>
           ))}
         </div>
@@ -118,7 +146,7 @@ export default function Home() {
         <div className="re-client-guide-links">
           {[
             ["01", "Milestones & private celebrations", "Birthdays, anniversaries, and moments worth marking.", "/occasions/milestone-celebrations"],
-            ["02", "Showers & intimate gatherings", "Warm, personal celebrations for life's new chapters.", "/occasions/showers-intimate-gatherings"],
+            ["02", "Showers & intimate gatherings", "Warm, personal celebrations for life’s new chapters.", "/occasions/showers-intimate-gatherings"],
             ["03", "Brand & community gatherings", "Thoughtful environments for shared purpose and connection.", "/occasions/brand-community-gatherings"],
           ].map(([number, title, copy, href]) => (
             <Link className="re-guide-link" href={href} key={href} data-reveal>
@@ -132,7 +160,7 @@ export default function Home() {
       <section className="re-pause" data-reveal aria-label="Our design philosophy">
         <p>BEAUTY WITHOUT THE BURDEN</p>
         <h2>Be present for <em>the beautiful part.</em></h2>
-        <span>WE'LL HELP BRING THE DETAILS TOGETHER.</span>
+        <span>WE&apos;LL HELP BRING THE DETAILS TOGETHER.</span>
       </section>
 
       <section className="re-collection" data-reveal id="re-work" aria-labelledby="re-work-title">
@@ -146,7 +174,7 @@ export default function Home() {
         <div className="re-work-grid">
           {portfolioProjects.slice(0, 3).map((project, i) => (
             <Link href={`/portfolio/${project.slug}`} className={`re-work-card re-work-card-${i + 1}`} data-reveal key={project.slug}>
-              <div className="re-work-photo">
+              <div className="re-work-photo" data-reveal="mask">
                 <Image src={project.image} alt={project.alt} fill sizes="(max-width: 760px) 94vw, 45vw" />
               </div>
               <div className="re-work-info">
@@ -160,14 +188,14 @@ export default function Home() {
       </section>
 
       <section className="re-founder" data-reveal aria-labelledby="re-founder-title">
-        <div className="re-founder-image">
+        <div className="re-founder-image" data-reveal="mask">
           <Image src="/images/rickya-fandino.webp" alt="Rickya Fandino, founder of Radiant Events Planning" fill sizes="(max-width: 760px) 100vw, 45vw" />
         </div>
         <div className="re-founder-content">
           <p className="re-kicker re-kicker-light">A NOTE FROM THE FOUNDER</p>
           <h2 id="re-founder-title">The details matter. <em>But the people matter more.</em></h2>
           <p>
-            I'm Rickya. I believe celebrations deserve both beauty and intention.
+            I&apos;m Rickya. I believe celebrations deserve both beauty and intention.
             My heart is to help you create a gathering that feels personal,
             cared for, and full of the moments you hoped for.
           </p>
@@ -183,7 +211,7 @@ export default function Home() {
         <div className="re-steps">
           {[
             ["01", "Tell us your vision", "Share the occasion, the location, your inspiration, and the feeling you hope to create."],
-            ["02", "Let's shape the details", "We'll discuss the right design and support, with a proposal tailored to the agreed scope."],
+            ["02", "Let’s shape the details", "We’ll discuss the right design and support, with a proposal tailored to the agreed scope."],
             ["03", "Enjoy your moment", "Once booked, we bring the agreed details together so you can focus on your guests."],
           ].map(([number, title, text]) => (
             <div className="re-step" data-reveal key={number}>
@@ -204,15 +232,15 @@ export default function Home() {
         </div>
         <div className="re-faq-items">
           <details><summary>Can I book only a backdrop or balloon installation?<span aria-hidden="true">+</span></summary><p>Yes. Signature installations can be booked on their own. Tell us the occasion, location, and what you envision.</p></details>
-          <details><summary>What if I don't have a full vision yet?<span aria-hidden="true">+</span></summary><p>That's fine. Share your date, occasion, venue, and inspiration. We'll help shape the appropriate design and support.</p></details>
-          <details><summary>How does pricing work?<span aria-hidden="true">+</span></summary><p>Each proposal is custom to the agreed scope, materials, location, and setup needs. An inquiry doesn't reserve your date.</p></details>
+          <details><summary>What if I don’t have a full vision yet?<span aria-hidden="true">+</span></summary><p>That’s fine. Share your date, occasion, venue, and inspiration. We’ll help shape the appropriate design and support.</p></details>
+          <details><summary>How does pricing work?<span aria-hidden="true">+</span></summary><p>Each proposal is custom to the agreed scope, materials, location, and setup needs. An inquiry doesn’t reserve your date.</p></details>
           <details><summary>What happens after I inquire?<span aria-hidden="true">+</span></summary><p>We aim to reply personally within 12 to 24 hours, review your priorities and availability, and discuss next steps.</p></details>
         </div>
       </section>
       <section className="re-finale" data-reveal aria-labelledby="re-finale-title">
-        <p className="re-kicker re-kicker-light">LET'S MAKE SOMETHING MEANINGFUL</p>
-        <h2 id="re-finale-title">You bring the occasion. <em>We'll bring the radiance.</em></h2>
-        <p>Share your date, location, inspiration, and comfortable budget. We'll respond personally, usually within 12 to 24 hours.</p>
+        <p className="re-kicker re-kicker-light">LET’S MAKE SOMETHING MEANINGFUL</p>
+        <h2 id="re-finale-title">You bring the occasion. <em>We’ll bring the radiance.</em></h2>
+        <p>Share your date, location, inspiration, and comfortable budget. We’ll respond personally, usually within 12 to 24 hours.</p>
         <Link href="/contact" className="re-cta re-cta-light">Begin your event inquiry <ArrowIcon /></Link>
       </section>
     </div>

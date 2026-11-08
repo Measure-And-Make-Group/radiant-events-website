@@ -1,5 +1,6 @@
 export const siteConfig = {
-  name: "Radiant Events",
+  name: "Radiant Events Planning",
+  shortName: "Radiant Events",
   location: "Atlanta, Georgia",
   serviceAreas: ["Atlanta", "Alpharetta", "Milton", "Roswell", "Johns Creek", "Sandy Springs", "Dunwoody", "Brookhaven", "Marietta", "Cumming", "Norcross"] as const,
   tagline: "Planning with Purpose. Serving with Grace.",

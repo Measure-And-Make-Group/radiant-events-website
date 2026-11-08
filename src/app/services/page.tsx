@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import ArrowIcon from "@/components/ArrowIcon";
-import PageMotion from "@/components/PageMotion";
 import { pageMetadata } from "@/lib/seo";
 import { services } from "@/content/services";
 import "../radiant-editorial.css";
@@ -21,7 +20,6 @@ const images = [
 export default function ServicesPage() {
   return (
     <div className="re-home re-services-page">
-      <PageMotion />
       <section className="re-subpage-hero" aria-labelledby="services-heading">
         <p className="re-kicker">RADIANT EVENTS PLANNING / HOW WE HELP</p>
         <h1 id="services-heading">Your vision, <em>beautifully brought together.</em></h1>

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./radiant-system.css";
 import BrandEntrance from "@/components/BrandEntrance";
-import InteriorMotion from "@/components/InteriorMotion";
+import RadiantMotion from "@/components/RadiantMotion";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { siteConfig } from "@/lib/site-config";
 import { shareImage } from "@/lib/seo";
+import { INTRO_KEY } from "@/lib/intro";
 
 // Self-hosted brand fonts (SIL OFL, see src/fonts/OFL-LICENSES.txt). Same
 // families as before; the build no longer depends on reaching Google Fonts.
@@ -63,15 +65,27 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${cormorant.variable} ${montserrat.variable} ${allura.variable} h-full antialiased`}
     >
       <head>
         <link rel="preload" as="image" href="/brand/radiant-olive-logo.webp" />
+        {/*
+          Runs before first paint so a first-time visitor never sees the
+          homepage flash before the brand intro. It only marks the document;
+          BrandEntrance does the rest. The 3.5s timeout guarantees content is
+          revealed even if the main bundle never loads.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var d=document.documentElement;if(location.pathname!=="/")return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(sessionStorage.getItem("${INTRO_KEY}")==="seen")return;d.setAttribute("data-intro","playing");setTimeout(function(){if(d.getAttribute("data-intro")==="playing")d.removeAttribute("data-intro")},3500)}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-cream-light text-ink">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded-sm focus:bg-aubergine focus:px-4 focus:py-2 focus:text-cream-light focus:outline-2 focus:outline-tangerine"
+          className="skip-link"
         >
           Skip to content
         </a>
@@ -126,7 +140,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <BrandEntrance />
-        <InteriorMotion />
+        <RadiantMotion />
         <SiteHeader />
         <main id="main-content" className="flex-1">
           {children}
