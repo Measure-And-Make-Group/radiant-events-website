@@ -5,7 +5,7 @@ import {
   needsEmailRetry,
   reminderEmail,
 } from "@/lib/inquiry-emails";
-import { listInquiries, purgeOld, updateInquiry } from "@/lib/inquiry-store";
+import { claimMarker, hasMarker, listInquiries, purgeOld, updateInquiry } from "@/lib/inquiry-store";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -43,13 +43,20 @@ export async function GET(request: Request) {
 
   let reminded = 0;
   const config = emailConfig();
-  const due = records.filter(
+  const dueCandidates = records.filter(
     (r) =>
       r.emails &&
       r.status === "new" &&
       !r.reminderSentAt &&
-      Date.now() - Date.parse(r.receivedAt) > REMINDER_AFTER_MS,
+      Date.now() - Date.parse(r.receivedAt) > REMINDER_AFTER_MS &&
+      Date.now() - Date.parse(r.receivedAt) < 7 * 86_400_000 &&
+      !/^TEST\b/i.test(r.details.name),
   );
+  const due = [];
+  for (const record of dueCandidates) {
+    if (!(await hasMarker(`delivery-reminder/${record.reference}.json`)))
+      due.push(record);
+  }
   if (config && due.length) {
     const built = reminderEmail(due);
     const result = await sendEmail({
@@ -58,8 +65,9 @@ export async function GET(request: Request) {
       idempotencyKey: `reminder/${due.map((r) => r.reference).sort().join(",")}`.slice(0, 250),
     });
     if (result.ok) {
+      await Promise.all(due.map((r) => claimMarker(`delivery-reminder/${r.reference}.json`)));
       const at = new Date().toISOString();
-      await Promise.all(
+      await Promise.allSettled(
         due.map((r) =>
           updateInquiry(r.reference, (x) => {
             x.reminderSentAt = at;
