@@ -22,7 +22,9 @@ export async function generateMetadata({
   const p = getProjectBySlug(slug);
   if (!p) return {};
   const where = p.location ? ` in ${p.location.split(",")[0]}` : "";
-  return pageMetadata(`${p.title}: ${p.category}${where}`, p.overview, "/portfolio/" + slug, p.image);
+  const meta = pageMetadata(`${p.title}: ${p.category}${where}`, p.overview, "/portfolio/" + slug, p.image);
+  // The portfolio layout sets its own title, which resets the root template.
+  return { ...meta, title: { absolute: `${meta.title} | Radiant Events Planning` } };
 }
 
 export default async function Project({

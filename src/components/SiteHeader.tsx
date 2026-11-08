@@ -49,7 +49,6 @@ export default function SiteHeader() {
         <Link
           href="/"
           className="header-brand"
-          aria-label="Radiant Events Planning, home"
           onClick={() => setOpen(false)}
         >
           <Image

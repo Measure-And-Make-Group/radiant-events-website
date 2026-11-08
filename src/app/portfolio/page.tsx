@@ -37,6 +37,7 @@ export default function PortfolioPage() {
             </button>
           ))}
         </div>
+        <h2 className="sr-only">Projects</h2>
         <p className="sr-only" aria-live="polite">
           Showing {selected.length} project{selected.length === 1 ? "" : "s"}
         </p>

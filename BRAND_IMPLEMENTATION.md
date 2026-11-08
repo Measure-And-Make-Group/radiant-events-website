@@ -1,65 +1,67 @@
 # Brand Implementation Notes
 
-Source: `Radiant_Events_Brand_Identity_System.pptx` (client-supplied brand deck).
+Current as of 2026-11-08. Owner: Rickya Fandino. Tagline: **Planning with Purpose. Serving with Grace.**
 
-## Color Tokens
+## Palette (olive and ivory)
 
-Defined in `src/app/globals.css` and exposed as Tailwind utilities (`bg-aubergine`,
-`text-tangerine`, etc.):
+Tokens live in `src/app/radiant-system.css` (`--rs-*`). Legacy Tailwind names in
+`globals.css` (`aubergine`, `tangerine`, `cream`…) are remapped onto this palette and
+should not be used for new work.
 
-| Token | Hex | Usage |
+| Token | Hex | Use |
 | --- | --- | --- |
-| `aubergine` | `#6B183F` | Primary / structure / CTAs (dark) |
-| `cream` | `#F7E7C6` | Section backgrounds |
-| `cream-light` | `#FFF8EA` | Page background |
-| `tangerine` | `#F28A2E` | Primary CTA accent |
-| `blush` | `#E5ACBF` | Emotional accent |
-| `coral` | `#F28266` | Secondary accent, hover states |
-| `ink` | `#21171B` | Dark backgrounds, body text |
-| `ink-deep` | `#2A101B` | Darkest hover state |
-| `taupe` | `#DCC5B9` | Borders, dividers |
-| `stone` | `#7B6F72` | Muted/secondary text |
+| Olive | `#59664A` | Primary actions, accents, italic headline halves |
+| Olive deep | `#35412E` | Hover states, closing bands |
+| Ivory | `#F8F6EE` | Page background, text on dark |
+| Sand | `#E3D6C6` | Warm surfaces, accents on dark |
+| Sage | `#A7B096` | Borders, subtle surfaces |
+| Taupe | `#B7A898` | Rules and dividers |
+| Ink | `#2B2B26` | Body and display text |
+| Mist | `#E7E8DC` | Tinted sections |
 
-Target ratio from the brand deck: ~60% cream/neutral, 25% aubergine/ink, 10% tangerine,
-5% coral/blush. Gradients are used only on `PlaceholderMedia` (temporary photography
-placeholders) — real photography should replace these blocks, not be layered under gradients.
+Every public page passes WCAG AA contrast (checked with a script in QA). Olive text
+must never sit on an olive or olive-deep background.
 
 ## Typography
 
-- Display: **Cormorant Garamond** (`font-display` utility) — headlines, pull quotes, italic
-  accents.
-- Body/UI: **Montserrat** (default `font-sans`) — body copy, navigation, forms.
-- Loaded via `next/font/google` in `src/app/layout.tsx` for automatic optimization and
-  self-hosting (no external font requests at runtime).
+Self-hosted from `src/fonts/` (SIL OFL, see `OFL-LICENSES.txt`) via `next/font/local`.
 
-## Motion System
+- **Cormorant Garamond**: display headlines (weight 500, italic 400 for the second half).
+- **Montserrat**: body copy, navigation, buttons, eyebrows.
+- **Allura**: rare decorative accents only.
 
-- `src/components/motion/Reveal.tsx` exports `Reveal`, `Stagger`, and `StaggerItem` — the shared
-  entrance-animation primitives used across every page.
-- Easing: `cubic-bezier(0.16, 1, 0.3, 1)` throughout, matching the brand's calm/assured voice.
-- All motion respects `prefers-reduced-motion` via Framer Motion's `useReducedMotion()` — when
-  reduced motion is requested, elements render in their final state with no animation.
-- The homepage hero (`src/components/sections/HomeHero.tsx`) is the most elaborate sequence:
-  masked image scale-in, staggered headline/CTA entrance.
-- Interior pages use `PageHero` for a lighter, consistent version of the same reveal pattern.
+## Logo
 
-## Logo Usage
+`public/brand/radiant-olive-logo.webp` (round olive emblem). Used in the intro,
+the header (46px) and the footer. Do not recolor, crop or outline it.
 
-- Source file extracted directly from the brand deck: `public/brand/radiant-events-logo.png`.
-- Used as-is in the header (light background) and inverted via CSS filter
-  (`brightness-0 invert`) in the dark footer — this is a display-only filter, not a re-export or
-  recoloring of the source asset.
-- Do not crop, stretch, recolor, shadow, or outline the logo file itself.
+## Motion
 
-## Imagery Placeholders
+One system for every page: `src/components/RadiantMotion.tsx` plus the motion block
+in `radiant-system.css`. Opt in with `data-reveal`:
 
-- `src/components/PlaceholderMedia.tsx` renders brand-colored gradient blocks with a subtle
-  botanical line motif — standing in for real photography until it's supplied (see
-  `CONTENT_NEEDED.md`). These are intentionally abstract rather than stock photography, so
-  nothing resembling a real event is implied before real photography exists.
+| Value | Effect |
+| --- | --- |
+| `""` | Rise and fade (default) |
+| `"mask"` | Image revealed from a bottom mask, settling in scale |
+| `"fade"` | Opacity only |
+| `"stagger"` / `"lines"` | Direct children rise in sequence |
+
+Headline lines use `.rm-line > span`. Hero photos are visible from the first frame
+(no mask, it would delay LCP) and settle with a slow zoom-out. Everything respects
+`prefers-reduced-motion`, content is visible without JavaScript, and anything
+scrolled past is revealed immediately.
+
+The first-visit intro (`BrandEntrance.tsx`) is armed by an inline script in
+`layout.tsx` before first paint, plays once per session on `/`, can be skipped
+(button or Escape), and releases the hero's entrance as the curtain lifts.
+
+## Photography
+
+Only real Radiant work. Hero crops are cut from the originals so no guest's face
+is the focal point (`candlelight-hero.webp`). Alt text describes what is visible.
 
 ## Voice
 
-Copy throughout the site follows the brand's four pillars — Gracious, Assured, Refined,
-Specific — and avoids generic event-industry language ("your dream event," "where dreams come
-true") per the brand deck's explicit guidance.
+Gracious, assured, refined, specific. No invented capabilities, vendor networks,
+results, testimonials or prices.

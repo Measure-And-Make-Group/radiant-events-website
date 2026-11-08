@@ -53,8 +53,8 @@ export default function Home() {
             src="/brand/radiant-olive-logo.webp"
             alt=""
             fill
-            priority
-            sizes="(max-width: 760px) 90vw, 60vw"
+            loading="lazy"
+            sizes="40vw"
             className="re-opening-watermark"
           />
         </div>

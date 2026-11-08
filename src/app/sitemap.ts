@@ -19,8 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/investment",
     "/faq",
     "/client-guide",
-    "/privacy",
-    "/terms",
+    // /privacy and /terms are noindex drafts until the owner approves them.
   ];
 
   const dynamicRoutes = [
@@ -32,6 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({
     url: `${siteConfig.url}${route}`,
-    lastModified: new Date("2026-11-06"),
+    lastModified: new Date("2026-11-08"),
   }));
 }
