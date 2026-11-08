@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Allura, Cormorant_Garamond, Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import BrandEntrance from "@/components/BrandEntrance";
 import InteriorMotion from "@/components/InteriorMotion";
@@ -8,20 +8,31 @@ import SiteFooter from "@/components/SiteFooter";
 import { siteConfig } from "@/lib/site-config";
 import { shareImage } from "@/lib/seo";
 
-const cormorant = Cormorant_Garamond({
+// Self-hosted brand fonts (SIL OFL, see src/fonts/OFL-LICENSES.txt). Same
+// families as before; the build no longer depends on reaching Google Fonts.
+const cormorant = localFont({
   variable: "--font-cormorant",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+  display: "swap",
+  src: [
+    { path: "../fonts/cormorant-garamond-latin-wght-normal.woff2", weight: "300 700", style: "normal" },
+    { path: "../fonts/cormorant-garamond-latin-wght-italic.woff2", weight: "300 700", style: "italic" },
+  ],
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
-const montserrat = Montserrat({
+const montserrat = localFont({
   variable: "--font-montserrat",
-  subsets: ["latin"],
+  display: "swap",
+  src: [{ path: "../fonts/montserrat-latin-wght-normal.woff2", weight: "100 900", style: "normal" }],
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
 });
-const allura = Allura({
+
+const allura = localFont({
   variable: "--font-allura",
-  subsets: ["latin"],
-  weight: "400",
+  display: "swap",
+  preload: false,
+  src: [{ path: "../fonts/allura-latin-400-normal.woff2", weight: "400", style: "normal" }],
+  fallback: ["cursive"],
 });
 
 export const metadata: Metadata = {
