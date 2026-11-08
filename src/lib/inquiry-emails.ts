@@ -1,5 +1,5 @@
 import { emailConfig, sendEmail } from "@/lib/email";
-import { updateInquiry } from "@/lib/inquiry-store";
+import { claimMarker, hasMarker, updateInquiry } from "@/lib/inquiry-store";
 import { STATUS_LABELS, type InquiryRecord } from "@/lib/inquiry-types";
 import { siteConfig } from "@/lib/site-config";
 
@@ -141,11 +141,16 @@ export async function deliverInquiryEmails(
   only?: "owner" | "customer",
 ) {
   const config = emailConfig();
+  if (!record.emails) return record;
+  // Each delivered message has its own immutable acknowledgement. This
+  // survives ETag conflicts when the main inquiry record cannot be updated.
   const targets = (["owner", "customer"] as const).filter(
-    (k) => (!only || only === k) && record.emails?.[k].status !== "sent",
+    (kind) => (!only || only === kind) && record.emails[kind].status !== "sent",
   );
   const results = await Promise.all(
     targets.map(async (kind) => {
+      const marker = `delivery/${record.reference}/${kind}.json`;
+      if (await hasMarker(marker)) return [kind, { ok: true, id: "acknowledged" }] as const;
       if (!config)
         return [kind, { ok: false, error: "Email is not configured", retryable: true } as const] as const;
       const built = kind === "owner" ? ownerEmail(record) : customerEmail(record);
@@ -159,24 +164,30 @@ export async function deliverInquiryEmails(
           { name: "kind", value: kind },
         ],
       });
+      if (result.ok) {
+        // Acknowledge *after* provider acceptance; never claim a delivery
+        // before it actually happened. An existing marker is also success.
+        await claimMarker(marker);
+      }
       return [kind, result] as const;
     }),
   );
   if (!results.length) return record;
   const now = new Date().toISOString();
   const updated = await updateInquiry(record.reference, (r) => {
+    if (!r.emails) return;
     for (const [kind, result] of results) {
       const d = r.emails[kind];
+      if (d.status === "sent") continue;
       d.attempts += 1;
       d.lastAttemptAt = now;
       if (result.ok) {
         d.status = "sent";
-        d.messageId = result.id;
+        if (result.id !== "acknowledged") d.messageId = result.id;
         delete d.error;
       } else {
         d.status = "failed";
         d.error = result.error;
-        // Provider status only: no addresses, names or message content.
         console.error(`Inquiry email not accepted (${kind}): ${result.error}`);
       }
     }
@@ -186,6 +197,9 @@ export async function deliverInquiryEmails(
 
 export const needsEmailRetry = (r: InquiryRecord, olderThanMs = 0) =>
   !!r.emails &&
+  // Safety cutoff: never automatically resend historical messages beyond
+  // the provider's idempotency window. Escalate them for manual review.
+  Date.now() - Date.parse(r.receivedAt) < 24 * 60 * 60 * 1000 &&
   (["owner", "customer"] as const).some((k) => {
     const d = r.emails[k];
     return (
@@ -202,7 +216,7 @@ export function reminderEmail(records: InquiryRecord[]) {
   );
   const link = `${siteConfig.url}/admin/inquiries`;
   return {
-    subject: `Reminder: ${records.length} inquiry${records.length === 1 ? "" : "s"} still marked New`,
+    subject: `Reminder: ${records.length} inquir${records.length === 1 ? "y" : "ies"} still marked New`,
     text: `These inquiries have been marked New for more than 12 hours:\n\n${lines.join("\n")}\n\nOpen the inbox: ${link}`,
     html: shell(
       "Inquiries awaiting a reply",
