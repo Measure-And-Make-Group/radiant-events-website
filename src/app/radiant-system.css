@@ -354,13 +354,17 @@ html[data-intro="playing"] body { overflow: hidden; }
 .re-home .re-opening h1 em.rm-line { padding-top: 0.12em; }
 .re-opening-media { position: relative; min-height: 560px; }
 .re-hero-main { position: absolute; inset: 0 0 0 0; overflow: hidden; background: var(--rs-olive-deep); margin: 0; }
-.re-hero-main img { object-fit: cover; object-position: 50% 62%; }
+/* The photo always covers its frame: no scroll-linked translate (it used to
+   slide the image down and expose the frame background as a band on top). */
+/* A gentle zoom anchored to the bottom edge trims the ceiling so the tables
+   lead. Scale is always >= 1, so the photo can never uncover its frame. */
+.re-hero-main { --hero-zoom: 1.12; }
+.re-hero-main img { object-fit: cover; object-position: 58% 100%; transform: scale(var(--hero-zoom)); transform-origin: 58% 100%; }
 .re-hero-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43, 43, 38, 0) 55%, rgba(43, 43, 38, 0.45) 100%); pointer-events: none; }
 .re-hero-inset { position: absolute; z-index: 2; left: -11%; bottom: 13%; width: 32%; aspect-ratio: 0.72; margin: 0; border: 8px solid var(--rs-ivory); overflow: hidden; background: var(--rs-sand); box-shadow: 0 30px 50px -30px rgba(43, 43, 38, 0.5); }
-.re-hero-inset img { object-fit: cover; }
+.re-hero-inset img { object-fit: cover; object-position: 100% 60%; }
 .re-hero-caption { position: absolute; z-index: 2; right: 22px; bottom: 20px; max-width: 70%; text-align: right; color: var(--rs-ivory); font: 600 10px/1.6 var(--font-montserrat), sans-serif; letter-spacing: 0.17em; text-transform: uppercase; }
 .re-home .re-opening-bottom { left: var(--rs-gutter); right: auto; width: calc(54% - var(--rs-gutter)); }
-.re-home .re-opening-watermark { opacity: 0.07; transform: translate(-28%, 10%) scale(0.9); }
 .re-home .re-opening-ambience { right: auto; width: 54%; }
 @media (prefers-reduced-motion: no-preference) {
   .re-home .re-opening-inner > * { animation: none; }
@@ -376,14 +380,14 @@ html[data-intro="playing"] body { overflow: hidden; }
   .re-home .re-opening .re-opening-intro { animation-delay: 0.45s; }
   .re-home .re-opening .re-opening-actions { animation-delay: 0.55s; }
   .re-home .re-opening-bottom { animation-delay: 0.7s; }
-  .re-hero-main img { animation: rs-settle 2.6s var(--rs-ease) both; }
+  .re-hero-main img { animation: rs-hero-settle 2.6s var(--rs-ease) both; }
   .re-hero-inset { animation: rs-inset 1.2s 0.6s var(--rs-ease) both; }
   .re-hero-caption { animation: rs-fade 0.8s 1.1s both; }
   /* Hold the hero while the first-visit intro plays; it starts as the curtain lifts. */
   html[data-intro="playing"] .re-opening *,
   html[data-intro="playing"] .re-opening { animation-play-state: paused !important; }
-  .re-hero-main img { transform: translate3d(0, var(--hero-drift, 0), 0); }
 }
+@keyframes rs-hero-settle { from { transform: scale(calc(var(--hero-zoom) + 0.1)); } }
 @keyframes rs-line { from { transform: translate3d(0, 105%, 0); } }
 @keyframes rs-inset { from { opacity: 0; transform: translate3d(0, 40px, 0); } }
 @media (max-width: 900px) {
@@ -393,21 +397,12 @@ html[data-intro="playing"] body { overflow: hidden; }
   .re-opening-media { min-height: 0; aspect-ratio: 4 / 3.6; margin: 0 0 0 24px; }
   .re-hero-inset { left: -24px; bottom: -40px; width: 34%; border-width: 6px; }
   .re-hero-caption { right: 16px; bottom: 14px; }
+  /* Single-column hero: a wide frame, so crop in on the tables (still >= 1x
+     source pixels per device pixel on phones; the photo never uncovers). */
+  .re-home .re-hero-main { --hero-zoom: 1.3; }
+  .re-home .re-hero-main img { object-position: 64% 100%; transform-origin: 64% 100%; }
   .re-home .re-opening-bottom { position: static; width: auto; padding: 64px 24px 28px; }
   .re-home .re-opening-ambience { width: 100%; }
-}
-
-/* Homepage: tighter rhythm on phones (the page was ~12,000px tall). */
-@media (max-width: 760px) {
-  .re-statement, .re-services, .re-collection, .re-journey, .re-client-guide, .re-client-faq { padding-top: 72px !important; padding-bottom: 76px !important; }
-  .re-pause { padding: 76px 22px 82px !important; }
-  .re-finale { padding: 88px 24px 96px !important; }
-  .re-statement h2, .re-section-heading h2, .re-collection-head h2, .re-client-guide-intro h2, .re-faq-intro h2 { font-size: clamp(46px, 12vw, 64px) !important; }
-  .re-pause h2, .re-finale h2 { font-size: clamp(50px, 13vw, 72px) !important; }
-  .re-founder h2 { font-size: clamp(50px, 12.5vw, 70px) !important; }
-  .re-service-photo { aspect-ratio: 1.3 !important; }
-  .re-founder-image { min-height: 420px !important; }
-  .re-statement-number { display: none; }
 }
 
 /* Homepage: service cards say who each is for. */
@@ -469,84 +464,99 @@ html[data-intro="playing"] body { overflow: hidden; }
 .rs-gallery-3 .rs-photo { aspect-ratio: 3 / 4; }
 
 
-/* Mobile visual QA fixes 2026-11-09: prevent headline and image clipping. */
+/* Homepage collection: a short note sits beside the featured projects. */
+.re-work-note { align-self: end; padding: 30px 0 6px; border-top: 1px solid var(--rs-taupe); }
+.re-work-note > p:not(.re-kicker) { margin: 14px 0 26px; max-width: 440px; font: 400 clamp(22px, 1.9vw, 28px)/1.4 var(--font-cormorant), Georgia, serif; color: var(--rs-ink); }
+
+/* Anchor jumps land just below the sticky header (desktop ~70px, phones ~61px). */
+html { scroll-padding-top: 84px; }
+@media (max-width: 1023px) { html { scroll-padding-top: 72px; } }
+
+/* ---- Homepage on phones (<= 760px) ---------------------------------------------
+   The single source for the homepage's phone layout. Headline sizes are fluid
+   and sized from the real line widths of Cormorant, with line-heights that
+   leave room for italic descenders; nothing on the homepage masks headline
+   text on phones, so letters cannot be cropped. */
 @media (max-width: 760px) {
   .re-home { overflow-x: clip; }
-  .re-home .re-opening { display: flex; flex-direction: column; min-height: 0; }
-  .re-home .re-opening-inner {
-    width: 100%; min-width: 0; max-width: 100%;
-    padding: 58px 24px 34px; margin: 0;
-  }
+
+  /* Opening: copy, then one full-width photograph (no floating inset). */
+  .re-home .re-opening { display: flex; flex-direction: column; min-height: 0; background: linear-gradient(160deg, #f8f6ee 0%, #eeeee2 100%); }
+  .re-home .re-opening-inner { width: 100%; min-width: 0; padding: 52px 24px 36px; margin: 0; }
+  .re-home .re-opening .re-kicker { font-size: 9.5px; letter-spacing: 0.13em; }
   .re-home .re-opening h1 {
-    font-size: clamp(43px, 10.8vw, 62px) !important;
-    line-height: 1.04 !important;
-    letter-spacing: -0.035em !important;
-    max-width: 100%;
-    overflow-wrap: normal;
-    text-wrap: pretty;
+    /* Longest line ("Serving with grace.") is ~6.4em wide. */
+    font-size: clamp(39px, calc((100vw - 48px) / 6.6), 64px);
+    line-height: 1.06; letter-spacing: -0.03em; margin: 18px 0 22px; max-width: none;
   }
-  .re-home .re-opening h1 .rm-line {
-    display: block;
-    overflow: visible !important;
-    padding: 0 0 .055em;
-    margin: 0;
-  }
-  .re-home .re-opening h1 .rm-line > span { display: inline; }
-  .re-home .re-opening h1 em.rm-line { padding-top: 0.08em; }
-  .re-home .re-opening .re-kicker { letter-spacing: .115em; font-size: 9px; }
-  .re-home .re-opening-intro { font-size: 15px; line-height: 1.75; max-width: 100%; }
-  .re-home .re-opening-actions { margin-top: 24px; gap: 22px; width: 100%; }
+  .re-home .re-opening h1 .rm-line { overflow: visible; padding: 0; margin: 0; }
+  .re-home .re-opening h1 .rm-line > span { display: inline; animation: none; transform: none; }
+  .re-home .re-opening h1 em.rm-line { padding-top: 0.04em; }
+  .re-home .re-opening-intro { font-size: 15px; line-height: 1.75; max-width: 34em; }
+  .re-home .re-opening-actions { flex-direction: column; align-items: stretch; gap: 20px; margin-top: 28px; }
   .re-home .re-opening-actions .re-cta {
-    display: flex; width: min(100%, 390px); min-width: 0;
-    min-height: 56px; padding: 14px 16px; gap: 12px;
-    font-size: 10px; letter-spacing: .08em; white-space: normal;
-    text-align: center; line-height: 1.4;
+    width: 100%; max-width: 420px; min-height: 56px; padding: 16px 18px; gap: 14px;
+    font-size: 11px; letter-spacing: 0.08em; line-height: 1.35; text-align: center;
   }
-  .re-home .re-opening-actions .re-text-link { max-width: 100%; }
-  .re-home .re-opening-media {
-    position: relative; width: calc(100% - 48px); margin: 0 24px;
-    min-height: 0; aspect-ratio: 4 / 3; flex: none;
-  }
-  .re-home .re-hero-main { inset: 0; }
-  .re-home .re-hero-inset { left: 10px; bottom: -20px; width: 28%; border-width: 4px; }
-  .re-home .re-hero-caption { font-size: 8px; right: 12px; bottom: 12px; max-width: 62%; }
+  .re-home .re-opening-actions .re-text-link { align-self: flex-start; }
+  .re-home .re-opening-media { width: 100%; margin: 0; min-height: 0; aspect-ratio: 4 / 3.3; flex: none; }
+  .re-home .re-hero-inset { display: none; }
+  .re-home .re-hero-caption { right: 16px; bottom: 14px; max-width: 70%; font-size: 8.5px; }
   .re-home .re-opening-bottom {
-    position: relative; display: flex; justify-content: space-between; align-items: flex-start;
-    gap: 20px; left: auto; right: auto; bottom: auto; margin: 0;
-    padding: 48px 24px 30px; width: 100%;
+    position: static; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+    width: auto; margin: 0; padding: 26px 24px 30px; font-size: 9px;
   }
   .re-home .re-opening-bottom span { max-width: 62%; }
-  .re-home .re-opening-bottom a { max-width: 38%; }
-  .re-home .re-collection-head, .re-home .re-collection-head > div { min-width: 0; max-width: 100%; }
-  .re-home .re-collection-head h2 {
-    font-size: clamp(43px, 10.2vw, 57px) !important;
-    line-height: 1.05 !important;
+  .re-home .re-opening-bottom a { max-width: 38%; text-align: right; }
+
+  /* Section rhythm. */
+  .re-home .re-statement, .re-home .re-services, .re-home .re-collection,
+  .re-home .re-journey, .re-home .re-client-guide, .re-home .re-client-faq { padding: 72px 24px 76px; }
+  .re-home .re-statement { gap: 0; }
+  .re-home .re-statement-number { display: none; }
+  .re-home .re-pause { padding: 76px 24px 82px; }
+  .re-home .re-finale { padding: 88px 24px 96px; }
+  .re-home .re-section-heading { margin-bottom: 34px; }
+
+  /* One headline scale for every section. */
+  .re-home .re-statement h2, .re-home .re-section-heading h2, .re-home .re-collection-head h2,
+  .re-home .re-client-guide-intro h2, .re-home .re-faq-intro h2, .re-home .re-founder h2 {
+    font-size: clamp(38px, 11.4vw, 60px); line-height: 1.06; letter-spacing: -0.025em;
     overflow-wrap: break-word; text-wrap: pretty;
   }
-  .re-home .re-founder { display: flex; flex-direction: column; min-height: 0; }
-  .re-home .re-founder-image {
-    position: relative; width: 100%; height: min(93vw, 430px);
-    min-height: 0 !important; max-height: 430px; flex: none;
+  .re-home .re-pause h2, .re-home .re-finale h2 {
+    font-size: clamp(40px, 12.4vw, 68px); line-height: 1.04; letter-spacing: -0.025em; text-wrap: balance;
   }
-  .re-home .re-founder-image img { object-position: center 15%; object-fit: cover; }
-  .re-home .re-founder-content { padding: 52px 26px 70px; width: 100%; min-width: 0; }
-  .re-home .re-founder h2 {
-    font-size: clamp(44px, 10.8vw, 61px) !important;
-    line-height: 1.08 !important;
-    overflow-wrap: break-word; text-wrap: pretty;
-  }
-  .re-home .re-founder h2 em { display: block; }
-  .re-home .re-statement h2, .re-home .re-section-heading h2,
-  .re-home .re-client-guide h2, .re-home .re-faq-intro h2,
-  .re-home .re-journey h2 { line-height: 1.08 !important; overflow-wrap: break-word; }
-  .re-home [id] { scroll-margin-top: 94px; }
+  .re-home .re-statement h2 { margin: 16px 0 22px; }
+  .re-home .re-service h3, .re-home .re-work-info h3, .re-home .re-step h3 { font-size: clamp(32px, 9.4vw, 42px); line-height: 1.05; }
+  .re-home .re-step h3 { margin-top: 5px; }
+
+  .re-home .re-service-photo { aspect-ratio: 1.3; }
+  .re-home .re-collection-head { gap: 22px; margin-bottom: 36px; }
+  .re-home .re-collection-head h2 { margin-top: 14px; }
+  .re-home .re-work-photo, .re-home .re-work-card-1 .re-work-photo { aspect-ratio: 1.12; }
   .re-home .re-work-info h3 { overflow-wrap: break-word; }
+  .re-home .re-work-note { padding-top: 26px; }
+
+  /* Founder: a framed portrait on the olive panel, then the note. */
+  .re-home .re-founder { display: flex; flex-direction: column; min-height: 0; padding: 24px 24px 0; }
+  .re-home .re-founder-image {
+    width: 100%; min-height: 0; flex: none;
+    aspect-ratio: 4 / 4.6; max-height: 520px;
+  }
+  .re-home .re-founder-image img { object-position: 50% 18%; }
+  .re-home .re-founder-content { padding: 44px 2px 68px; }
+  .re-home .re-founder h2 { margin: 18px 0 24px; }
+  .re-home .re-founder h2 em { display: block; }
 }
-@media (max-width: 390px) {
-  .re-home .re-opening h1 { font-size: clamp(40px, 10.6vw, 44px) !important; }
-  .re-home .re-collection-head h2 { font-size: 42px !important; }
-  .re-home .re-founder h2 { font-size: 43px !important; }
+@media (max-width: 360px) {
+  .re-home .re-opening-inner, .re-home .re-statement, .re-home .re-services, .re-home .re-collection,
+  .re-home .re-journey, .re-home .re-client-guide, .re-home .re-client-faq,
+  .re-home .re-pause, .re-home .re-finale, .re-home .re-opening-bottom { padding-left: 20px; padding-right: 20px; }
+  .re-home .re-founder { padding: 20px 20px 0; }
+  .re-home .re-cta { padding: 16px 14px; gap: 12px; }
 }
-@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
-  .re-home .re-opening h1 .rm-line > span { animation: none !important; transform: none !important; }
+@media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+  /* Phones: the headline rises as one block instead of masked lines. */
+  .re-home .re-opening h1 { animation: rs-rise 0.9s 0.1s var(--rs-ease) both; }
 }

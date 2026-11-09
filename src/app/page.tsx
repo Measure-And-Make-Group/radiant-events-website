@@ -37,10 +37,13 @@ const specialties = [
     text: "For a photo-ready focal point: custom balloon installations and backdrops, booked on their own or alongside other services.",
     best: "One exceptional moment when the rest is already planned.",
     href: "/services/signature-installations",
-    image: "/images/pink-arch.webp",
-    alt: "Soft pink balloons arranged around a circular gold backdrop",
+    image: "/images/game-night.webp",
+    alt: "A balloon column in purple, pink, black and silver with oversized dice at a game night entrance",
   },
 ];
+
+// Curated, not exhaustive: only the strongest approved projects are featured.
+const featuredWork = portfolioProjects.slice(0, 2);
 
 export default function Home() {
   return (
@@ -70,17 +73,18 @@ export default function Home() {
         <div className="re-opening-media">
           <figure className="re-hero-main">
             <Image
-              src="/images/candlelight-hero.webp"
+              src="/images/candlelight-tables.webp"
               alt="Long banquet tables dressed in black linen with gold chargers, greenery runners and rows of candlelight"
               fill
               priority
-              sizes="(max-width: 900px) 95vw, 46vw"
+              sizes="(max-width: 900px) 100vw, 46vw"
             />
           </figure>
-          <figure className="re-hero-inset">
+          {/* Desktop and tablet only: on phones one photograph tells the story. */}
+          <figure className="re-hero-inset" aria-hidden="true">
             <Image
-              src="/images/pink-arch.webp"
-              alt="Pink balloon installation around a gold circular frame"
+              src="/images/candlelight-detail.webp"
+              alt=""
               fill
               sizes="(max-width: 900px) 34vw, 15vw"
             />
@@ -164,7 +168,7 @@ export default function Home() {
           <Link href="/portfolio" className="re-text-link">View the collection <ArrowIcon /></Link>
         </div>
         <div className="re-work-grid">
-          {portfolioProjects.slice(0, 3).map((project, i) => (
+          {featuredWork.map((project, i) => (
             <Link href={`/portfolio/${project.slug}`} className={`re-work-card re-work-card-${i + 1}`} data-reveal key={project.slug}>
               <div className="re-work-photo" data-reveal="mask">
                 <Image src={project.image} alt={project.alt} fill sizes="(max-width: 760px) 94vw, 45vw" />
@@ -176,6 +180,15 @@ export default function Home() {
               </div>
             </Link>
           ))}
+          <div className="re-work-note" data-reveal>
+            <p className="re-kicker">REAL RADIANT WORK</p>
+            <p>
+              Every photograph here is from an event we styled. Client names
+              and private details are removed out of respect for the people we
+              celebrate.
+            </p>
+            <Link href="/contact" className="re-text-link">Plan your occasion <ArrowIcon /></Link>
+          </div>
         </div>
       </section>
 

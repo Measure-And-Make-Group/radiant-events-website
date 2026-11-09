@@ -27,6 +27,9 @@ export type PortfolioProject = {
 // may be credited, the host organization is intentionally not named).
 // Client names, dates, ages, addresses and host branding are removed from all
 // photos before publishing (signs inpainted, slides and book covers blurred).
+// Curated 2026-11-09: the owner rejected the "A Moment in Pink" photography
+// for the premium portfolio, so that project (like the colorful backdrop
+// before it) is no longer published. Fewer, stronger projects by design.
 export const portfolioProjects: PortfolioProject[] = [
   {
     slug: "candlelight-and-conversation",
@@ -49,29 +52,6 @@ export const portfolioProjects: PortfolioProject[] = [
     designDirection:
       "Black linens and tan runners ground the room. Gold chargers, navy plates and ribbon-tied napkins add polish, while greenery runners, small white florals and rows of candlelight bring the warmth.",
     servicesProvided: ["Full room design", "Tablescape styling", "Linens, place settings and centerpieces", "On-site setup"],
-  },
-  {
-    slug: "pink-balloon-circle",
-    title: "A Moment in Pink",
-    category: "Balloons + Backdrops",
-    occasion: "Sweet sixteen celebration",
-    location: "Private residence",
-    image: "/images/pink-sixteen.webp",
-    alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers on a stone patio",
-    headline: ["Sixteen, celebrated", "in every shade of pink."],
-    gallery: [
-      { src: "/images/pink-sixteen.webp", alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers" },
-      { src: "/images/pink-arch.webp", alt: "The pink balloon garland around the gold circular frame before the streamers went up" },
-      { src: "/images/pink-garden.webp", alt: "A pink doll-box photo booth on the lawn, a balcony balloon garland and a rose centerpiece" },
-      { src: "/images/pink-balcony.webp", alt: "Pink balloon clusters along a wrought-iron balcony railing overlooking the garden" },
-    ],
-    overview:
-      "A sweet sixteen styled across a whole home: a pink balloon garland and ribbon backdrop on the patio, a photo booth on the lawn, and color carried up to the balcony.",
-    challenge:
-      "Give the birthday girl a signature photo moment while carrying the theme through every space guests would move through.",
-    designDirection:
-      "An asymmetric garland in blush, bubblegum and magenta around a slender gold circle, layered with satin and metallic ribbon streamers and lit marquee numbers. The same palette repeats on the balcony railing and in a rose centerpiece.",
-    servicesProvided: ["Balloon garland and backdrop", "Ribbon streamer wall", "Marquee numbers", "Photo booth and garden styling", "Balcony garland"],
   },
   {
     slug: "game-night-balloon-moment",

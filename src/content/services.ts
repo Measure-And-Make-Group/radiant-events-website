@@ -48,7 +48,7 @@ export const services: ServiceDetail[] = [
       caption: "Full room set · Roswell",
       position: "50% 55%",
     },
-    related: ["candlelight-and-conversation", "game-night-balloon-moment", "colorful-sequin-backdrop"],
+    related: ["candlelight-and-conversation", "game-night-balloon-moment"],
     faq: [
       {
         question: "How far in advance should we book?",
@@ -94,7 +94,7 @@ export const services: ServiceDetail[] = [
       caption: "Tablescape styling · Roswell",
       position: "50% 60%",
     },
-    related: ["candlelight-and-conversation", "colorful-sequin-backdrop", "pink-balloon-circle"],
+    related: ["candlelight-and-conversation", "game-night-balloon-moment"],
     faq: [
       {
         question: "Can this be paired with planning services?",
@@ -135,12 +135,12 @@ export const services: ServiceDetail[] = [
       "Collection or breakdown according to the confirmed arrangements",
     ],
     image: {
-      src: "/images/pink-sixteen.webp",
-      alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers",
-      caption: "Balloon installation · Sweet sixteen",
-      position: "50% 60%",
+      src: "/images/game-night.webp",
+      alt: "Purple, pink, black and silver balloon column with oversized dice at a game night entrance",
+      caption: "Balloon installation · Birthday game night",
+      position: "50% 55%",
     },
-    related: ["pink-balloon-circle", "colorful-sequin-backdrop", "game-night-balloon-moment"],
+    related: ["game-night-balloon-moment", "candlelight-and-conversation"],
     faq: [
       {
         question: "How much lead time do installations need?",

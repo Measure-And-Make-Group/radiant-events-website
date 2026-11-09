@@ -12,9 +12,9 @@ export const metadata = pageMetadata(
 );
 
 const images = [
-  {src:"/images/celebration-detail.webp", alt:"Thoughtfully coordinated celebration details"},
-  {src:"/images/styled-table-detail.webp", alt:"Event table with carefully styled decorative details"},
-  {src:"/images/pink-arch.webp", alt:"Pink balloon installation and circular gold event backdrop"},
+  {src:"/images/candlelight-hall.webp", alt:"A full room of long banquet tables in black linen and candlelight, coordinated for an evening event in Roswell"},
+  {src:"/images/candlelight-detail.webp", alt:"Navy plates on gold chargers with ribbon-tied napkins, greenery and candlelight"},
+  {src:"/images/game-night.webp", alt:"Purple, pink, black and silver balloon column with oversized dice at a game night entrance"},
 ];
 
 export default function ServicesPage() {
