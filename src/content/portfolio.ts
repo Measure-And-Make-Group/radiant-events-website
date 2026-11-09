@@ -4,10 +4,19 @@ export const PORTFOLIO_CATEGORIES = [
   "Styled Moments",
 ] as const;
 
+/** Gallery filters: one per kind of event REP has actually delivered. */
+export const EVENT_TYPES = [
+  "Birthdays & milestones",
+  "Church & ministry",
+  "Launches & brand events",
+] as const;
+export type EventType = (typeof EVENT_TYPES)[number];
+
 export type PortfolioProject = {
   slug: string;
   title: string;
   category: (typeof PORTFOLIO_CATEGORIES)[number];
+  eventType: EventType;
   /** Optional, owner-approved context shown on the project page. */
   occasion?: string;
   location?: string;
@@ -27,9 +36,9 @@ export type PortfolioProject = {
 // may be credited, the host organization is intentionally not named).
 // Client names, dates, ages, addresses and host branding are removed from all
 // photos before publishing (signs inpainted, slides and book covers blurred).
-// Curated 2026-11-09: the owner rejected the "A Moment in Pink" photography
-// for the premium portfolio, so that project (like the colorful backdrop
-// before it) is no longer published. Fewer, stronger projects by design.
+// 2026-11-09 (afternoon): MMG reinstated the sweet sixteen and ministry
+// backdrop projects so the portfolio shows the full range of REP's work.
+// The doll-box photo booth frame stays out (toy-brand packaging).
 // Roses & Shimmer (book launch) added 2026-11-09; publication approved by the
 // owner for all photos in the Radiant Drive folder.
 export const portfolioProjects: PortfolioProject[] = [
@@ -37,6 +46,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: "candlelight-and-conversation",
     title: "Candlelight & Conversation",
     category: "Tablescapes + Room Styling",
+    eventType: "Church & ministry",
     occasion: "Men's evening event",
     location: "Social House, Roswell, Georgia",
     headline: ["A neutral hall,", "transformed by candlelight."],
@@ -59,11 +69,15 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: "roses-and-shimmer",
     title: "Roses & Shimmer",
     category: "Balloons + Backdrops",
+    eventType: "Launches & brand events",
     occasion: "Book launch celebration",
     headline: ["A shimmer wall,", "framed in roses."],
     image: "/images/flower-wall.webp",
     alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering",
-    gallery: [{ src: "/images/flower-wall.webp", alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering" }],
+    gallery: [
+      { src: "/images/flower-wall.webp", alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering" },
+      { src: "/images/styled-table-detail.webp", alt: "A hot pink acrylic table sign on a pink sequin tablecloth with a gold rose keepsake" },
+    ],
     overview:
       "A signature photo backdrop for a book launch: a shimmering sequin wall framed edge to edge in roses, with the book's title in script lettering.",
     challenge:
@@ -73,9 +87,35 @@ export const portfolioProjects: PortfolioProject[] = [
     servicesProvided: ["Floral frame backdrop", "Sequin shimmer wall", "Custom script lettering", "Installation"],
   },
   {
+    slug: "pink-balloon-circle",
+    title: "A Moment in Pink",
+    category: "Balloons + Backdrops",
+    eventType: "Birthdays & milestones",
+    occasion: "Sweet sixteen celebration",
+    location: "Private residence",
+    image: "/images/pink-sixteen.webp",
+    alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers on a stone patio",
+    headline: ["Sixteen, celebrated", "in every shade of pink."],
+    gallery: [
+      { src: "/images/pink-sixteen.webp", alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers" },
+      { src: "/images/pink-arch.webp", alt: "The pink balloon garland around the gold circular frame before the streamers went up" },
+      { src: "/images/pink-install.webp", alt: "The garland mid-installation, with a step ladder still beside the gold frame" },
+      { src: "/images/pink-balcony.webp", alt: "Pink balloon clusters along a wrought-iron balcony railing overlooking the garden" },
+      { src: "/images/rose-centerpiece.webp", alt: "A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table" },
+    ],
+    overview:
+      "A sweet sixteen styled across a whole home: a pink balloon garland and ribbon backdrop on the patio, color carried up to the balcony, and soft rose centerpieces on the lawn.",
+    challenge:
+      "Give the birthday girl a signature photo moment while carrying the theme through every space guests would move through.",
+    designDirection:
+      "An asymmetric garland in blush, bubblegum and magenta around a slender gold circle, layered with satin and metallic ribbon streamers and lit marquee numbers. The same palette repeats on the balcony railing and in the rose centerpieces.",
+    servicesProvided: ["Balloon garland and backdrop", "Ribbon streamer wall", "Marquee numbers", "Garden table styling", "Balcony garland"],
+  },
+  {
     slug: "game-night-balloon-moment",
     title: "Let the Games Begin",
     category: "Styled Moments",
+    eventType: "Birthdays & milestones",
     occasion: "Birthday game night",
     image: "/images/game-night.webp",
     alt: "Purple, pink, black and silver balloons with oversized dice at a game night display",
@@ -92,7 +132,43 @@ export const portfolioProjects: PortfolioProject[] = [
       "A vertical balloon composition and graphic game-inspired accents keep the focal area expressive and cohesive.",
     servicesProvided: ["Balloon installation", "Themed focal-area styling"],
   },
+  {
+    slug: "colorful-sequin-backdrop",
+    title: "Color, Confetti & Joy",
+    category: "Balloons + Backdrops",
+    eventType: "Church & ministry",
+    occasion: "Church ministry backdrop",
+    image: "/images/colorful-wide.webp",
+    alt: "Turquoise and lime balloon garlands framing a curved purple panel and a purple sequin wall",
+    headline: ["Bold color,", "brought into balance."],
+    gallery: [
+      { src: "/images/colorful-wide.webp", alt: "Turquoise and lime balloon garlands framing a curved purple panel and a purple sequin wall" },
+      { src: "/images/colorful-backdrop.webp", alt: "A closer view of the turquoise and lime clusters against the purple sequin wall" },
+    ],
+    overview:
+      "A bright palette with a little shimmer. Turquoise and lime balloon garlands frame a purple focal wall for a playful, energetic ministry photo moment.",
+    challenge:
+      "Bring several bold colors together in one coordinated photo moment.",
+    designDirection:
+      "Turquoise and lime contrast against a curved purple panel and a reflective sequin surface.",
+    servicesProvided: ["Balloon installation", "Backdrop styling"],
+  },
 ];
+
+/**
+ * Every published photo, tagged with its project. Interleaved round-robin
+ * (each project's lead photo first) so the gallery wall mixes events rather
+ * than stacking one event's near-identical frames together.
+ */
+const tagged = portfolioProjects.map((p) =>
+  p.gallery.map((g) => ({ ...g, slug: p.slug, title: p.title, eventType: p.eventType, occasion: p.occasion ?? p.category })),
+);
+export const galleryPhotos = Array.from(
+  { length: Math.max(...tagged.map((t) => t.length)) },
+  (_, i) => tagged.map((t) => t[i]).filter((x) => x !== undefined),
+).flat();
+export type GalleryPhoto = (typeof galleryPhotos)[number];
+
 export function getProjectBySlug(slug: string) {
   return portfolioProjects.find((p) => p.slug === slug);
 }

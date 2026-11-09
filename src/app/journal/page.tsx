@@ -4,7 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import { journalArticles } from "@/content/journal";
 
 export const metadata = pageMetadata(
-  "Journal",
+  "Helpful Reads",
   "Planning education, design inspiration, and venue insights from Radiant Events.",
   "/journal",
 );
@@ -13,7 +13,7 @@ export default function JournalPage() {
   return (
     <div>
       <PageHero
-        eyebrow="Journal"
+        eyebrow="Helpful Reads"
         title="Notes on Planning & Design"
         subtitle="Practical guidance and design thinking for hosts planning a celebration of their own."
         mediaIndex={0}
