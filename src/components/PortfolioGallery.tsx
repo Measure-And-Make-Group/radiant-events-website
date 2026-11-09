@@ -109,7 +109,9 @@ export default function PortfolioGallery() {
                       aria-label={
                         i === tiles.length - 1 && extra > 0
                           ? `+${extra} more: view all ${photos.length} photos, starting with ${p.alt}`
-                          : `View larger: ${p.alt}`
+                          : i === 0 && album.video
+                            ? `Video, view larger: ${p.alt}`
+                            : `View larger: ${p.alt}`
                       }
                       onClick={(e) => open(album, photos, i, e.currentTarget)}
                     >
