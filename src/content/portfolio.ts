@@ -190,6 +190,8 @@ export type Album = {
   blurb: string;
   /** Project story page, when the album has one. */
   href?: string;
+  /** Short muted loop shown in the album's lead tile (web MP4 + poster). */
+  video?: { src: string; poster: string };
   photos: AlbumPhoto[];
 };
 
@@ -226,7 +228,10 @@ const projectAlbum = (slug: string, blurb: string): Album => {
 export const albums: Album[] = [
   projectAlbum("pearls-and-promise", "An ivory pearl garland, a champagne wall and blush roses at every station."),
   projectAlbum("candlelight-and-conversation", "Long candlelit banquet tables for an evening built around conversation."),
-  projectAlbum("pink-balloon-circle", "A garland and ribbon backdrop on the patio, with pink carried up to the balcony."),
+  {
+    ...projectAlbum("pink-balloon-circle", "A garland and ribbon backdrop on the patio, with pink carried up to the balcony."),
+    video: { src: "/video/album-pink-loop.mp4", poster: "/video/album-pink-loop.webp" },
+  },
   {
     id: "garlands-and-backdrops",
     title: "Garlands & Backdrops",

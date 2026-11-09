@@ -113,12 +113,17 @@ export default function PortfolioGallery() {
                       }
                       onClick={(e) => open(album, photos, i, e.currentTarget)}
                     >
-                      <Image
-                        src={p.src}
-                        alt={p.alt}
-                        fill
-                        sizes={i === 0 ? "(max-width: 760px) 80vw, 50vw" : "(max-width: 760px) 80vw, 25vw"}
-                      />
+                      {i === 0 && album.video ? (
+                        <AlbumLoop src={album.video.src} poster={album.video.poster} />
+                      ) : (
+                        <Image
+                          src={p.src}
+                          alt={p.alt}
+                          fill
+                          sizes={i === 0 ? "(max-width: 760px) 80vw, 50vw" : "(max-width: 760px) 80vw, 25vw"}
+                        />
+                      )}
+                      {i === 0 && album.video && <span className="pa-video-tag" aria-hidden="true">Video</span>}
                       {i === tiles.length - 1 && extra > 0 && (
                         <span className="pa-more" aria-hidden="true">+{extra} more</span>
                       )}
@@ -201,5 +206,41 @@ export default function PortfolioGallery() {
         )}
       </dialog>
     </>
+  );
+}
+
+/** Muted looping clip for an album's lead tile; plays only while on screen. */
+function AlbumLoop({ src, poster }: { src: string; poster: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [load, setLoad] = useState(false);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !("IntersectionObserver" in window)) return;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting && !still) {
+          setLoad(true);
+          v.play().catch(() => {});
+        } else v.pause();
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <video
+      ref={ref}
+      className="pa-loop"
+      src={load ? src : undefined}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      autoPlay={load}
+      preload="none"
+      aria-hidden="true"
+    />
   );
 }

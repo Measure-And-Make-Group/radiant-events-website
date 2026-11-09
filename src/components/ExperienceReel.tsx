@@ -15,6 +15,7 @@ export type ReelClip = {
 
 export const REEL_CLIPS: ReelClip[] = [
   { src: "/video/reel-blush.mp4", poster: "/video/reel-blush.webp", label: "Blush & rose", caption: "A sweet sixteen arch in every shade of pink." },
+  { src: "/video/reel-candlelit.mp4", poster: "/video/reel-candlelit.webp", label: "Candlelit dinner", caption: "Taper candles, gold-rimmed plates and roses on deep red linen." },
   { src: "/video/reel-ivory-gold.mp4", poster: "/video/reel-ivory-gold.webp", label: "Ivory & gold", caption: "A cascading garland that greets guests in the lobby." },
   { src: "/video/reel-midnight-gold.mp4", poster: "/video/reel-midnight-gold.webp", label: "Midnight & gold", caption: "Navy, black and chrome gold, layered up close." },
   { src: "/video/reel-navy-ivory.mp4", poster: "/video/reel-navy-ivory.webp", label: "Navy & ivory", caption: "An arch framed in navy, ivory and gold." },
