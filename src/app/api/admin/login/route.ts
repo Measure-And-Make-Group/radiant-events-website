@@ -1,7 +1,7 @@
 import { adminEmails, authConfigured, loginToken, sameOrigin } from "@/lib/auth";
 import { emailConfig, sendEmail } from "@/lib/email";
 import { escapeHtml } from "@/lib/inquiry-emails";
-import { incrementCounter } from "@/lib/inquiry-store";
+import { takeRateSlot } from "@/lib/inquiry-store";
 import { siteConfig } from "@/lib/site-config";
 
 export const runtime = "nodejs";
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   const hour = new Date().toISOString().slice(0, 13).replace(/\D/g, "");
   let allowed = false;
   try {
-    allowed = (await incrementCounter(`ratelimit/login-${hour}`)) <= 6;
+    allowed = await takeRateSlot(`login-${hour}`, 6);
   } catch {
     allowed = false;
   }

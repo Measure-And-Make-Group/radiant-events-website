@@ -1,7 +1,8 @@
 # Radiant Events — Website
 
-Production website for **Radiant Events**, an Atlanta-based event planning and design company.
-Built with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
+Production website for **Radiant Events Planning**, an Atlanta-based event planning and design company.
+Built with Next.js (App Router), TypeScript and Tailwind CSS. Motion is CSS plus a small
+IntersectionObserver script (no animation library).
 
 ## Getting Started
 
@@ -28,7 +29,6 @@ Open [http://localhost:3000](http://localhost:3000).
 src/
   app/            Routes, layouts, metadata, sitemap/robots
   components/     Header, footer, shared UI
-    motion/        Framer Motion reveal/stagger primitives
     sections/      Reusable page sections (hero, etc.)
   content/        Typed local content (services, portfolio, journal)
   lib/            site-config.ts (single source of truth), validation
@@ -67,7 +67,7 @@ checklist.
 | Form (client) | `src/components/InquiryForm.tsx` |
 | Validation (shared client/server) | `src/lib/inquiry-schema.ts` |
 | Submit handler | `src/app/api/inquiries/route.ts` |
-| Storage (private Blob, ETag-safe updates) | `src/lib/inquiry-store.ts` |
+| Storage (private Blob, append-only events) | `src/lib/inquiry-store.ts` |
 | Email templates + delivery state | `src/lib/inquiry-emails.ts`, `src/lib/email.ts` |
 | Tokens / admin session | `src/lib/auth.ts` |
 | Inbox UI and actions | `src/app/admin/**`, `src/app/api/admin/**` |
@@ -82,6 +82,7 @@ npm run test:inquiry   # starts next dev + a mock Resend API; sends no real emai
 ```
 
 `test:inquiry` covers valid, invalid, missing-consent, honeypot, duplicate, storage-failure,
-email-failure-then-recovery, reminder, admin protection, magic-link sign-in, webhook signature
-and rate-limit cases. It uses a local directory instead of Blob, so Blob-specific behaviour
+email-failure-then-recovery, reminders (including overlapping cron runs and a rejected
+reminder), TEST-labelled inquiries, the 24h retry cutoff, concurrent inbox/webhook writes,
+admin protection, magic-link sign-in, webhook signature and rate-limit cases. It uses a local directory instead of Blob, so Blob-specific behaviour
 must still be confirmed on a deployment.

@@ -44,7 +44,12 @@ Never commit secrets. `.env*` is ignored by git.
    the honeypot (a filled hidden field gets a fake success and nothing is stored or sent), token
    validity and age (at least 4 seconds, at most 6 hours) and a limit of 8 submissions per hour
    per connection.
-3. The inquiry is written to private Blob as `inquiries/RE-YYMMDD-XXXXXX.json`. The reference is
+3. The inquiry is written once to private Blob as `inquiries/RE-YYMMDD-XXXXXX.json`.
+   Records are never rewritten: every later change (status, note, email attempt,
+   delivery event, reminder) is its own create-only object under
+   `inquiry-events/<reference>/`, replayed in time order on read. This replaced
+   ETag-conditional overwrites, which failed repeatedly in production ("Inquiry update
+   conflict") and whose fallback could silently drop a concurrent change. The reference is
    derived from the `submissionId`, so a retry finds the same record and returns it (HTTP 200,
    `duplicate: true`) without storing or emailing again.
 4. Only after storage succeeds, the owner notification and client confirmation are sent via
@@ -125,6 +130,17 @@ approved booking terms. An inquiry never reserves a date.
   low-risk improvement for deliverability.
 - Resend verification only allows sending. It does not create or host a mailbox. The sender and
   reply-to address must exist as a mailbox or alias in Google Workspace for replies to arrive.
+
+## Important: preview shares production storage and email
+
+Preview deployments use the same `BLOB_READ_WRITE_TOKEN` and `INQUIRY_NOTIFICATION_EMAIL`
+as production. A test inquiry on any preview lands in Rickya's real inbox and inquiry
+list. Label test inquiries with a name starting `TEST` (they never trigger reminders) and
+delete them from the inbox afterwards. To isolate previews, create a second Blob store and
+scope its token to the Preview environment.
+
+Vercel flags `BLOB_READ_WRITE_TOKEN` as a readable secret. Re-save it as a Sensitive
+variable (Settings → Environment Variables) so its value cannot be read back.
 
 ## Release checklist
 

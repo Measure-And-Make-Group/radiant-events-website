@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Inquiry Privacy",
   description:
-    "How Radiant Events handles your inquiry information and contact details through our private inquiry form and email.",
+    "How Radiant Events Planning handles your inquiry information and contact details through our private inquiry form and email.",
   alternates: { canonical: "/privacy" },
 };
 export default function Privacy() {

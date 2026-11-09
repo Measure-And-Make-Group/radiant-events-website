@@ -1,10 +1,12 @@
 export const siteConfig = {
-  name: "Radiant Events",
+  name: "Radiant Events Planning",
+  shortName: "Radiant Events",
   location: "Atlanta, Georgia",
+  serviceAreas: ["Atlanta", "Alpharetta", "Milton", "Roswell", "Johns Creek", "Sandy Springs", "Dunwoody", "Brookhaven", "Marietta", "Cumming", "Norcross"] as const,
   tagline: "Planning with Purpose. Serving with Grace.",
   positioning: "Beauty without the burden.",
   oneLiner:
-    "Event planning, design, custom balloon installations, and backdrops in Atlanta, Georgia. Personal celebrations, thoughtful details, and beauty without the burden.",
+    "Event planning, coordination, styling, custom balloon installations and backdrops for Atlanta, Alpharetta, Milton, Roswell and surrounding North Atlanta communities.",
   url: "https://www.radianteventsplanning.com",
   // No public phone number or email is listed; clients reach us via /contact.
   // No social handles were supplied.

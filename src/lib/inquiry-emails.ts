@@ -1,6 +1,16 @@
 import { emailConfig, sendEmail } from "@/lib/email";
-import { updateInquiry } from "@/lib/inquiry-store";
-import { STATUS_LABELS, type InquiryRecord } from "@/lib/inquiry-types";
+import {
+  appendInquiryEvent,
+  applyEvents,
+  claimMarker,
+  deliveryMarker,
+  hasMarker,
+} from "@/lib/inquiry-store";
+import {
+  STATUS_LABELS,
+  type InquiryEvent,
+  type InquiryRecord,
+} from "@/lib/inquiry-types";
 import { siteConfig } from "@/lib/site-config";
 
 const OLIVE = "#59664a";
@@ -69,8 +79,16 @@ export function ownerEmail(record: InquiryRecord) {
     ["Reference", record.reference],
     ["Received", new Date(record.receivedAt).toUTCString()],
   ];
+  // Rickya replies by phone or text within minutes, so the number leads.
+  const phone = d.phone ? oneLine(d.phone) : "";
+  const tel = phone.replace(/[^\d+]/g, "");
+  const callLine = phone
+    ? `Call or text ${oneLine(d.name)}: ${phone}`
+    : `No phone number shared. Reply by email to ${oneLine(d.name)}.`;
   const text = [
     `New inquiry ${record.reference}`,
+    "",
+    callLine,
     "",
     ...[...meta, ...rows].map(([l, v]) => `${l}: ${v}`),
     "",
@@ -79,7 +97,10 @@ export function ownerEmail(record: InquiryRecord) {
   const html = shell(
     "New event inquiry",
     `Reference <strong>${escapeHtml(record.reference)}</strong>`,
-    table([...meta, ...rows]),
+    (phone && tel
+      ? `<p style="margin:0 0 20px;font-size:18px;line-height:1.5;"><a href="tel:${escapeHtml(tel)}" style="display:inline-block;background:#59664a;color:#f8f6ee;padding:12px 20px;text-decoration:none;font-weight:600;">Call or text ${escapeHtml(oneLine(d.name))}: ${escapeHtml(phone)}</a></p>`
+      : `<p style="margin:0 0 20px;font-size:16px;">${escapeHtml(callLine)}</p>`) +
+      table([...meta, ...rows]),
     `Reply to this email to respond to ${escapeHtml(oneLine(d.name))} directly. Manage this inquiry in the private inbox at ${escapeHtml(siteConfig.url)}/admin/inquiries.`,
   );
   return {
@@ -89,7 +110,11 @@ export function ownerEmail(record: InquiryRecord) {
   };
 }
 
-export const RESPONSE_WINDOW = "within 12 to 24 hours";
+/** Owner-confirmed 2026-11-08: Rickya usually replies within minutes by phone or text. */
+export const responseLine = (hasPhone: boolean) =>
+  hasPhone
+    ? "Rickya usually reaches out within a few minutes by phone or text."
+    : "Rickya usually reaches out within a few minutes. Since no phone number was shared, she'll reply by email.";
 
 export function customerEmail(record: InquiryRecord) {
   const d = record.details;
@@ -106,7 +131,7 @@ export function customerEmail(record: InquiryRecord) {
     ...rows.map(([l, v]) => `- ${l}: ${v}`),
     "",
     "What happens next",
-    `Rickya will review your details and reply personally, usually ${RESPONSE_WINDOW}. If it feels like a fit, we will talk through availability, scope, and your custom proposal.`,
+    `${responseLine(!!d.phone)} If it feels like a fit, you'll talk through availability, scope, and your custom proposal.`,
     "",
     "Please note: sending an inquiry does not reserve your event date. Your date is held once your proposal and booking steps are confirmed.",
     "",
@@ -122,7 +147,7 @@ export function customerEmail(record: InquiryRecord) {
 <h2 style="margin:0 0 8px;font-size:20px;font-weight:normal;color:#35412e;">What you shared</h2>
 ${table(rows)}
 <h2 style="margin:28px 0 8px;font-size:20px;font-weight:normal;color:#35412e;">What happens next</h2>
-<p style="margin:0 0 12px;font-size:16px;line-height:1.6;">Rickya will review your details and reply personally, usually ${RESPONSE_WINDOW}. If it feels like a fit, we will talk through availability, scope, and your custom proposal.</p>
+<p style="margin:0 0 12px;font-size:16px;line-height:1.6;">${escapeHtml(responseLine(!!d.phone))} If it feels like a fit, you'll talk through availability, scope, and your custom proposal.</p>
 <p style="margin:0;font-size:16px;line-height:1.6;"><strong>Please note:</strong> sending an inquiry does not reserve your event date. Your date is held once your proposal and booking steps are confirmed.</p>`,
     "To add anything, simply reply to this email and mention your reference.<br><em>Planning with purpose, serving with grace.</em><br>Radiant Events Planning &middot; Metro Atlanta, Georgia",
   );
@@ -139,15 +164,30 @@ const MAX_ATTEMPTS = 5;
 export async function deliverInquiryEmails(
   record: InquiryRecord,
   only?: "owner" | "customer",
-) {
+): Promise<InquiryRecord> {
   const config = emailConfig();
+  if (!record.emails) return record;
   const targets = (["owner", "customer"] as const).filter(
-    (k) => (!only || only === k) && record.emails?.[k].status !== "sent",
+    (kind) => (!only || only === kind) && record.emails[kind].status !== "sent",
   );
-  const results = await Promise.all(
+  if (!targets.length) return record;
+
+  const acknowledged = new Set<"owner" | "customer">();
+  const events: InquiryEvent[] = [];
+  await Promise.all(
     targets.map(async (kind) => {
-      if (!config)
-        return [kind, { ok: false, error: "Email is not configured", retryable: true } as const] as const;
+      const marker = deliveryMarker(record.reference, kind);
+      // An immutable marker means the provider already accepted this message.
+      // If the marker cannot be read, fall through: the idempotency key below
+      // still stops Resend from sending a second copy within its 24h window.
+      if (await hasMarker(marker).catch(() => false)) {
+        acknowledged.add(kind);
+        return;
+      }
+      if (!config) {
+        events.push({ type: "email-attempt", kind, ok: false, error: "Email is not configured", at: new Date().toISOString() });
+        return;
+      }
       const built = kind === "owner" ? ownerEmail(record) : customerEmail(record);
       const result = await sendEmail({
         ...built,
@@ -159,33 +199,35 @@ export async function deliverInquiryEmails(
           { name: "kind", value: kind },
         ],
       });
-      return [kind, result] as const;
+      const at = new Date().toISOString();
+      if (result.ok) {
+        // Acknowledge only *after* provider acceptance. A failed marker write
+        // is not fatal: the attempt event below also records the success.
+        await claimMarker(marker).catch(() =>
+          console.error(`Delivery marker not written (${kind})`),
+        );
+        events.push({ type: "email-attempt", kind, ok: true, messageId: result.id, at });
+      } else {
+        console.error(`Inquiry email not accepted (${kind}): ${result.error}`);
+        events.push({ type: "email-attempt", kind, ok: false, error: result.error, at });
+      }
     }),
   );
-  if (!results.length) return record;
-  const now = new Date().toISOString();
-  const updated = await updateInquiry(record.reference, (r) => {
-    for (const [kind, result] of results) {
-      const d = r.emails[kind];
-      d.attempts += 1;
-      d.lastAttemptAt = now;
-      if (result.ok) {
-        d.status = "sent";
-        d.messageId = result.id;
-        delete d.error;
-      } else {
-        d.status = "failed";
-        d.error = result.error;
-        // Provider status only: no addresses, names or message content.
-        console.error(`Inquiry email not accepted (${kind}): ${result.error}`);
-      }
-    }
-  });
-  return updated ?? record;
+
+  const written = await Promise.allSettled(
+    events.map((event) => appendInquiryEvent(record.reference, event)),
+  );
+  if (written.some((w) => w.status === "rejected"))
+    console.error(`Inquiry delivery event not recorded (${record.reference})`);
+  // Reflect what actually happened, whether or not the event writes landed.
+  return applyEvents(record, events, acknowledged);
 }
 
 export const needsEmailRetry = (r: InquiryRecord, olderThanMs = 0) =>
   !!r.emails &&
+  // Safety cutoff: never automatically resend historical messages beyond
+  // the provider's idempotency window. Escalate them for manual review.
+  Date.now() - Date.parse(r.receivedAt) < 24 * 60 * 60 * 1000 &&
   (["owner", "customer"] as const).some((k) => {
     const d = r.emails[k];
     return (
@@ -202,7 +244,7 @@ export function reminderEmail(records: InquiryRecord[]) {
   );
   const link = `${siteConfig.url}/admin/inquiries`;
   return {
-    subject: `Reminder: ${records.length} inquiry${records.length === 1 ? "" : "s"} still marked New`,
+    subject: `Reminder: ${records.length} inquir${records.length === 1 ? "y" : "ies"} still marked New`,
     text: `These inquiries have been marked New for more than 12 hours:\n\n${lines.join("\n")}\n\nOpen the inbox: ${link}`,
     html: shell(
       "Inquiries awaiting a reply",

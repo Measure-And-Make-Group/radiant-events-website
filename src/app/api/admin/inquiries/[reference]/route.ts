@@ -1,6 +1,6 @@
 import { getAdminSession, sameOrigin } from "@/lib/auth";
 import { deliverInquiryEmails } from "@/lib/inquiry-emails";
-import { deleteInquiry, getInquiry, updateInquiry } from "@/lib/inquiry-store";
+import { appendInquiryEvent, deleteInquiry, getInquiry } from "@/lib/inquiry-store";
 import { INQUIRY_STATUSES, type InquiryStatus } from "@/lib/inquiry-types";
 
 export const runtime = "nodejs";
@@ -28,21 +28,22 @@ export async function POST(
   if (action === "status") {
     const status = String(form.get("status")) as InquiryStatus;
     if (!INQUIRY_STATUSES.includes(status)) return detail("error=status");
-    await updateInquiry(reference, (r) => {
-      if (r.status === status) return;
-      r.status = status;
-      r.statusHistory = [
-        ...(r.statusHistory ?? []),
-        { status, at: new Date().toISOString() },
-      ];
-    });
+    if (record.status !== status) {
+      try {
+        await appendInquiryEvent(reference, { type: "status", status, at: new Date().toISOString() });
+      } catch {
+        return detail("error=save");
+      }
+    }
     return detail("saved=status");
   }
   if (action === "note") {
     const note = String(form.get("note") ?? "").slice(0, 2000);
-    await updateInquiry(reference, (r) => {
-      r.note = note || undefined;
-    });
+    try {
+      await appendInquiryEvent(reference, { type: "note", note: note || undefined, at: new Date().toISOString() });
+    } catch {
+      return detail("error=save");
+    }
     return detail("saved=note");
   }
   if (action === "resend") {

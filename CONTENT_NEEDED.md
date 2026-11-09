@@ -1,48 +1,24 @@
 # Content Needed From the Owner
 
-Nothing below was invented for the live site — every item here is a placeholder, clearly marked
-in the UI, that must be replaced with real content before launch.
+Updated 2026-11-08. Nothing here is invented on the site; open items are either hidden
+or worded generally until confirmed.
 
-## Contact & Business Details
-- [ ] Physical address, if any (many event businesses intentionally omit this)
+## Decisions that change what the site says
+- [ ] **Reply window.** The site promises a personal reply "usually within 12 to 24 hours"
+      (homepage, contact page, confirmation email). Confirm, or give the window to use.
+- [ ] **Budget ranges** in the inquiry form (currently Under $500 … $5,000+, Need guidance).
+- [x] **Privacy Policy and Terms.** Approved for publication by MMG on 2026-11-08; indexed
+      and in the sitemap.
+- [ ] **Portfolio filters by event type.** Filters are by service today. Event types are
+      verified for three projects (men's evening event, church ministry backdrop, birthday
+      game night) but not for "A Moment in Pink".
+- [x] **Venue naming.** Social House is credited on the Roswell project (MMG, 2026-11-08).
+- [x] **Client details in photos.** Names, ages, dates, house numbers and host branding were
+      removed from every published photo (MMG request, 2026-11-08). Re-check any new photo
+      for signs, slides, book covers and addresses before adding it.
 
-## Social
-- [ ] Instagram handle/URL
-- [ ] Pinterest handle/URL
-- [ ] Facebook page URL
-- Add to `siteConfig.social` in `src/lib/site-config.ts`
-
-## Portfolio
-- [ ] Real event photography (currently gradient placeholder blocks in
-      `src/components/PlaceholderMedia.tsx`)
-- [ ] Real project details for each case study — replace entries in `src/content/portfolio.ts`
-      (overview, challenge, design direction, services provided)
-- [ ] Confirm licensing/usage rights for any photography before publishing
-
-## Testimonials
-- [ ] Real, attributable client quotes (name, event type — with permission to publish)
-- Testimonials are currently **hidden** (`siteConfig.showTestimonials = false`) because none
-  were supplied. Add real quotes to a `src/content/testimonials.ts` file and flip the flag once
-  ready.
-
-## Pricing
-- [ ] Confirmed starting prices per service, if the business wants to publish any
-- Currently withheld (`siteConfig.showPricing = false`)
-
-## Founder / Team
-- [ ] Founder biography and portrait for the About page (`src/app/about/page.tsx` has a clearly
-      marked placeholder section)
-
-## Legal
-- [ ] Finalized Privacy Policy copy, reviewed by legal counsel (`src/app/privacy/page.tsx`)
-- [ ] Finalized Terms of Service copy, reviewed by legal counsel (`src/app/terms/page.tsx`)
-
-## Press / Credibility
-- [ ] Any real press mentions, awards, or notable venues — do not add placeholder logos or
-      claims. None currently exist on the site.
-
-## Brand Assets
-- [ ] Higher-resolution or alternate-format logo files, if available, beyond the one extracted
-      from the brand deck (`public/brand/radiant-events-logo.png`)
-- [ ] Any additional approved brand photography referenced in the brand deck but not included
-      as separate image files
+## Content to supply
+- [ ] Testimonials (real, attributable, with permission). Hidden until supplied.
+- [ ] Published starting prices, if wanted (`siteConfig.showPricing`).
+- [ ] Pinterest and Facebook URLs (`siteConfig.social`).
+- [ ] More finished-event photography, especially planning-day and installation moments.

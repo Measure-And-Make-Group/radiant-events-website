@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Website & Booking Information",
   description:
-    "Understand Radiant Events website information, custom proposals, booking agreements, and payment responsibilities.",
+    "Understand Radiant Events Planning website information, custom proposals, booking agreements, and payment responsibilities.",
   alternates: { canonical: "/terms" },
 };
 export default function Terms() {

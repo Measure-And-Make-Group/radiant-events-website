@@ -1,17 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { updateInquiry } from "@/lib/inquiry-store";
+import { appendInquiryEvent, REFERENCE_PATTERN } from "@/lib/inquiry-store";
+import { PROVIDER_EVENT_RANK as RANK } from "@/lib/inquiry-types";
 
 export const runtime = "nodejs";
 
 const TOLERANCE_MS = 5 * 60 * 1000;
-const RANK: Record<string, number> = {
-  "email.sent": 1,
-  "email.delivery_delayed": 2,
-  "email.delivered": 3,
-  "email.complained": 4,
-  "email.bounced": 4,
-  "email.failed": 4,
-};
 
 /** Svix signature check (Resend signs webhooks with Svix). */
 function verified(id: string, timestamp: string, body: string, header: string) {
@@ -73,14 +66,16 @@ export async function POST(request: Request) {
   )
     return new Response("Ignored", { status: 202 });
 
-  await updateInquiry(reference, (r) => {
-    const delivery = r.emails?.[kind];
-    if (!delivery) return;
-    if (delivery.messageId && event.data?.email_id && delivery.messageId !== event.data.email_id)
-      return;
-    if ((RANK[`email.${delivery.event}`] ?? 0) >= RANK[event.type!]) return;
-    delivery.event = event.type!.replace("email.", "");
-    delivery.eventAt = event.created_at ?? new Date().toISOString();
+  if (!REFERENCE_PATTERN.test(reference))
+    return new Response("Ignored", { status: 202 });
+  // Ranking and message-id matching happen when events are replayed, so a
+  // replayed or out-of-order webhook is stored but never wins over a later state.
+  await appendInquiryEvent(reference, {
+    type: "provider-event",
+    kind,
+    event: event.type.replace("email.", ""),
+    emailId: event.data?.email_id,
+    at: event.created_at ?? new Date().toISOString(),
   });
   return new Response("ok");
 }

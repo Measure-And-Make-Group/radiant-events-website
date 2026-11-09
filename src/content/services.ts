@@ -8,12 +8,16 @@ export type ServiceDetail = {
   includes: string[];
   process: string[];
   faq: { question: string; answer: string }[];
+  /** Real Radiant photography for the page hero. */
+  image: { src: string; alt: string; caption: string; position?: string };
+  /** Portfolio slugs that show this service in practice. */
+  related: string[];
 };
 
 export const services: ServiceDetail[] = [
   {
     slug: "planning-coordination",
-    title: "Planning + Coordination",
+    title: "Planning & Coordination",
     tagline: "Calm leadership behind the scenes.",
     summary:
       "From save-the-date to send-off, we build the timeline, manage the vendor team, and hold every logistical thread so you don't have to.",
@@ -38,6 +42,13 @@ export const services: ServiceDetail[] = [
       "Final walkthrough and timeline lock",
       "On-site coordination on the day itself",
     ],
+    image: {
+      src: "/images/candlelight-hall.webp",
+      alt: "A full event hall set with rows of candlelit banquet tables",
+      caption: "Full room set · Roswell",
+      position: "50% 55%",
+    },
+    related: ["candlelight-and-conversation", "game-night-balloon-moment", "colorful-sequin-backdrop"],
     faq: [
       {
         question: "How far in advance should we book?",
@@ -47,13 +58,13 @@ export const services: ServiceDetail[] = [
       {
         question: "Do you work with our existing vendors?",
         answer:
-          "Yes. We're happy to coordinate with vendors you've already booked, or recommend trusted partners from our network.",
+          "Yes. We're happy to coordinate with vendors you've already booked, or suggest vendors who suit your event and budget.",
       },
     ],
   },
   {
     slug: "design-room-styling",
-    title: "Design + Room Styling",
+    title: "Design & Room Styling",
     tagline: "The room, resolved.",
     summary:
       "We develop a concept and palette specific to your celebration and carry it through every surface — florals, linens, lighting, and layout — into one cohesive, elevated space.",
@@ -77,6 +88,13 @@ export const services: ServiceDetail[] = [
       "Vendor and rental sourcing against the approved concept",
       "On-site styling and final detail pass before guest arrival",
     ],
+    image: {
+      src: "/images/candlelight-hero.webp",
+      alt: "Black linens, gold chargers, greenery runners and candlelight along banquet tables",
+      caption: "Tablescape styling · Roswell",
+      position: "50% 60%",
+    },
+    related: ["candlelight-and-conversation", "colorful-sequin-backdrop", "pink-balloon-circle"],
     faq: [
       {
         question: "Can this be paired with planning services?",
@@ -86,7 +104,7 @@ export const services: ServiceDetail[] = [
       {
         question: "Do you provide rentals directly?",
         answer:
-          "We source and manage rentals through our trusted vendor network rather than holding inventory ourselves.",
+          "Rentals are sourced and coordinated as part of your proposal, so you know exactly what is included before you book.",
       },
     ],
   },
@@ -100,7 +118,7 @@ export const services: ServiceDetail[] = [
       "Clients who have a planner already, or need one exceptional focal moment rather than full-scope design.",
     outcomes: [
       "A single, photograph-ready focal moment",
-      "Professional installation and clean breakdown",
+      "Careful installation, with takedown when it is part of your proposal",
       "A custom piece built to your event's exact dimensions and palette",
     ],
     includes: [
@@ -108,7 +126,7 @@ export const services: ServiceDetail[] = [
       "Luxury tablescapes and place settings",
       "Draping and room transformation",
       "Custom backdrops and photo moments",
-      "Delivery, install, and breakdown",
+      "Delivery, setup, and installation (takedown or pickup when included in your proposal)",
     ],
     process: [
       "Scope and site details confirmed (dimensions, access, timing)",
@@ -116,6 +134,13 @@ export const services: ServiceDetail[] = [
       "Installation ahead of guest arrival",
       "Collection or breakdown according to the confirmed arrangements",
     ],
+    image: {
+      src: "/images/pink-sixteen.webp",
+      alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers",
+      caption: "Balloon installation · Sweet sixteen",
+      position: "50% 60%",
+    },
+    related: ["pink-balloon-circle", "colorful-sequin-backdrop", "game-night-balloon-moment"],
     faq: [
       {
         question: "How much lead time do installations need?",

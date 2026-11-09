@@ -2,7 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
   "Portfolio",
-  "Explore authentic Radiant Events balloon installations, backdrops, and styled focal moments in our event design collection.",
+  "Real Radiant Events Planning work across Atlanta and North Atlanta: tablescapes and full-room styling, balloon installations, backdrops and styled focal moments.",
   "/portfolio",
 );
 
