@@ -43,7 +43,7 @@ export const services: ServiceDetail[] = [
       "On-site coordination on the day itself",
     ],
     image: {
-      src: "/images/candlelight-hall.webp",
+      src: "/images/candlelight-hall-warm.webp",
       alt: "A full event hall set with rows of candlelit banquet tables",
       caption: "Full room set · Roswell",
       position: "50% 55%",

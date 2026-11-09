@@ -40,12 +40,12 @@ export const portfolioProjects: PortfolioProject[] = [
     occasion: "Men's evening event",
     location: "Social House, Roswell, Georgia",
     headline: ["A neutral hall,", "transformed by candlelight."],
-    image: "/images/candlelight-hall.webp",
+    image: "/images/candlelight-hall-warm.webp",
     alt: "Rows of long banquet tables dressed in black linen and lit by candles in an event hall",
     gallery: [
-      { src: "/images/candlelight-hall.webp", alt: "The full room: rows of long banquet tables dressed in black linen and candlelight" },
-      { src: "/images/candlelight-tables.webp", alt: "Banquet tables with gold chargers, greenery runners and rows of flameless candles" },
-      { src: "/images/candlelight-detail.webp", alt: "Navy plates on gold chargers with ribbon-tied napkins, tan runners and greenery" },
+      { src: "/images/candlelight-hall-warm.webp", alt: "The full room: rows of long banquet tables dressed in black linen and candlelight" },
+      { src: "/images/candlelight-tables-warm.webp", alt: "Banquet tables with gold chargers, greenery runners and rows of flameless candles" },
+      { src: "/images/candlelight-detail-warm.webp", alt: "Navy plates on gold chargers with ribbon-tied napkins, tan runners and greenery" },
     ],
     overview:
       "An evening built around conversation. Radiant styled Social House, a blank-canvas event hall in historic downtown Roswell, into long, candlelit banquet tables meant for lingering.",

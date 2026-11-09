@@ -360,7 +360,7 @@ html[data-intro="playing"] body { overflow: hidden; }
    lead. Scale is always >= 1, so the photo can never uncover its frame. */
 .re-hero-main { --hero-zoom: 1.12; }
 .re-hero-main img { object-fit: cover; object-position: 58% 100%; transform: scale(var(--hero-zoom)); transform-origin: 58% 100%; }
-.re-hero-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43, 43, 38, 0) 55%, rgba(43, 43, 38, 0.45) 100%); pointer-events: none; }
+.re-hero-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43, 43, 38, 0) 68%, rgba(43, 43, 38, 0.32) 100%); pointer-events: none; }
 .re-hero-inset { position: absolute; z-index: 2; left: -11%; bottom: 13%; width: 32%; aspect-ratio: 0.72; margin: 0; border: 8px solid var(--rs-ivory); overflow: hidden; background: var(--rs-sand); box-shadow: 0 30px 50px -30px rgba(43, 43, 38, 0.5); }
 .re-hero-inset img { object-fit: cover; object-position: 100% 60%; }
 .re-hero-caption { position: absolute; z-index: 2; right: 22px; bottom: 20px; max-width: 70%; text-align: right; color: var(--rs-ivory); font: 600 10px/1.6 var(--font-montserrat), sans-serif; letter-spacing: 0.17em; text-transform: uppercase; }

@@ -68,7 +68,7 @@ export const occasions = [
       "Which planning responsibilities do you need support with?",
     ],
     project: "candlelight-and-conversation",
-    image: "/images/candlelight-hall.webp",
+    image: "/images/candlelight-hall-warm.webp",
     alt: "A community evening: rows of long banquet tables dressed in black linen and candlelight",
   },
 ] as const;

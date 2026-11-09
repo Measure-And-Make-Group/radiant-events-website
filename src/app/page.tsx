@@ -19,7 +19,7 @@ const specialties = [
     text: "For help with the moving pieces: timelines, vendors, logistics, and a calm presence on the day, matched to your event and confirmed in your proposal.",
     best: "Hosts who want one trusted partner holding every thread.",
     href: "/services/planning-coordination",
-    image: "/images/candlelight-hall.webp",
+    image: "/images/candlelight-hall-warm.webp",
     alt: "Rows of candlelit banquet tables set for an evening event in Roswell",
   },
   {
@@ -73,7 +73,7 @@ export default function Home() {
         <div className="re-opening-media">
           <figure className="re-hero-main">
             <Image
-              src="/images/candlelight-tables.webp"
+              src="/images/candlelight-tables-warm.webp"
               alt="Long banquet tables dressed in black linen with gold chargers, greenery runners and rows of candlelight"
               fill
               priority
@@ -83,7 +83,7 @@ export default function Home() {
           {/* Desktop and tablet only: on phones one photograph tells the story. */}
           <figure className="re-hero-inset" aria-hidden="true">
             <Image
-              src="/images/candlelight-detail.webp"
+              src="/images/candlelight-detail-warm.webp"
               alt=""
               fill
               sizes="(max-width: 900px) 34vw, 15vw"

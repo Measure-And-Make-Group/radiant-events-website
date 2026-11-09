@@ -46,7 +46,7 @@ export default function ProcessPage() {
         title={<>A clear path, <em>beautifully finished.</em></>}
         subtitle="A clear path from your first idea to a beautifully finished space."
         image={{
-          src: "/images/candlelight-tables.webp",
+          src: "/images/candlelight-tables-warm.webp",
           alt: "Long banquet tables set with gold chargers, greenery runners and rows of candlelight",
           caption: "Candlelit tables · Roswell",
           position: "50% 60%",
