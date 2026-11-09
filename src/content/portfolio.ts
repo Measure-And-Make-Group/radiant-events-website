@@ -74,27 +74,6 @@ export const portfolioProjects: PortfolioProject[] = [
     servicesProvided: ["Balloon garland and backdrop", "Ribbon streamer wall", "Marquee numbers", "Photo booth and garden styling", "Balcony garland"],
   },
   {
-    slug: "colorful-sequin-backdrop",
-    title: "Color, Confetti & Joy",
-    category: "Balloons + Backdrops",
-    occasion: "Church ministry backdrop",
-    image: "/images/colorful-wide.webp",
-    alt: "Turquoise and lime balloon garlands framing a curved purple panel and a purple sequin wall",
-    headline: ["Bold color,", "brought into balance."],
-    gallery: [
-      { src: "/images/colorful-wide.webp", alt: "Turquoise and lime balloon garlands framing a curved purple panel and a purple sequin wall" },
-      { src: "/images/colorful-backdrop.webp", alt: "Turquoise and lime balloon clusters beside a purple sequin backdrop" },
-      { src: "/images/colorful-detail.webp", alt: "Wider view of turquoise and lime balloon garlands around a purple sequin wall and curved purple panel" },
-    ],
-    overview:
-      "A bright palette with a little shimmer. Turquoise and lime balloon clusters frame a purple focal wall for a playful, energetic setting.",
-    challenge:
-      "Bring several bold colors together in one coordinated photo moment.",
-    designDirection:
-      "Turquoise and lime contrast against purple panels and a reflective sequin surface.",
-    servicesProvided: ["Balloon installation", "Backdrop styling"],
-  },
-  {
     slug: "game-night-balloon-moment",
     title: "Let the Games Begin",
     category: "Styled Moments",
