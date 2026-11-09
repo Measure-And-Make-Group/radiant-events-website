@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ExperienceReel from "@/components/ExperienceReel";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ArrowIcon from "@/components/ArrowIcon";
@@ -158,6 +159,12 @@ export default function Home() {
         <h2>Be present for <em>the beautiful part.</em></h2>
         <span>WE&apos;LL HELP BRING THE DETAILS TOGETHER.</span>
       </section>
+
+      <ExperienceReel
+        id="home-experience"
+        title={<>Every garland, <em>built by hand.</em></>}
+        intro="A few seconds inside real REP installations, from blush sweet sixteens to navy and gold galas."
+      />
 
       <section className="re-collection" data-reveal id="re-work" aria-labelledby="re-work-title">
         <div className="re-collection-head">

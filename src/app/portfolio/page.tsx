@@ -2,6 +2,7 @@ import ArrowIcon from "@/components/ArrowIcon";
 import Link from "next/link";
 import PageHero from "@/components/sections/PageHero";
 import PortfolioGallery from "@/components/PortfolioGallery";
+import ExperienceReel from "@/components/ExperienceReel";
 
 export default function PortfolioPage() {
   return (
@@ -10,6 +11,10 @@ export default function PortfolioPage() {
         eyebrow="Portfolio"
         title={<>Real rooms. <em>Real celebrations.</em></>}
         subtitle="Bridal and baby showers, sweet sixteens and milestone birthdays, a book launch, ministry backdrops and candlelit banquet halls. Every photo here is real REP work across Atlanta and North Atlanta."
+      />
+      <ExperienceReel
+        title={<>Watch it <em>come to life.</em></>}
+        intro="Real REP installations, straight from the event floor. Tap a chapter, or let the reel play."
       />
       <PortfolioGallery />
       <section className="closing-cta">
