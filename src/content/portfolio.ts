@@ -6,9 +6,11 @@ export const PORTFOLIO_CATEGORIES = [
 
 /** Gallery filters: one per kind of event REP has actually delivered. */
 export const EVENT_TYPES = [
+  "Showers",
   "Birthdays & milestones",
   "Church & ministry",
   "Launches & brand events",
+  "Garlands & backdrops",
 ] as const;
 export type EventType = (typeof EVENT_TYPES)[number];
 
@@ -42,6 +44,31 @@ export type PortfolioProject = {
 // Roses & Shimmer (book launch) added 2026-11-09; publication approved by the
 // owner for all photos in the Radiant Drive folder.
 export const portfolioProjects: PortfolioProject[] = [
+  {
+    slug: "pearls-and-promise",
+    title: "Pearls & Promise",
+    category: "Balloons + Backdrops",
+    eventType: "Showers",
+    occasion: "Bridal shower",
+    image: "/images/bridal-backdrop.webp",
+    alt: "An ivory pearl balloon garland framing white backdrop panels with a script sign and blush roses",
+    headline: ["Ivory, pearls", "and a little champagne."],
+    gallery: [
+      { src: "/images/bridal-backdrop.webp", alt: "An ivory pearl balloon garland framing white backdrop panels, a pleated pillar and blush rose clusters" },
+      { src: "/images/bridal-sign.webp", alt: "Close view of the backdrop: a 'Forever Mrs.' script sign under a cluster of blush and ivory roses" },
+      { src: "/images/bridal-champagne.webp", alt: "A champagne wall of gold-framed shelves on boxwood, with a coupe tower and a pearls of wisdom card station" },
+      { src: "/images/bridal-dessert.webp", alt: "A dessert table with cupcakes, a white cake, roses in bud vases and wrapped favors" },
+      { src: "/images/bridal-pearls.webp", alt: "A 'guess how many pearls' game with a jar of pearls, taper candles and single roses in glass vases" },
+      { src: "/images/bridal-table.webp", alt: "A guest table with a rose and floating candle centerpiece in front of the pearl garland" },
+    ],
+    overview:
+      "A bridal shower in ivory and pearl: a garland-framed photo backdrop, a champagne wall, and soft rose details carried from the welcome sign to the dessert table.",
+    challenge:
+      "Make a bright, open room feel elegant and celebratory, with a backdrop worthy of the bride's photos.",
+    designDirection:
+      "Pearl-finish balloons in mixed sizes frame white arched panels and a pleated pillar, with blush and ivory roses as the only color. Gold shelving, crystal vases and taper candles keep every station in the same soft palette.",
+    servicesProvided: ["Balloon garland and backdrop", "Champagne wall styling", "Dessert and game table styling", "Florals and centerpieces"],
+  },
   {
     slug: "candlelight-and-conversation",
     title: "Candlelight & Conversation",
@@ -155,19 +182,64 @@ export const portfolioProjects: PortfolioProject[] = [
   },
 ];
 
+export type AlbumPhoto = { src: string; alt: string; eventType: EventType };
+export type Album = {
+  id: string;
+  title: string;
+  occasion: string;
+  blurb: string;
+  /** Project story page, when the album has one. */
+  href?: string;
+  photos: AlbumPhoto[];
+};
+
 /**
- * Every published photo, tagged with its project. Interleaved round-robin
- * (each project's lead photo first) so the gallery wall mixes events rather
- * than stacking one event's near-identical frames together.
+ * Standalone installations from the shared "Decor" Drive folder (owner
+ * approved for publication). Events are only named where the photo itself
+ * shows the occasion; guest and client names never appear.
  */
-const tagged = portfolioProjects.map((p) =>
-  p.gallery.map((g) => ({ ...g, slug: p.slug, title: p.title, eventType: p.eventType, occasion: p.occasion ?? p.category })),
-);
-export const galleryPhotos = Array.from(
-  { length: Math.max(...tagged.map((t) => t.length)) },
-  (_, i) => tagged.map((t) => t[i]).filter((x) => x !== undefined),
-).flat();
-export type GalleryPhoto = (typeof galleryPhotos)[number];
+const installations: AlbumPhoto[] = [
+  { src: "/images/navy-garland.webp", alt: "A navy, black and gold balloon garland climbing a reclaimed-wood wall at Social House", eventType: "Garlands & backdrops" },
+  { src: "/images/neutral-arch.webp", alt: "Ivory, nude and gold balloons framing a cream arched backdrop", eventType: "Garlands & backdrops" },
+  { src: "/images/birthday-48.webp", alt: "Red, white and gold balloon garland around a silver sequin wall with gold 48 numbers", eventType: "Birthdays & milestones" },
+  { src: "/images/navy-arch.webp", alt: "Navy, ivory and gold balloon clusters around a white arch against a wood-plank wall", eventType: "Garlands & backdrops" },
+  { src: "/images/baby-bear.webp", alt: "A pink round backdrop reading 'We can bearly wait' with blush and tan balloons, baby blocks and a teddy bear", eventType: "Showers" },
+  { src: "/images/ivory-column.webp", alt: "An ivory, nude and gold balloon garland rising beside a marble fireplace wall", eventType: "Garlands & backdrops" },
+  { src: "/images/navy-garland-detail.webp", alt: "Close view of the navy, black and gold garland's layered balloon sizes", eventType: "Garlands & backdrops" },
+  { src: "/images/neutral-arch-detail.webp", alt: "Gold chrome and ivory balloon clusters at the base of the cream arch", eventType: "Garlands & backdrops" },
+  { src: "/images/navy-arch-side.webp", alt: "The navy and gold arch from the side, showing the garland's depth", eventType: "Garlands & backdrops" },
+];
+
+const projectAlbum = (slug: string, blurb: string): Album => {
+  const p = portfolioProjects.find((x) => x.slug === slug)!;
+  return {
+    id: p.slug,
+    title: p.title,
+    occasion: p.occasion ?? p.category,
+    blurb,
+    href: "/portfolio/" + p.slug,
+    photos: p.gallery.map((g) => ({ ...g, eventType: p.eventType })),
+  };
+};
+
+/** The portfolio page, album by album, strongest work first. */
+export const albums: Album[] = [
+  projectAlbum("pearls-and-promise", "An ivory pearl garland, a champagne wall and blush roses at every station."),
+  projectAlbum("candlelight-and-conversation", "Long candlelit banquet tables for an evening built around conversation."),
+  projectAlbum("pink-balloon-circle", "A garland and ribbon backdrop on the patio, with pink carried up to the balcony."),
+  {
+    id: "garlands-and-backdrops",
+    title: "Garlands & Backdrops",
+    occasion: "Selected installations",
+    blurb: "Organic balloon garlands in every palette, from navy and gold to soft neutrals and celebration red.",
+    photos: installations,
+  },
+  projectAlbum("roses-and-shimmer", "A rose-framed shimmer wall made for one unforgettable photo."),
+  projectAlbum("game-night-balloon-moment", "Purple, pink, black and silver with oversized dice at the door."),
+  projectAlbum("colorful-sequin-backdrop", "Turquoise and lime garlands around a purple sequin wall."),
+];
+
+export const photoCount = albums.reduce((n, a) => n + a.photos.length, 0);
 
 export function getProjectBySlug(slug: string) {
   return portfolioProjects.find((p) => p.slug === slug);

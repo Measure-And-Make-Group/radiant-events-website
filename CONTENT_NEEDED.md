@@ -8,8 +8,13 @@ or worded generally until confirmed.
 - [ ] **Budget ranges** in the inquiry form (currently Under $500 … $5,000+, Need guidance).
 - [x] **Privacy Policy and Terms.** Approved for publication by MMG on 2026-11-08; indexed
       and in the sitemap.
-- [x] **Portfolio filters by event type.** The /portfolio gallery filters by event type
-      (Birthdays & milestones, Church & ministry, Launches & brand events), as asked on Sept 28.
+- [x] **Portfolio filters by event type.** /portfolio is organised as albums, filterable by
+      Showers, Birthdays & milestones, Church & ministry, Launches & brand events, and
+      Garlands & backdrops (installations whose event isn't named), as asked on Sept 28.
+- [x] **Decor folder (shared by bookings@, 2026-11-08).** 15 photos added: the bridal shower
+      ("Pearls & Promise", surname removed from the sign, guest handwriting blurred) and nine
+      standalone installations. The two frames showing the bride's face are not used. The
+      seven videos and "Untitled design.png" are over the Drive connector's limit.
 - [x] **Reinstated projects.** "A Moment in Pink" and "Color, Confetti & Joy" are back
       (Omar, 2026-11-09 afternoon: show the full range of work). The doll-box photo booth
       frame stays out because of the toy-brand packaging.

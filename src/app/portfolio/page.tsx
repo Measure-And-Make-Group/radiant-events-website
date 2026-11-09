@@ -9,7 +9,7 @@ export default function PortfolioPage() {
       <PageHero
         eyebrow="Portfolio"
         title={<>Real rooms. <em>Real celebrations.</em></>}
-        subtitle="Sweet sixteens and game nights, a book launch, ministry backdrops and candlelit banquet halls. A look at REP's work across Atlanta and North Atlanta."
+        subtitle="Bridal and baby showers, sweet sixteens and milestone birthdays, a book launch, ministry backdrops and candlelit banquet halls. Every photo here is real REP work across Atlanta and North Atlanta."
       />
       <PortfolioGallery />
       <section className="closing-cta">
