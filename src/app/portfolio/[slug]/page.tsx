@@ -96,7 +96,7 @@ export default async function Project({
               {p.challenge}
             </div>
             <p className="rs-body">{p.designDirection}</p>
-            <h3>What Radiant provided</h3>
+            <h3>What REP provided</h3>
             <ul className="rs-list">
               {p.servicesProvided.map((s) => (
                 <li key={s}>{s}</li>

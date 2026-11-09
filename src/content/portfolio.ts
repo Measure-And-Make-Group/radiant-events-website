@@ -48,7 +48,7 @@ export const portfolioProjects: PortfolioProject[] = [
       { src: "/images/candlelight-detail-warm.webp", alt: "Navy plates on gold chargers with ribbon-tied napkins, tan runners and greenery" },
     ],
     overview:
-      "An evening built around conversation. Radiant styled Social House, a blank-canvas event hall in historic downtown Roswell, into long, candlelit banquet tables meant for lingering.",
+      "An evening built around conversation. REP styled Social House, a blank-canvas event hall in historic downtown Roswell, into long, candlelit banquet tables meant for lingering.",
     challenge:
       "Seat a full room at long communal tables while keeping the setting warm, intimate and conversation-ready.",
     designDirection:

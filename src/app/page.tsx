@@ -54,7 +54,7 @@ export default function Home() {
           <span className="re-ambience-ring re-ambience-ring-two" />
         </div>
         <div className="re-opening-inner">
-          <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
+          <p className="re-kicker">RADIANT EVENTS PLANNING (REP) · ATLANTA, GEORGIA</p>
           <h1 id="re-title">
             <span className="rm-line"><span>Planning</span></span>
             <span className="rm-line"><span>with purpose.</span></span>
@@ -89,16 +89,16 @@ export default function Home() {
               sizes="(max-width: 900px) 34vw, 15vw"
             />
           </figure>
-          <p className="re-hero-caption">Real Radiant work · Candlelit tables, Roswell</p>
+          <p className="re-hero-caption">Real REP work · Candlelit tables, Roswell</p>
         </div>
         <div className="re-opening-bottom">
           <span>ATLANTA · ALPHARETTA · MILTON · NORTH ATLANTA</span>
-          <a href="#re-intro" aria-label="Scroll to discover Radiant">SCROLL TO DISCOVER ↓</a>
+          <a href="#re-intro" aria-label="Scroll to discover REP">SCROLL TO DISCOVER ↓</a>
         </div>
       </section>
 
       <section className="re-statement" data-reveal id="re-intro" aria-labelledby="re-statement-title">
-        <div className="re-statement-number">01 / THE RADIANT APPROACH</div>
+        <div className="re-statement-number">01 / THE REP APPROACH</div>
         <div>
           <p className="re-kicker">A celebration should feel like you.</p>
           <h2 id="re-statement-title">Beautifully planned. <em>Personally cared for.</em></h2>
@@ -107,7 +107,7 @@ export default function Home() {
             We combine personal attention, considered styling, and purposeful
             planning to make room for the moments that matter.
           </p>
-          <Link href="/about" className="re-text-link">Discover the heart behind Radiant <ArrowIcon /></Link>
+          <Link href="/about" className="re-text-link">Discover the heart behind REP <ArrowIcon /></Link>
         </div>
       </section>
 

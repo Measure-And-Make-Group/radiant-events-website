@@ -42,7 +42,7 @@ export default async function InquiryDetail({
     ["Guests", d.guestCount],
     ["Support", d.servicesOfInterest],
     ["Investment range", d.budget],
-    ["Heard about Radiant via", d.referral],
+    ["Heard about REP via", d.referral],
     ["Vision", d.message],
   ];
   return (

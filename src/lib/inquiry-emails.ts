@@ -45,7 +45,7 @@ function summaryRows(record: InquiryRecord, includeContact: boolean) {
     ["Investment range", d.budget],
     ["Vision", d.message],
     ...(includeContact
-      ? ([["Heard about Radiant via", d.referral]] as [string, string | undefined][])
+      ? ([["Heard about REP via", d.referral]] as [string, string | undefined][])
       : []),
   ];
   return rows.filter(([, v]) => v);

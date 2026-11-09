@@ -4,8 +4,8 @@ import ArrowIcon from "@/components/ArrowIcon";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "Your Radiant Client Guide",
-  "A practical guide to inquiry, proposal review, venue preparation, event day, and payments for your Radiant celebration.",
+  "Your REP Client Guide",
+  "A practical guide to inquiry, proposal review, venue preparation, event day, and payments for your REP celebration.",
   "/client-guide",
 );
 const steps = [

@@ -22,7 +22,7 @@ export default function PortfolioPage() {
       <PageHero
         eyebrow="Portfolio"
         title={<>Real rooms. <em>Real celebrations.</em></>}
-        subtitle="A closer look at Radiant's work across Atlanta and North Atlanta, from candlelit tablescapes and full-room styling to balloon installations and backdrops."
+        subtitle="A closer look at REP's work across Atlanta and North Atlanta, from candlelit tablescapes and full-room styling to balloon installations and backdrops."
       />
       <section className="section-wrap">
         <div className="portfolio-filters" role="group" aria-label="Filter projects by category">
