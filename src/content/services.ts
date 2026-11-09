@@ -89,10 +89,10 @@ export const services: ServiceDetail[] = [
       "On-site styling and final detail pass before guest arrival",
     ],
     image: {
-      src: "/images/candlelight-hero.webp",
-      alt: "Black linens, gold chargers, greenery runners and candlelight along banquet tables",
-      caption: "Tablescape styling · Roswell",
-      position: "50% 60%",
+      src: "/images/rose-centerpiece.webp",
+      alt: "A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table",
+      caption: "Table styling · Garden celebration",
+      position: "68% 50%",
     },
     related: ["candlelight-and-conversation", "roses-and-shimmer", "game-night-balloon-moment"],
     faq: [

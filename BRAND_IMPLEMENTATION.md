@@ -59,7 +59,7 @@ The first-visit intro (`BrandEntrance.tsx`) is armed by an inline script in
 ## Photography
 
 Only real Radiant work. Hero crops are cut from the originals so no guest's face
-is the focal point (`candlelight-hero.webp`). Alt text describes what is visible.
+is the focal point (`candlelight-tables.webp`). Alt text describes what is visible.
 
 ## Voice
 

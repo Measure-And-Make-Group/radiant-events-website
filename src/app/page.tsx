@@ -28,8 +28,8 @@ const specialties = [
     text: "For a cohesive setting: palette direction, tablescapes, and decorative details carried through the whole room.",
     best: "A venue and a vision that need one considered look.",
     href: "/services/design-room-styling",
-    image: "/images/candlelight-detail.webp",
-    alt: "Navy plates on gold chargers with ribbon-tied napkins, greenery and candlelight",
+    image: "/images/rose-centerpiece.webp",
+    alt: "A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table",
   },
   {
     number: "03",

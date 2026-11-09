@@ -13,7 +13,7 @@ export const metadata = pageMetadata(
 
 const images = [
   {src:"/images/candlelight-hall.webp", alt:"A full room of long banquet tables in black linen and candlelight, coordinated for an evening event in Roswell"},
-  {src:"/images/candlelight-detail.webp", alt:"Navy plates on gold chargers with ribbon-tied napkins, greenery and candlelight"},
+  {src:"/images/rose-centerpiece.webp", alt:"A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table"},
   {src:"/images/flower-wall.webp", alt:"A rose-framed sequin shimmer wall installed as a photo backdrop for a book launch"},
 ];
 

@@ -559,3 +559,5 @@ html { scroll-padding-top: 84px; }
 /* Roses & Shimmer: its script lettering sits in the left third of the photo,
    so portrait crops anchor left instead of centre. */
 html img[src*="flower-wall"] { object-position: 20% 50%; }
+/* Rose centerpiece: the arrangement sits right of centre. */
+html img[src*="rose-centerpiece"] { object-position: 68% 50%; }
