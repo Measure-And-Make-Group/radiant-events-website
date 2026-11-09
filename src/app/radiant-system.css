@@ -467,3 +467,86 @@ html[data-intro="playing"] body { overflow: hidden; }
 
 /* Three-up project galleries hold portrait event photos. */
 .rs-gallery-3 .rs-photo { aspect-ratio: 3 / 4; }
+
+
+/* Mobile visual QA fixes 2026-11-09: prevent headline and image clipping. */
+@media (max-width: 760px) {
+  .re-home { overflow-x: clip; }
+  .re-home .re-opening { display: flex; flex-direction: column; min-height: 0; }
+  .re-home .re-opening-inner {
+    width: 100%; min-width: 0; max-width: 100%;
+    padding: 58px 24px 34px; margin: 0;
+  }
+  .re-home .re-opening h1 {
+    font-size: clamp(43px, 10.8vw, 62px) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.035em !important;
+    max-width: 100%;
+    overflow-wrap: normal;
+    text-wrap: pretty;
+  }
+  .re-home .re-opening h1 .rm-line {
+    display: block;
+    overflow: visible !important;
+    padding: 0 0 .055em;
+    margin: 0;
+  }
+  .re-home .re-opening h1 .rm-line > span { display: inline; }
+  .re-home .re-opening h1 em.rm-line { padding-top: 0.08em; }
+  .re-home .re-opening .re-kicker { letter-spacing: .115em; font-size: 9px; }
+  .re-home .re-opening-intro { font-size: 15px; line-height: 1.75; max-width: 100%; }
+  .re-home .re-opening-actions { margin-top: 24px; gap: 22px; width: 100%; }
+  .re-home .re-opening-actions .re-cta {
+    display: flex; width: min(100%, 390px); min-width: 0;
+    min-height: 56px; padding: 14px 16px; gap: 12px;
+    font-size: 10px; letter-spacing: .08em; white-space: normal;
+    text-align: center; line-height: 1.4;
+  }
+  .re-home .re-opening-actions .re-text-link { max-width: 100%; }
+  .re-home .re-opening-media {
+    position: relative; width: calc(100% - 48px); margin: 0 24px;
+    min-height: 0; aspect-ratio: 4 / 3; flex: none;
+  }
+  .re-home .re-hero-main { inset: 0; }
+  .re-home .re-hero-inset { left: 10px; bottom: -20px; width: 28%; border-width: 4px; }
+  .re-home .re-hero-caption { font-size: 8px; right: 12px; bottom: 12px; max-width: 62%; }
+  .re-home .re-opening-bottom {
+    position: relative; display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 20px; left: auto; right: auto; bottom: auto; margin: 0;
+    padding: 48px 24px 30px; width: 100%;
+  }
+  .re-home .re-opening-bottom span { max-width: 62%; }
+  .re-home .re-opening-bottom a { max-width: 38%; }
+  .re-home .re-collection-head, .re-home .re-collection-head > div { min-width: 0; max-width: 100%; }
+  .re-home .re-collection-head h2 {
+    font-size: clamp(43px, 10.2vw, 57px) !important;
+    line-height: 1.05 !important;
+    overflow-wrap: break-word; text-wrap: pretty;
+  }
+  .re-home .re-founder { display: flex; flex-direction: column; min-height: 0; }
+  .re-home .re-founder-image {
+    position: relative; width: 100%; height: min(93vw, 430px);
+    min-height: 0 !important; max-height: 430px; flex: none;
+  }
+  .re-home .re-founder-image img { object-position: center 15%; object-fit: cover; }
+  .re-home .re-founder-content { padding: 52px 26px 70px; width: 100%; min-width: 0; }
+  .re-home .re-founder h2 {
+    font-size: clamp(44px, 10.8vw, 61px) !important;
+    line-height: 1.08 !important;
+    overflow-wrap: break-word; text-wrap: pretty;
+  }
+  .re-home .re-founder h2 em { display: block; }
+  .re-home .re-statement h2, .re-home .re-section-heading h2,
+  .re-home .re-client-guide h2, .re-home .re-faq-intro h2,
+  .re-home .re-journey h2 { line-height: 1.08 !important; overflow-wrap: break-word; }
+  .re-home [id] { scroll-margin-top: 94px; }
+  .re-home .re-work-info h3 { overflow-wrap: break-word; }
+}
+@media (max-width: 390px) {
+  .re-home .re-opening h1 { font-size: clamp(40px, 10.6vw, 44px) !important; }
+  .re-home .re-collection-head h2 { font-size: 42px !important; }
+  .re-home .re-founder h2 { font-size: 43px !important; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  .re-home .re-opening h1 .rm-line > span { animation: none !important; transform: none !important; }
+}
