@@ -30,6 +30,8 @@ export type PortfolioProject = {
 // Curated 2026-11-09: the owner rejected the "A Moment in Pink" photography
 // for the premium portfolio, so that project (like the colorful backdrop
 // before it) is no longer published. Fewer, stronger projects by design.
+// Roses & Shimmer (book launch) added 2026-11-09; publication approved by the
+// owner for all photos in the Radiant Drive folder.
 export const portfolioProjects: PortfolioProject[] = [
   {
     slug: "candlelight-and-conversation",
@@ -52,6 +54,23 @@ export const portfolioProjects: PortfolioProject[] = [
     designDirection:
       "Black linens and tan runners ground the room. Gold chargers, navy plates and ribbon-tied napkins add polish, while greenery runners, small white florals and rows of candlelight bring the warmth.",
     servicesProvided: ["Full room design", "Tablescape styling", "Linens, place settings and centerpieces", "On-site setup"],
+  },
+  {
+    slug: "roses-and-shimmer",
+    title: "Roses & Shimmer",
+    category: "Balloons + Backdrops",
+    occasion: "Book launch celebration",
+    headline: ["A shimmer wall,", "framed in roses."],
+    image: "/images/flower-wall.webp",
+    alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering",
+    gallery: [{ src: "/images/flower-wall.webp", alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering" }],
+    overview:
+      "A signature photo backdrop for a book launch: a shimmering sequin wall framed edge to edge in roses, with the book's title in script lettering.",
+    challenge:
+      "Give guests one unmistakable place to stop, celebrate and take a photograph.",
+    designDirection:
+      "Deep pink sequins catch the room light, while a full floral border in red, rose, coral and soft yellow adds depth and warmth. Script lettering ties the backdrop to the occasion.",
+    servicesProvided: ["Floral frame backdrop", "Sequin shimmer wall", "Custom script lettering", "Installation"],
   },
   {
     slug: "game-night-balloon-moment",

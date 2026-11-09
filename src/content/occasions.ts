@@ -43,9 +43,9 @@ export const occasions = [
       "Do you have a venue, palette, or inspiration images?",
       "How many guests should the space comfortably welcome?",
     ],
-    project: "candlelight-and-conversation",
-    image: "/images/candlelight-detail.webp",
-    alt: "Navy plates on gold chargers with ribbon-tied napkins, greenery and candlelight",
+    project: "roses-and-shimmer",
+    image: "/images/flower-wall.webp",
+    alt: "A rose-framed sequin shimmer wall created as a photo backdrop",
   },
   {
     slug: "brand-community-gatherings",

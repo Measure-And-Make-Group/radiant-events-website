@@ -24,7 +24,7 @@ const base = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");
 const out = process.argv[3] || "qa-screenshots";
 const WIDTHS = [320, 375, 390, 430, 768, 1024, 1280, 1440];
 const PAGES = ["/", "/services", "/services/signature-installations", "/portfolio",
-  "/portfolio/candlelight-and-conversation", "/about", "/contact", "/process",
+  "/portfolio/candlelight-and-conversation", "/portfolio/roses-and-shimmer", "/about", "/contact", "/process",
   "/occasions/milestone-celebrations", "/faq"];
 // Homepage sections captured individually.
 const SECTIONS = [

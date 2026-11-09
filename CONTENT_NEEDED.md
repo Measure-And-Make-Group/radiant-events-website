@@ -9,8 +9,8 @@ or worded generally until confirmed.
 - [ ] **Budget ranges** in the inquiry form (currently Under $500 … $5,000+, Need guidance).
 - [x] **Privacy Policy and Terms.** Approved for publication by MMG on 2026-11-08; indexed
       and in the sitemap.
-- [ ] **Portfolio filters by event type.** Filters are by service today. Two projects are
-      published (men's evening event, birthday game night).
+- [ ] **Portfolio filters by event type.** Filters are by service today. Three projects are
+      published (men's evening event, book launch, birthday game night).
 - [x] **Withdrawn projects.** "A Moment in Pink" (owner rejected the photography, 2026-11-09)
       and "Color, Confetti & Joy" are no longer published; their URLs redirect to
       /portfolio. Photos remain in Drive and git history if either returns.
@@ -24,7 +24,9 @@ or worded generally until confirmed.
 - [ ] Published starting prices, if wanted (`siteConfig.showPricing`).
 - [ ] Pinterest and Facebook URLs (`siteConfig.social`).
 - [ ] More finished-event photography, especially planning-day and installation moments.
-      **Highest-impact item:** the homepage and Signature Installations page now rely on one
-      installation project (game night). One or two professionally photographed
-      installations or styled rooms would let the collection show three strong projects.
-      The THRONE Drive folder's lounge photo (IMG_6929) is too motion-blurred to publish.
+      **Pending:** the professional "She Rose" photos of the book-launch flower wall
+      (Drive › Other decor elements, 9.7–13.7MB each) are over the Drive connector's 10MB
+      download limit. Re-save them under 10MB (or drop smaller exports in the folder) and they
+      can replace the phone photo now used for "Roses & Shimmer". All Drive photos are
+      approved for publication (owner, 2026-11-09). The THRONE lounge photo (IMG_6929) is
+      too motion-blurred to use.

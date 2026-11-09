@@ -37,13 +37,13 @@ const specialties = [
     text: "For a photo-ready focal point: custom balloon installations and backdrops, booked on their own or alongside other services.",
     best: "One exceptional moment when the rest is already planned.",
     href: "/services/signature-installations",
-    image: "/images/game-night.webp",
-    alt: "A balloon column in purple, pink, black and silver with oversized dice at a game night entrance",
+    image: "/images/flower-wall.webp",
+    alt: "A rose-framed sequin shimmer wall created as a photo backdrop for a book launch",
   },
 ];
 
 // Curated, not exhaustive: only the strongest approved projects are featured.
-const featuredWork = portfolioProjects.slice(0, 2);
+const featuredWork = portfolioProjects.slice(0, 3);
 
 export default function Home() {
   return (
@@ -180,15 +180,6 @@ export default function Home() {
               </div>
             </Link>
           ))}
-          <div className="re-work-note" data-reveal>
-            <p className="re-kicker">REAL RADIANT WORK</p>
-            <p>
-              Every photograph here is from an event we styled. Client names
-              and private details are removed out of respect for the people we
-              celebrate.
-            </p>
-            <Link href="/contact" className="re-text-link">Plan your occasion <ArrowIcon /></Link>
-          </div>
         </div>
       </section>
 
