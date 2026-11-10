@@ -1,0 +1,2 @@
+# vCard 3.0 requires literal CRLF line endings, including on Linux deploys.
+*.vcf -text whitespace=cr-at-eol

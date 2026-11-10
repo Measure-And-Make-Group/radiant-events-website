@@ -19,6 +19,9 @@ export default function CookieConsent() {
   const [marketing, setMarketing] = useState(false);
   useEffect(() => {
     const saved = readChoice();
+    // Hydrate browser-only preferences after SSR; the first render must match
+    // the server and optional consent must remain off until storage is read.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setChoice(saved);
     setAnalytics(saved?.analytics ?? false);
     setMarketing(saved?.marketing ?? false);
