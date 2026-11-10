@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Reveal } from "@/components/motion/Reveal";
 import { pageMetadata, absoluteUrl } from "@/lib/seo";
 import StructuredData from "@/components/StructuredData";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -55,23 +54,23 @@ export default async function JournalArticlePage({
       />
       <Breadcrumbs
         items={[
-          { label: "Journal", href: "/journal" },
+          { label: "Helpful Reads", href: "/journal" },
           { label: article.title, href: "/journal/" + slug },
         ]}
       />
-      <Reveal>
+      <div data-reveal="">
         <p className="font-sans uppercase tracking-wide-lg text-xs text-aubergine mb-3">
           {article.category} &middot; {article.readingTime}
         </p>
         <h1 className="font-display text-4xl md:text-5xl text-ink mb-8">
           {article.title}
         </h1>
-      </Reveal>
+      </div>
       <div className="space-y-6">
         {article.body.map((paragraph, i) => (
-          <Reveal key={i} delay={i * 0.05}>
+          <div key={i} data-reveal="">
             <p className="font-sans text-ink leading-relaxed">{paragraph}</p>
-          </Reveal>
+          </div>
         ))}
       </div>
 
@@ -100,7 +99,7 @@ export default async function JournalArticlePage({
           href="/journal"
           className="font-sans text-sm uppercase tracking-wide-lg text-aubergine border-b border-tangerine hover:text-tangerine"
         >
-          Back to Journal
+          Back to Helpful Reads
         </Link>
       </div>
     </article>

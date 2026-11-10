@@ -3,13 +3,13 @@ import ArrowIcon from "@/components/ArrowIcon";
 import PageHero from "@/components/sections/PageHero";
 export default function Contact() {
   return (
-    <div>
+    <div className="rs-contact">
       <PageHero
-        eyebrow="Let's create together"
-        title="Your celebration starts here."
-        subtitle="A few details are all we need to begin. Share your occasion, your date, and what you're imagining."
+        eyebrow="Let’s create together"
+        title={<>Your celebration <em>starts here.</em></>}
+        subtitle="A few details are all we need to begin. Share your occasion, your date, and what you’re imagining."
       />
-      <section className="section-wrap contact-layout">
+      <section className="section-wrap contact-layout contact-section">
         <aside>
           <p className="eyebrow">A thoughtful first step</p>
           <h2>
@@ -28,8 +28,9 @@ export default function Contact() {
           <div className="inquiry-next">
             <h3>What happens next?</h3>
             <p>
-              We review your date, location, and priorities, then discuss
-              availability and the right scope. If it feels like a fit, your
+              Rickya usually reaches out within a few minutes by phone or
+              text. You&apos;ll talk through your date, location, and priorities,
+              then availability and the right scope. If it feels like a fit, your
               custom proposal sets out the design, responsibilities, and booking
               steps.
             </p>

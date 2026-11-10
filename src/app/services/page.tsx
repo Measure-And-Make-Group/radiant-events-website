@@ -1,121 +1,65 @@
+import Image from "next/image";
 import Link from "next/link";
+import ArrowIcon from "@/components/ArrowIcon";
 import { pageMetadata } from "@/lib/seo";
-import PageHero from "@/components/sections/PageHero";
-import PlaceholderMedia from "@/components/PlaceholderMedia";
-import { Reveal } from "@/components/motion/Reveal";
 import { services } from "@/content/services";
-import { siteConfig } from "@/lib/site-config";
+import "../radiant-editorial.css";
 
 export const metadata = pageMetadata(
-  "Services",
-  "Planning + Coordination, Design + Room Styling, and Signature Installations for celebrations across Atlanta.",
+  "Event Planning, Design & Balloon Installations | Atlanta, Alpharetta & Milton",
+  "Explore event planning and coordination, room styling, custom balloon installations and backdrops across Atlanta, Alpharetta, Milton, Roswell and nearby communities.",
   "/services",
 );
 
-const FAQS = [
-  {
-    question: "How do custom proposals work?",
-    answer:
-      "After an initial consultation, we scope your event and put together a proposal specific to your date, venue, and the services you need — there's no fixed package pricing.",
-  },
-  {
-    question: "Can I combine multiple services?",
-    answer:
-      "Yes — most full-scale celebrations combine Planning + Coordination with Design + Room Styling. Signature Installations can also stand alone.",
-  },
-  {
-    question: "Do you travel outside Atlanta?",
-    answer:
-      "We're based in Atlanta and primarily serve the surrounding area. Reach out with your location and we'll confirm availability.",
-  },
+const images = [
+  {src:"/images/candlelight-hall-warm.webp", alt:"A full room of long banquet tables in black linen and candlelight, coordinated for an evening event in Roswell"},
+  {src:"/images/rose-centerpiece.webp", alt:"A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table"},
+  {src:"/images/flower-wall.webp", alt:"A rose-framed sequin shimmer wall installed as a photo backdrop for a book launch"},
 ];
 
 export default function ServicesPage() {
   return (
-    <div>
-      <PageHero
-        eyebrow="Services"
-        title="How We Help"
-        subtitle="Three ways to work with Radiant Events — chosen individually or combined into one fully considered experience."
-        mediaIndex={1}
-      />
-
-      <section className="mx-auto max-w-5xl px-6 py-20 space-y-24">
+    <div className="re-home re-services-page">
+      <section className="re-subpage-hero" aria-labelledby="services-heading">
+        <p className="re-kicker">RADIANT EVENTS PLANNING / HOW WE HELP</p>
+        <h1 id="services-heading">Your vision, <em>beautifully brought together.</em></h1>
+        <p>From the first idea to the finishing touch, we offer three thoughtful ways to support your event. Choose one service or discuss combining them in a tailored proposal.</p>
+        <Link href="/contact" className="re-cta re-cta-olive">Start your event inquiry <ArrowIcon /></Link>
+        <span className="re-subpage-index" aria-hidden="true">01 — 03 / SERVICES</span>
+      </section>
+      <section className="re-service-catalog" aria-label="Event planning and design services">
         {services.map((service, i) => (
-          <div
-            key={service.slug}
-            className={`grid md:grid-cols-2 gap-10 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
-          >
-            <PlaceholderMedia
-              index={i + 1}
-              className="aspect-[4/5] rounded-sm"
-            />
-            <Reveal>
-              <p className="font-display italic text-lg text-tangerine mb-2">
-                {service.tagline}
-              </p>
-              <h2 className="font-display text-3xl md:text-4xl text-aubergine mb-4">
-                {service.title}
-              </h2>
-              <p className="font-sans text-sm text-stone leading-relaxed mb-6">
-                {service.summary}
-              </p>
-              <ul className="space-y-2 mb-6">
-                {service.includes.slice(0, 3).map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-2 font-sans text-sm text-ink"
-                  >
-                    <span className="mt-2 h-1 w-1 rounded-full bg-tangerine flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={`/services/${service.slug}`}
-                className="font-sans text-sm uppercase tracking-wide-lg text-aubergine border-b border-tangerine hover:text-tangerine"
-              >
-                Explore {service.title}
-              </Link>
-            </Reveal>
-          </div>
+          <article className="re-service-feature" key={service.slug}>
+            <div className="re-service-feature-photo" data-reveal>
+              <Image src={images[i].src} alt={images[i].alt} fill sizes="(max-width:760px) 100vw, 48vw" />
+              <span>0{i + 1} / 03</span>
+            </div>
+            <div className="re-service-feature-content" data-reveal>
+              <p className="re-kicker">{service.tagline}</p>
+              <h2>{service.title}</h2>
+              <p className="re-service-feature-summary">{service.summary}</p>
+              <p className="re-service-ideal"><strong>Best for</strong> {service.idealFor}</p>
+              <h3>What we can help with</h3>
+              <ul>{service.includes.slice(0,4).map(item=><li key={item}>{item}</li>)}</ul>
+              <Link href={`/services/${service.slug}`} className="re-text-link">Explore this service <ArrowIcon /></Link>
+            </div>
+          </article>
         ))}
       </section>
-
-      <section className="bg-cream px-6 py-20">
-        <div className="mx-auto max-w-3xl">
-          <Reveal className="text-center mb-12">
-            <h2 className="font-display text-4xl text-ink">Common Questions</h2>
-          </Reveal>
-          <div className="space-y-8">
-            {FAQS.map((faq) => (
-              <Reveal key={faq.question}>
-                <h3 className="font-display text-xl text-aubergine mb-2">
-                  {faq.question}
-                </h3>
-                <p className="font-sans text-sm text-stone leading-relaxed">
-                  {faq.answer}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+      <section className="re-services-note" data-reveal>
+        <p className="re-kicker">PLANNING WITH PURPOSE. SERVING WITH GRACE.</p>
+        <h2>Not sure which level <em>of support fits?</em></h2>
+        <p>Tell us the occasion, venue, date, priorities, and comfortable investment range. We’ll help clarify which services make sense before developing your proposal.</p>
+        <div className="re-services-note-links">
+          <Link className="re-cta re-cta-olive" href="/contact">Tell us about your event <ArrowIcon /></Link>
+          <Link className="re-text-link" href="/investment">Learn about investment <ArrowIcon /></Link>
         </div>
       </section>
-
-      <section className="bg-aubergine text-cream-light">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <h2 className="font-display text-4xl mb-6">Not sure which fits?</h2>
-          <p className="font-sans text-cream-light/90 mb-8">
-            Tell us about your celebration and we&rsquo;ll recommend the right
-            level of support.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block rounded-full bg-tangerine px-8 py-4 font-sans uppercase tracking-wide-lg text-sm text-cream-light hover:bg-coral transition-colors"
-          >
-            {siteConfig.primaryCta}
-          </Link>
-        </div>
+      <section className="re-service-areas" data-reveal aria-labelledby="service-areas-title">
+        <p className="re-kicker">GREATER ATLANTA AND NORTH ATLANTA</p>
+        <h2 id="service-areas-title">Locally rooted. <em>Thoughtfully present.</em></h2>
+        <p>Radiant Events Planning works with clients throughout the Atlanta area, including Alpharetta, Milton, Roswell, Johns Creek, Sandy Springs, Dunwoody, Brookhaven, Marietta, Cumming, and Norcross. Travel, venue access, and availability are confirmed for every inquiry.</p>
+        <Link href="/contact" className="re-text-link">Ask about your location <ArrowIcon /></Link>
       </section>
     </div>
   );

@@ -34,7 +34,7 @@ export const faqs = [
     group: "Scope & investment",
     question: "Can you work with a venue or vendors I already have?",
     answer:
-      "Include the venue and any booked vendors in your inquiry. We will discuss where Radiant’s responsibilities begin and end, and confirm the access and coordination requirements before agreeing the scope.",
+      "Include the venue and any booked vendors in your inquiry. We will discuss where REP’s responsibilities begin and end, and confirm the access and coordination requirements before agreeing the scope.",
   },
   {
     group: "Booking & event day",

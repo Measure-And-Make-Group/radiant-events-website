@@ -10,23 +10,27 @@ export function pageMetadata(
   title: string,
   description: string,
   path: string,
+  image?: string,
 ): Metadata {
+  const images = image
+    ? [{ url: siteConfig.url + image, alt: `${title} by Radiant Events Planning` }]
+    : [shareImage];
   return {
     title,
     description,
     alternates: { canonical: path },
     openGraph: {
-      title: `${title} | Radiant Events`,
+      title: `${title} | ${siteConfig.name}`,
       description,
       url: path,
       type: "website",
-      images: [shareImage],
+      images,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Radiant Events`,
+      title: `${title} | ${siteConfig.name}`,
       description,
-      images: [shareImage],
+      images,
     },
   };
 }

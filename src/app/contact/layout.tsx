@@ -1,8 +1,8 @@
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata(
-  "Contact",
-  "Begin a consultation with Radiant Events for your next celebration.",
+  "Start Your Event Inquiry",
+  "Tell Radiant Events Planning about your celebration: your date, venue and vision. Planning, room styling and balloon installations across Atlanta and North Atlanta.",
   "/contact",
 );
 

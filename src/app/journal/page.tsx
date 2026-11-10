@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import PageHero from "@/components/sections/PageHero";
-import { Reveal } from "@/components/motion/Reveal";
 import { journalArticles } from "@/content/journal";
 
 export const metadata = pageMetadata(
-  "Journal",
+  "Helpful Reads",
   "Planning education, design inspiration, and venue insights from Radiant Events.",
   "/journal",
 );
@@ -14,7 +13,7 @@ export default function JournalPage() {
   return (
     <div>
       <PageHero
-        eyebrow="Journal"
+        eyebrow="Helpful Reads"
         title="Notes on Planning & Design"
         subtitle="Practical guidance and design thinking for hosts planning a celebration of their own."
         mediaIndex={0}
@@ -22,7 +21,7 @@ export default function JournalPage() {
 
       <section className="mx-auto max-w-4xl px-6 py-16 space-y-12">
         {journalArticles.map((article) => (
-          <Reveal key={article.slug}>
+          <div key={article.slug} data-reveal="">
             <Link href={`/journal/${article.slug}`} className="group block">
               <p className="font-sans uppercase tracking-wide-lg text-xs text-aubergine mb-2">
                 {article.category} &middot; {article.readingTime}
@@ -34,7 +33,7 @@ export default function JournalPage() {
                 {article.excerpt}
               </p>
             </Link>
-          </Reveal>
+          </div>
         ))}
       </section>
     </div>

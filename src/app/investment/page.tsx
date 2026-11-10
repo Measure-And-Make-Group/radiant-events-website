@@ -54,13 +54,13 @@ export default function Investment() {
             ],
             [
               "A cohesive room",
-              "Design + Room Styling",
+              "Design & Room Styling",
               "A connected palette, layout, and styling direction.",
               "design-room-styling",
             ],
             [
               "Support behind the scenes",
-              "Planning + Coordination",
+              "Planning & Coordination",
               "Help bringing the agreed logistics and event flow together.",
               "planning-coordination",
             ],

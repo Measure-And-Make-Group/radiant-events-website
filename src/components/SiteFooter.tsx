@@ -10,7 +10,7 @@ export default function SiteFooter() {
         <div>
           <Image
             src="/brand/radiant-olive-logo.webp"
-            alt={`${siteConfig.name} ${siteConfig.location}`}
+            alt={`${siteConfig.name} logo`}
             width={220}
             height={140}
             className="footer-logo mb-8"
@@ -32,7 +32,7 @@ export default function SiteFooter() {
                 </Link>
               </li>
             ))}
-            {[{href:"/investment",label:"Investment"},{href:"/faq",label:"Questions"},{href:"/client-guide",label:"Client guide"},{href:"/journal",label:"Journal"}].map(link => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}
+            {[{href:"/service-areas",label:"Service areas"},{href:"/investment",label:"Investment"},{href:"/faq",label:"Questions"},{href:"/client-guide",label:"Client guide"},{href:"/journal",label:"Helpful Reads"}].map(link => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}
             <li>
               <Link href="/contact" className="hover:text-white">
                 Contact
@@ -72,8 +72,7 @@ export default function SiteFooter() {
         <div className="footer-bottom mx-auto max-w-6xl px-6 py-6 text-xs text-cream/60 font-sans flex flex-col sm:flex-row justify-between gap-2">
           <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <span>
-              &copy; {new Date().getFullYear()} {siteConfig.name}{" "}
-              {siteConfig.location.split(",")[0]}. All rights reserved.
+              &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
             </span>
             {siteConfig.footerLegal.map((link) => (
               <Link

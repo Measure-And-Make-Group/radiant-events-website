@@ -16,10 +16,6 @@ export default function Template({ children }: { children: ReactNode }) {
           "--reading-progress",
           String(distance > 0 ? Math.min(1, scrollY / distance) : 0),
         );
-        el.style.setProperty(
-          "--hero-drift",
-          `${Math.min(scrollY * 0.12, 90)}px`,
-        );
         frame = 0;
       });
     };
@@ -28,7 +24,6 @@ export default function Template({ children }: { children: ReactNode }) {
       window.removeEventListener("scroll", scroll);
       if (media.matches) {
         el.classList.remove("motion-enabled");
-        el.style.removeProperty("--hero-drift");
         return;
       }
       el.classList.add("motion-enabled");

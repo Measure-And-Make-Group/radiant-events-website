@@ -1,45 +1,40 @@
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import ArrowIcon from "@/components/ArrowIcon";
 import PageHero from "@/components/sections/PageHero";
-import { Reveal } from "@/components/motion/Reveal";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = pageMetadata(
-  "Process",
-  "A calm, considered client journey from first inquiry to final celebration.",
+  "Our Process",
+  "How working with Radiant Events Planning flows, from your first inquiry to a beautifully finished space in Atlanta and North Atlanta.",
   "/process",
 );
 
+// Step copy is the owner's approved wording (owner revision brief, 2026-09-28).
 const STEPS = [
   {
-    number: "01",
     title: "Inquiry",
-    copy: "You reach out through the consultation form with the shape of your celebration — event type, date, and vision.",
+    copy: "Start by telling us about your celebration — the vision, date, location, budget, inspiration, and the details that matter most to you.",
   },
   {
-    number: "02",
     title: "Consultation",
-    copy: "We talk through your vision, your guests, your budget, and what a resolved celebration feels like to you.",
+    copy: "We talk through your priorities, the setting, the look you love, and what a successful event feels like to you.",
   },
   {
-    number: "03",
-    title: "Concept + Scope",
-    copy: "We recommend the right services and put together a proposal specific to your event.",
+    title: "Concept & Scope",
+    copy: "We recommend the design elements that fit your event and share a tailored scope, investment, and next steps.",
   },
   {
-    number: "04",
-    title: "Booking + Planning",
-    copy: "Once the scope and booking terms are agreed, we translate the concept into your plan: design direction, responsibilities, venue needs, and the details that will carry your day.",
+    title: "Design & Preparation",
+    copy: "Once the direction is approved, we refine the details, source agreed materials, and confirm the installation plan.",
   },
   {
-    number: "05",
-    title: "Production + Installation",
-    copy: "The agreed vendor, setup, and coordination arrangements are confirmed against your venue access and event timeline.",
+    title: "Installation",
+    copy: "We coordinate the agreed access and setup details, then bring the approved design to life at your venue.",
   },
   {
-    number: "06",
-    title: "Celebration",
-    copy: "On the day itself, we lead quietly behind the scenes so you can be fully present in the room.",
+    title: "Celebrate",
+    copy: "Enjoy the space and the people you gathered. If takedown is included in your agreement, we'll return at the scheduled time.",
   },
 ];
 
@@ -47,46 +42,51 @@ export default function ProcessPage() {
   return (
     <div>
       <PageHero
-        eyebrow="Process"
-        title="How We Work Together"
-        subtitle="A calm, considered path from first inquiry to final toast."
-        mediaIndex={0}
+        eyebrow="Our process"
+        title={<>A clear path, <em>beautifully finished.</em></>}
+        subtitle="A clear path from your first idea to a beautifully finished space."
+        image={{
+          src: "/images/candlelight-tables-warm.webp",
+          alt: "Long banquet tables set with gold chargers, greenery runners and rows of candlelight",
+          caption: "Candlelit tables · Roswell",
+          position: "50% 60%",
+        }}
       />
 
-      <section className="mx-auto max-w-4xl px-6 py-20">
-        <div className="space-y-16">
-          {STEPS.map((step, i) => (
-            <Reveal
-              key={step.number}
-              delay={Math.min(i * 0.05, 0.2)}
-              className="grid md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-start"
-            >
-              <span className="font-display text-6xl text-blush leading-none">
-                {step.number}
-              </span>
-              <div>
-                <h2 className="font-display text-3xl text-aubergine mb-3">
-                  {step.title}
-                </h2>
-                <p className="font-sans text-stone leading-relaxed max-w-xl">
-                  {step.copy}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+      <section className="rs-section">
+        <div className="rs-head" data-reveal="">
+          <p className="eyebrow">Six steps</p>
+          <h2>
+            Simple to begin. <em>Cared for throughout.</em>
+          </h2>
+          <p>
+            Every event is scoped individually, so the details of each step
+            are confirmed in your proposal.
+          </p>
         </div>
+        <ol className="rs-steps">
+          {STEPS.map((step, i) => (
+            <li className="rs-step" key={step.title} data-reveal="">
+              <span className="rs-step-number">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{step.title}</h3>
+              <p>{step.copy}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="bg-aubergine text-cream-light">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <h2 className="font-display text-4xl mb-6">Ready to begin?</h2>
-          <Link
-            href="/contact"
-            className="inline-block rounded-full bg-tangerine px-8 py-4 font-sans uppercase tracking-wide-lg text-sm text-cream-light hover:bg-coral transition-colors"
-          >
-            {siteConfig.primaryCta}
-          </Link>
-        </div>
+      <section className="closing-cta">
+        <p className="eyebrow">Step one is simple</p>
+        <h2>
+          Tell us what you’re <em>celebrating.</em>
+        </h2>
+        <p>
+          Share your date, location and inspiration. An inquiry starts the
+          conversation and never commits you to a booking.
+        </p>
+        <Link href="/contact" className="button-light">
+          {siteConfig.primaryCta} <ArrowIcon />
+        </Link>
       </section>
     </div>
   );
