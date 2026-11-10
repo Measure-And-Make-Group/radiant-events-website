@@ -28,17 +28,46 @@ const csp = [
 
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
-  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains",
+  },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  },
 ];
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      {
+        source: "/connect/rickya/Rickya-Fandino.vcf",
+        headers: [
+          { key: "Content-Type", value: "text/vcard; charset=utf-8" },
+          {
+            key: "Content-Disposition",
+            value: 'attachment; filename="Rickya-Fandino.vcf"',
+          },
+          { key: "Cache-Control", value: "public, max-age=3600" },
+        ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/rickya",
+        destination:
+          "/connect/rickya?utm_source=short_link&utm_medium=direct&utm_campaign=rickya_card",
+        permanent: true,
+      },
+    ];
   },
 };
 

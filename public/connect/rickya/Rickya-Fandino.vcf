@@ -6,7 +6,15 @@ ORG:Radiant Events Planning
 TITLE:Founder
 EMAIL;TYPE=INTERNET,WORK:bookings@radianteventsplanning.com
 TEL;TYPE=CELL,VOICE:+19147332756
-URL:https://www.radianteventsplanning.com/connect/rickya
+ADR;TYPE=WORK:;;;Atlanta;GA;;USA
+item1.URL:https://www.radianteventsplanning.com/
+item1.X-ABLabel:Website
+item2.URL:https://www.radianteventsplanning.com/connect/rickya
+item2.X-ABLabel:Digital card
+item3.URL:https://www.instagram.com/radianteventsplanning
+item3.X-ABLabel:Instagram
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/radianteventsplann
+ ing
 NOTE:Event planning\, coordination\, styling\, and signature installation
  s in Atlanta and North Atlanta.
 PHOTO;ENCODING=b;TYPE=JPEG:/9j/2wBDAAMDAwMDAwQEBAQFBQUFBQcHBgYHBwsICQgJCAsR

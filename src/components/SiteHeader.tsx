@@ -5,17 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site-config";
+import styles from "./SiteHeader.module.css";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isCard = pathname.startsWith("/connect/");
   const isCurrent = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || isCard) return;
 
     const panel = panelRef.current;
     const focusable = panel?.querySelectorAll<HTMLElement>("a, button");
@@ -41,7 +43,18 @@ export default function SiteHeader() {
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [open, isCard]);
+
+  if (isCard) return (
+    <header className="site-header sticky top-0 z-50 bg-cream-light/95 backdrop-blur border-b border-taupe/40">
+      <div className="header-inner">
+        <Link href="/" className="header-brand" aria-label="Radiant Events Planning home">
+          <Image src="/brand/radiant-olive-logo.webp" alt="" width={46} height={46} className="header-emblem" preload />
+        </Link>
+        <Link href="/contact" className={styles.cardInquiry}>{siteConfig.primaryCta}</Link>
+      </div>
+    </header>
+  );
 
   return (
     <header className="site-header sticky top-0 z-50 bg-cream-light/95 backdrop-blur border-b border-taupe/40">

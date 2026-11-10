@@ -4,9 +4,11 @@ import type { Metadata } from "next";
 import { CardActions } from "./CardActions";
 import styles from "./card.module.css";
 import ArrowIcon from "@/components/ArrowIcon";
+import { InAppBrowserNote } from "./InAppBrowserNote";
+import { QR_IMAGE, SMS_REFERRAL_URL } from "./card-links";
 
 export const metadata: Metadata = {
-  title: { absolute: "Rickya Fandino | Connect with Radiant Events Planning" },
+  title: { absolute: "Rickya Fandino | Radiant Events Planning" },
   description:
     "Connect with Rickya Fandino, founder of Radiant Events Planning. Save her business contact, see her work, or start an event inquiry.",
   alternates: { canonical: "/connect/rickya" },
@@ -17,23 +19,27 @@ export const metadata: Metadata = {
     description:
       "Planning with Purpose. Serving with Grace. Connect with Rickya.",
     url: "https://www.radianteventsplanning.com/connect/rickya",
-    images: [{
-      url: "/connect/rickya/rickya-share-preview-v1.png",
-      width: 1200,
-      height: 630,
-      type: "image/png",
-      alt: "Rickya Fandino, founder of Radiant Events Planning. Planning with Purpose. Serving with Grace.",
-    }],
+    images: [
+      {
+        url: "/connect/rickya/rickya-share-preview-v1.png",
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: "Rickya Fandino, founder of Radiant Events Planning. Planning with Purpose. Serving with Grace.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Rickya Fandino | Radiant Events Planning",
     description:
       "Planning with Purpose. Serving with Grace. Connect with Rickya.",
-    images: [{
-      url: "/connect/rickya/rickya-share-preview-v1.png",
-      alt: "Rickya Fandino, founder of Radiant Events Planning",
-    }],
+    images: [
+      {
+        url: "/connect/rickya/rickya-share-preview-v1.png",
+        alt: "Rickya Fandino, founder of Radiant Events Planning",
+      },
+    ],
   },
 };
 
@@ -83,6 +89,7 @@ export default function RickyaCard() {
           >
             Save my business contact <ArrowIcon direction="down" />
           </a>
+          <InAppBrowserNote />
           <p className={styles.phoneNumber}>
             <span>Call or text</span> 914-733-2756
           </p>
@@ -100,6 +107,9 @@ export default function RickyaCard() {
               Start an inquiry <ArrowIcon />
             </Link>
           </div>
+          <a className={styles.referral} href={SMS_REFERRAL_URL}>
+            Text my card to a friend <ArrowIcon />
+          </a>
         </section>
         <section className={styles.brand} aria-labelledby="radiant-card-title">
           <Image
@@ -146,15 +156,12 @@ export default function RickyaCard() {
               Scan to open my card on your phone, or save the QR code to share
               it with someone.
             </p>
-            <a
-              href="/connect/rickya/rickya-qr.png"
-              download="Rickya-Fandino-QR.png"
-            >
+            <a href={QR_IMAGE} download="Rickya-Fandino-QR.png">
               Save QR code <ArrowIcon direction="down" />
             </a>
           </div>
           <Image
-            src="/connect/rickya/rickya-qr.png"
+            src={QR_IMAGE}
             width={164}
             height={164}
             unoptimized
