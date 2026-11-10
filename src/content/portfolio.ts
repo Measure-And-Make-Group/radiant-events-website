@@ -122,6 +122,23 @@ export const portfolioProjects: PortfolioProject[] = [
     servicesProvided: ["Balloon installation", "Themed focal-area styling"],
   },
   {
+    slug: "race-day",
+    title: "Race Day",
+    category: "Balloons + Backdrops",
+    occasion: "Birthday celebration",
+    headline: ["A finish line", "made for the birthday boy."],
+    image: "/images/race-day-backdrop.webp",
+    alt: "A checkered black and silver foil balloon wall with a Cars-style name sign, framed by red, black and white balloon garlands and race-car cutouts",
+    gallery: [{ src: "/images/race-day-backdrop.webp", alt: "A checkered black and silver foil balloon wall with a Cars-style name sign, framed by red, black and white balloon garlands and race-car cutouts" }],
+    overview:
+      "A racing-themed birthday backdrop: a checkered-flag wall of black and silver foil balloons, a custom name sign, and red, black and white garlands framing favorite characters.",
+    challenge:
+      "Bring a child's favorite movie into the room with a backdrop that feels bold, playful and ready for photos.",
+    designDirection:
+      "Square foil balloons in alternating black and silver form the checkered flag, finished with a name sign in the film's style. Asymmetric garlands in red, black and white frame the wall, with character cutouts at its base.",
+    servicesProvided: ["Foil balloon wall", "Balloon garlands", "Custom name sign", "Themed backdrop styling"],
+  },
+  {
     slug: "sweet-arrivals",
     title: "Sweet Arrivals",
     category: "Balloons + Backdrops",

@@ -11,7 +11,7 @@ or worded generally until confirmed.
       and in the sitemap.
 - [ ] **Portfolio filters by event type.** Filters are by service today. Seven projects are
       published: bridal shower, men's evening event, book launch, birthday game night, baby
-      showers, proposal and a community Christmas entrance.
+      showers, proposal, a racing-themed birthday and a community Christmas entrance.
 - [x] **Withdrawn projects.** "A Moment in Pink" (owner rejected the photography, 2026-11-09)
       and "Color, Confetti & Joy" are no longer published; their URLs redirect to
       /portfolio. Photos remain in Drive and git history if either returns.
@@ -28,5 +28,5 @@ or worded generally until confirmed.
       **2026-11-10:** owner-supplied photos added (bridal shower, book launch, baby showers,
       proposal, Christmas entrance, plus a behind-the-scenes installation clip). The originals
       still need to be filed in the Drive folder (the Drive connector cannot upload files this
-      size). The Cars birthday backdrop is not published: it is built on Disney/Pixar
-      characters and logos and shows a child's name and a TV activation code.
+      size). The Cars birthday backdrop ("Race Day") is published with the owner's
+      permission; the TV screen behind it is blurred so its activation code is unreadable.
