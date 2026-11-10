@@ -3,7 +3,9 @@ import { useState } from "react";
 import styles from "./card.module.css";
 import ArrowIcon from "@/components/ArrowIcon";
 
-const url = "https://www.radianteventsplanning.com/connect/rickya";
+// A new sharing URL lets messaging apps fetch the branded preview instead of
+// reusing their cached portrait-only preview. The page's canonical URL is unchanged.
+const url = "https://www.radianteventsplanning.com/connect/rickya?share=v2";
 
 export function CardActions() {
   const [message, setMessage] = useState("");

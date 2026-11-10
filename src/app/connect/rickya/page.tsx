@@ -11,18 +11,29 @@ export const metadata: Metadata = {
     "Connect with Rickya Fandino, founder of Radiant Events Planning. Save her business contact, see her work, or start an event inquiry.",
   alternates: { canonical: "/connect/rickya" },
   openGraph: {
+    type: "website",
+    siteName: "Radiant Events Planning",
     title: "Rickya Fandino | Radiant Events Planning",
     description:
       "Planning with Purpose. Serving with Grace. Connect with Rickya.",
     url: "https://www.radianteventsplanning.com/connect/rickya",
-    images: [{ url: "/images/rickya-fandino.webp", alt: "Rickya Fandino" }],
+    images: [{
+      url: "/connect/rickya/rickya-share-preview-v1.png",
+      width: 1200,
+      height: 630,
+      type: "image/png",
+      alt: "Rickya Fandino, founder of Radiant Events Planning. Planning with Purpose. Serving with Grace.",
+    }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Rickya Fandino | Radiant Events Planning",
     description:
       "Planning with Purpose. Serving with Grace. Connect with Rickya.",
-    images: ["/images/rickya-fandino.webp"],
+    images: [{
+      url: "/connect/rickya/rickya-share-preview-v1.png",
+      alt: "Rickya Fandino, founder of Radiant Events Planning",
+    }],
   },
 };
 
