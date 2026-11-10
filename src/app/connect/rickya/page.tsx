@@ -72,7 +72,16 @@ export default function RickyaCard() {
           >
             Save my business contact <ArrowIcon direction="down" />
           </a>
+          <p className={styles.phoneNumber}>
+            <span>Call or text</span> 914-733-2756
+          </p>
           <div className={styles.quick}>
+            <a href="sms:+19147332756">
+              Text me <ArrowIcon />
+            </a>
+            <a href="tel:+19147332756">
+              Call me <ArrowIcon />
+            </a>
             <a href="mailto:bookings@radianteventsplanning.com">
               Send an email <ArrowIcon />
             </a>
