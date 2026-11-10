@@ -371,7 +371,7 @@ export default function InquiryForm() {
               {field("phone", "Mobile number · fastest reply", "tel", true)}
               {select(
                 "referral",
-                "How did you discover Radiant?",
+                "How did you discover REP?",
                 siteConfig.referralSources,
                 true,
               )}

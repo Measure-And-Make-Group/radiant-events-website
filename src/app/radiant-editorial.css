@@ -92,48 +92,17 @@
  .re-founder-content { padding:65px 9%; }
 }
 @media(max-width:760px) {
+ /* Phone layout, type scale and spacing for the homepage live in one place:
+    "Homepage on phones" in radiant-system.css. Only base-level resets here. */
  .re-home .re-kicker { font-size:10px; }
- .re-opening { min-height:min(790px,calc(100svh - 70px)); }
- .re-opening-photo img { object-position:56% center; }
- .re-opening-shade { background:linear-gradient(90deg,rgba(28,37,25,.83),rgba(29,38,26,.54)),linear-gradient(0deg,rgba(22,31,19,.5),transparent 32%); }
- .re-opening-inner { padding:95px 25px 140px; }
- .re-opening h1 { font-size:clamp(65px,15vw,99px); max-width:620px; margin-top:22px; }
- .re-opening-intro { font-size:16px; }
- .re-opening-actions { align-items:flex-start; gap:25px; flex-direction:column; }
- .re-opening-bottom { left:25px; right:25px; bottom:22px; font-size:9px; }
- .re-opening-bottom span { max-width:155px; }
- .re-statement { padding:85px 25px 95px; }
- .re-statement h2,.re-section-heading h2,.re-collection-head h2 { font-size:clamp(57px,11.5vw,80px); }
- .re-services { padding:85px 23px 95px; }
- .re-section-heading { margin-bottom:33px; }
+ .re-statement { grid-template-columns:1fr; }
  .re-service-grid { grid-template-columns:1fr; gap:43px; }
- .re-service-photo { aspect-ratio:1.15; }
  .re-service-meta { margin-top:15px; }
- .re-service h3 { font-size:42px; }
- .re-pause { padding:87px 22px 95px; }
- .re-pause h2 { font-size:clamp(59px,11.5vw,83px); }
- .re-collection { padding:85px 23px 100px; }
  .re-work-grid { grid-template-columns:1fr; gap:42px; }
  .re-work-card-1 { grid-row:auto; }
- .re-work-card-3 { margin-top:0; }
- .re-work-photo,.re-work-card-1 .re-work-photo { aspect-ratio:1.05; }
- .re-work-info h3 { font-size:42px; }
  .re-founder { grid-template-columns:1fr; }
- .re-founder-image { min-height:490px; }
- .re-founder-content { padding:85px 28px 90px; }
- .re-founder h2 { font-size:clamp(63px,12vw,84px); }
- .re-journey { padding:90px 25px 100px; }
  .re-steps { grid-template-columns:1fr; gap:32px; }
  .re-step:not(:first-child) { border-top:1px solid #b7a898; padding-top:25px; }
- .re-step h3 { font-size:42px; margin-top:5px; }
- .re-finale { padding:105px 24px 115px; }
- .re-finale h2 { font-size:clamp(65px,12vw,91px); }
-}
-@media(max-width:390px) {
- .re-opening h1 { font-size:62px; }
- .re-opening-bottom a { max-width:95px; text-align:right; }
- .re-home .re-cta { padding:17px 19px; }
- .re-statement h2,.re-section-heading h2,.re-collection-head h2 { font-size:55px; }
 }
 @media(prefers-reduced-motion:no-preference) {
  .re-home .re-service:hover img,.re-home .re-work-card:hover img { will-change:transform; }
@@ -144,7 +113,6 @@
 /* 2026-11 Radiant: logo-first hero. No balloon backdrop on arrival. */
 .re-home .re-opening { min-height:min(820px, calc(100svh - 70px)); background:radial-gradient(circle at 80% 35%,#e7e8d9 0%,#f8f6ee 48%,#eeeadd 100%);color:#2b2b26; }
 .re-opening-ambience { position:absolute;inset:0;overflow:hidden;z-index:-1;pointer-events:none; }
-.re-opening-watermark { object-fit:contain;object-position:center;opacity:.16;transform:translate(21%, 1%) scale(.96);filter:saturate(.65); }
 .re-ambience-ring { position:absolute;display:block;border:1px solid rgba(89,102,74,.22);border-radius:50%;aspect-ratio:1; }
 .re-ambience-ring-one { width:min(85vw,900px);right:-15%;top:-55%; }
 .re-ambience-ring-two { width:min(64vw,670px);right:-8%;bottom:-64%; }
@@ -157,8 +125,6 @@
 .re-home .re-cta-olive:hover { background:#35412e; }
 .re-home .re-opening .re-text-link { color:#59664a; }
 @media(max-width:760px) {
-  .re-home .re-opening { min-height:min(780px, calc(100svh - 60px)); background:linear-gradient(145deg,#f8f6ee,#e7e7d8); }
-  .re-opening-watermark { opacity:.13;transform:translate(15%, -17%) scale(1.1); }
   .re-ambience-ring-one { width:120vw;right:-65%;top:-20%; }
   .re-ambience-ring-two { width:98vw;right:-60%;bottom:-24%; }
 }
@@ -191,8 +157,7 @@
 }
 @media(max-width:440px) {
   .re-guide-link { grid-template-columns:26px 1fr 20px;gap:10px; }
-  .re-guide-text strong { font-size:29px; }
-  .re-client-guide-intro h2,.re-faq-intro h2 { font-size:60px; }
+  .re-guide-text strong { font-size:27px; }
 }
 /* Service journey redesign and considered interactive motion. */
 .re-services-page .re-subpage-hero { position:relative;overflow:hidden;background:radial-gradient(circle at 85% 35%,#e5e8dc,#f8f6ee 55%);padding:clamp(88px,10vw,155px) max(26px,calc((100vw - 1270px)/2 + 40px)) 105px; }
@@ -227,25 +192,20 @@
 .re-service-areas .re-text-link { margin-top:8px; }
 @media(max-width:760px) {
   .re-services-page .re-subpage-hero { padding:100px 26px 90px; }
-  .re-services-page .re-subpage-hero h1 { font-size:clamp(64px,12.5vw,86px); }
+  .re-services-page .re-subpage-hero h1 { font-size:clamp(42px,12vw,72px);line-height:1.02; }
   .re-service-feature { grid-template-columns:1fr; }
   .re-service-feature:nth-child(even) .re-service-feature-photo { order:0; }
   .re-service-feature-photo { min-height:400px;aspect-ratio:1.05; }
   .re-service-feature-content { padding:68px 27px 75px; }
-  .re-service-feature-content h2 { font-size:63px; }
+  .re-service-feature-content h2 { font-size:clamp(42px,12vw,63px);line-height:1; }
   .re-services-note,.re-service-areas { padding:83px 26px; }
-  .re-services-note h2,.re-service-areas h2 { font-size:63px; }
+  .re-services-note h2,.re-service-areas h2 { font-size:clamp(40px,11.5vw,63px);line-height:1.04; }
 }
 @media(prefers-reduced-motion:no-preference) {
  .re-home .re-service-photo img,.re-home .re-work-photo img { transition:transform .9s cubic-bezier(.2,.6,.2,1),filter .9s; }
  .re-home .re-service:hover .re-service-photo img,.re-home .re-work-card:hover .re-work-photo img { filter:saturate(1.08); }
  .re-home .re-guide-link svg,.re-home .re-service-meta svg,.re-home .re-work-info svg { transition:transform .35s cubic-bezier(.2,.8,.2,1); }
  .re-home .re-guide-link:hover svg,.re-home .re-service:hover .re-service-meta svg,.re-home .re-work-card:hover .re-work-info svg { transform:translateX(6px); }
- .re-home .re-opening-watermark { animation:radiant-hero-drift 15s ease-in-out infinite alternate; }
-}
-@keyframes radiant-hero-drift { to { transform:translate(19%,3%) scale(1.01); } }
-@media(max-width:760px) and (prefers-reduced-motion:no-preference) {
- .re-home .re-opening-watermark { animation:none; }
 }
 
 .re-area-grid{max-width:970px;margin:42px auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #b7a898;border-left:1px solid #b7a898}.re-area-city{padding:18px 12px;border-right:1px solid #b7a898;border-bottom:1px solid #b7a898;font:600 12px var(--font-montserrat),sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#59664a}@media(max-width:760px){.re-area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

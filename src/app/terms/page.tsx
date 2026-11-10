@@ -22,7 +22,7 @@ export default function Terms() {
         <p>
           Submitting the inquiry form does not reserve a date, confirm pricing,
           or create a service agreement. Availability and the scope of your
-          event are confirmed directly with Radiant.
+          event are confirmed directly with REP.
         </p>
         <h2 className="text-2xl">Your custom proposal</h2>
         <p>
@@ -33,7 +33,7 @@ export default function Terms() {
         </p>
         <h2 className="text-2xl">Photography &amp; content</h2>
         <p>
-          Contact Radiant before reusing the branding, photography, or original
+          Contact REP before reusing the branding, photography, or original
           website content.
         </p>
       </div>

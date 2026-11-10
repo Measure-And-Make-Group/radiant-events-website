@@ -12,9 +12,9 @@ export const metadata = pageMetadata(
 );
 
 const images = [
-  {src:"/images/celebration-detail.webp", alt:"Thoughtfully coordinated celebration details"},
-  {src:"/images/styled-table-detail.webp", alt:"Event table with carefully styled decorative details"},
-  {src:"/images/pink-arch.webp", alt:"Pink balloon installation and circular gold event backdrop"},
+  {src:"/images/candlelight-hall-warm.webp", alt:"A full room of long banquet tables in black linen and candlelight, coordinated for an evening event in Roswell"},
+  {src:"/images/pearls-dessert-table.webp", alt:"Cupcakes with pearl-topped frosting, roses in clear glass and wrapped favor cones on an ivory dessert table"},
+  {src:"/images/flower-wall-launch.webp", alt:"A rose-framed pink sequin shimmer wall installed as a photo backdrop for a book launch"},
 ];
 
 export default function ServicesPage() {

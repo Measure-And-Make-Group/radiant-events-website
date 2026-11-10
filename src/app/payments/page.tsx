@@ -30,7 +30,7 @@ export default function Payments() {
       <PageHero
         eyebrow="For our booked clients"
         title="One more detail, thoughtfully handled."
-        subtitle="Payments and deposits for your Radiant celebration."
+        subtitle="Payments and deposits for your REP celebration."
       />
       <section className="section-wrap payment-section">
         <h2>

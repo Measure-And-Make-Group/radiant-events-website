@@ -30,9 +30,9 @@ export async function POST(request: Request) {
     const link = `${siteConfig.url}/admin/verify?token=${encodeURIComponent(token)}`;
     await sendEmail({
       to: email,
-      subject: "Your Radiant inquiry inbox sign-in link",
-      text: `Use this link to sign in to the Radiant inquiry inbox. It works once and expires in 15 minutes.\n\n${link}\n\nIf you did not request it, you can ignore this email.`,
-      html: `<p style="font-family:Arial,sans-serif;font-size:16px;line-height:1.6;">Use this link to sign in to the Radiant inquiry inbox. It works once and expires in 15 minutes.</p><p style="font-family:Arial,sans-serif;font-size:16px;"><a href="${escapeHtml(link)}">Sign in to the inquiry inbox</a></p><p style="font-family:Arial,sans-serif;font-size:14px;color:#4a4a42;">If you did not request it, you can ignore this email.</p>`,
+      subject: "Your REP inquiry inbox sign-in link",
+      text: `Use this link to sign in to the REP inquiry inbox. It works once and expires in 15 minutes.\n\n${link}\n\nIf you did not request it, you can ignore this email.`,
+      html: `<p style="font-family:Arial,sans-serif;font-size:16px;line-height:1.6;">Use this link to sign in to the REP inquiry inbox. It works once and expires in 15 minutes.</p><p style="font-family:Arial,sans-serif;font-size:16px;"><a href="${escapeHtml(link)}">Sign in to the inquiry inbox</a></p><p style="font-family:Arial,sans-serif;font-size:14px;color:#4a4a42;">If you did not request it, you can ignore this email.</p>`,
       idempotencyKey: `admin-login/${token.slice(-24)}`,
     });
   }

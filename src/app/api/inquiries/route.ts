@@ -46,7 +46,7 @@ function clientHash(request: Request) {
 
 export async function POST(request: Request) {
   if (!sameOrigin(request))
-    return reply({ error: "Please submit from the Radiant website." }, 403);
+    return reply({ error: "Please submit from the REP website." }, 403);
   if (!request.headers.get("content-type")?.startsWith("application/json"))
     return reply({ error: "Invalid request format." }, 415);
   if (!authConfigured())

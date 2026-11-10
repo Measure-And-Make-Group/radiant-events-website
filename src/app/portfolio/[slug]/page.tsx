@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import StructuredData from "@/components/StructuredData";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { portfolioProjects, getProjectBySlug } from "@/content/portfolio";
+import LoopVideo from "@/components/LoopVideo";
 
 export function generateStaticParams() {
   return portfolioProjects.map((p) => ({ slug: p.slug }));
@@ -96,7 +97,7 @@ export default async function Project({
               {p.challenge}
             </div>
             <p className="rs-body">{p.designDirection}</p>
-            <h3>What Radiant provided</h3>
+            <h3>What REP provided</h3>
             <ul className="rs-list">
               {p.servicesProvided.map((s) => (
                 <li key={s}>{s}</li>
@@ -118,6 +119,15 @@ export default async function Project({
               </figure>
             ))}
           </div>
+        </section>
+      )}
+
+      {p.video && (
+        <section className="rs-section rs-video-section" aria-label="Behind the scenes">
+          <figure className="rs-video-figure" data-reveal="">
+            <LoopVideo src={p.video.src} poster={p.video.poster} label={p.video.caption} />
+            <figcaption className="eyebrow">{p.video.caption}</figcaption>
+          </figure>
         </section>
       )}
 

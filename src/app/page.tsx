@@ -19,7 +19,7 @@ const specialties = [
     text: "For help with the moving pieces: timelines, vendors, logistics, and a calm presence on the day, matched to your event and confirmed in your proposal.",
     best: "Hosts who want one trusted partner holding every thread.",
     href: "/services/planning-coordination",
-    image: "/images/candlelight-hall.webp",
+    image: "/images/candlelight-hall-warm.webp",
     alt: "Rows of candlelit banquet tables set for an evening event in Roswell",
   },
   {
@@ -28,8 +28,8 @@ const specialties = [
     text: "For a cohesive setting: palette direction, tablescapes, and decorative details carried through the whole room.",
     best: "A venue and a vision that need one considered look.",
     href: "/services/design-room-styling",
-    image: "/images/candlelight-detail.webp",
-    alt: "Navy plates on gold chargers with ribbon-tied napkins, greenery and candlelight",
+    image: "/images/pearls-dessert-table.webp",
+    alt: "Cupcakes with pearl-topped frosting, roses in clear glass and wrapped favor cones on an ivory dessert table",
   },
   {
     number: "03",
@@ -37,10 +37,13 @@ const specialties = [
     text: "For a photo-ready focal point: custom balloon installations and backdrops, booked on their own or alongside other services.",
     best: "One exceptional moment when the rest is already planned.",
     href: "/services/signature-installations",
-    image: "/images/pink-arch.webp",
-    alt: "Soft pink balloons arranged around a circular gold backdrop",
+    image: "/images/flower-wall-launch.webp",
+    alt: "A rose-framed pink sequin shimmer wall created as a photo backdrop for a book launch",
   },
 ];
+
+// Curated, not exhaustive: only the strongest approved projects are featured.
+const featuredWork = portfolioProjects.slice(0, 3);
 
 export default function Home() {
   return (
@@ -51,7 +54,7 @@ export default function Home() {
           <span className="re-ambience-ring re-ambience-ring-two" />
         </div>
         <div className="re-opening-inner">
-          <p className="re-kicker">RADIANT EVENTS PLANNING · ATLANTA, GEORGIA</p>
+          <p className="re-kicker">RADIANT EVENTS PLANNING (REP) · ATLANTA, GEORGIA</p>
           <h1 id="re-title">
             <span className="rm-line"><span>Planning</span></span>
             <span className="rm-line"><span>with purpose.</span></span>
@@ -70,31 +73,32 @@ export default function Home() {
         <div className="re-opening-media">
           <figure className="re-hero-main">
             <Image
-              src="/images/candlelight-hero.webp"
+              src="/images/candlelight-tables-warm.webp"
               alt="Long banquet tables dressed in black linen with gold chargers, greenery runners and rows of candlelight"
               fill
               priority
-              sizes="(max-width: 900px) 95vw, 46vw"
+              sizes="(max-width: 900px) 100vw, 46vw"
             />
           </figure>
-          <figure className="re-hero-inset">
+          {/* Desktop and tablet only: on phones one photograph tells the story. */}
+          <figure className="re-hero-inset" aria-hidden="true">
             <Image
-              src="/images/pink-arch.webp"
-              alt="Pink balloon installation around a gold circular frame"
+              src="/images/pearls-guess-table.webp"
+              alt=""
               fill
               sizes="(max-width: 900px) 34vw, 15vw"
             />
           </figure>
-          <p className="re-hero-caption">Real Radiant work · Candlelit tables, Roswell</p>
+          <p className="re-hero-caption">Real REP work · Candlelit tables, Roswell</p>
         </div>
         <div className="re-opening-bottom">
           <span>ATLANTA · ALPHARETTA · MILTON · NORTH ATLANTA</span>
-          <a href="#re-intro" aria-label="Scroll to discover Radiant">SCROLL TO DISCOVER ↓</a>
+          <a href="#re-intro" aria-label="Scroll to discover REP">SCROLL TO DISCOVER ↓</a>
         </div>
       </section>
 
       <section className="re-statement" data-reveal id="re-intro" aria-labelledby="re-statement-title">
-        <div className="re-statement-number">01 / THE RADIANT APPROACH</div>
+        <div className="re-statement-number">01 / THE REP APPROACH</div>
         <div>
           <p className="re-kicker">A celebration should feel like you.</p>
           <h2 id="re-statement-title">Beautifully planned. <em>Personally cared for.</em></h2>
@@ -103,7 +107,7 @@ export default function Home() {
             We combine personal attention, considered styling, and purposeful
             planning to make room for the moments that matter.
           </p>
-          <Link href="/about" className="re-text-link">Discover the heart behind Radiant <ArrowIcon /></Link>
+          <Link href="/about" className="re-text-link">Discover the heart behind REP <ArrowIcon /></Link>
         </div>
       </section>
 
@@ -164,7 +168,7 @@ export default function Home() {
           <Link href="/portfolio" className="re-text-link">View the collection <ArrowIcon /></Link>
         </div>
         <div className="re-work-grid">
-          {portfolioProjects.slice(0, 3).map((project, i) => (
+          {featuredWork.map((project, i) => (
             <Link href={`/portfolio/${project.slug}`} className={`re-work-card re-work-card-${i + 1}`} data-reveal key={project.slug}>
               <div className="re-work-photo" data-reveal="mask">
                 <Image src={project.image} alt={project.alt} fill sizes="(max-width: 760px) 94vw, 45vw" />

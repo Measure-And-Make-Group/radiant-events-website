@@ -43,12 +43,12 @@ export const services: ServiceDetail[] = [
       "On-site coordination on the day itself",
     ],
     image: {
-      src: "/images/candlelight-hall.webp",
+      src: "/images/candlelight-hall-warm.webp",
       alt: "A full event hall set with rows of candlelit banquet tables",
       caption: "Full room set · Roswell",
       position: "50% 55%",
     },
-    related: ["candlelight-and-conversation", "game-night-balloon-moment", "colorful-sequin-backdrop"],
+    related: ["candlelight-and-conversation", "pearls-and-champagne", "roses-and-shimmer"],
     faq: [
       {
         question: "How far in advance should we book?",
@@ -89,12 +89,12 @@ export const services: ServiceDetail[] = [
       "On-site styling and final detail pass before guest arrival",
     ],
     image: {
-      src: "/images/candlelight-hero.webp",
-      alt: "Black linens, gold chargers, greenery runners and candlelight along banquet tables",
-      caption: "Tablescape styling · Roswell",
-      position: "50% 60%",
+      src: "/images/pearls-champagne-wall.webp",
+      alt: "A boxwood champagne wall with gold shelving, a coupe tower draped in pearls and mini champagne favors",
+      caption: "Champagne wall · Bridal shower",
+      position: "72% 50%",
     },
-    related: ["candlelight-and-conversation", "colorful-sequin-backdrop", "pink-balloon-circle"],
+    related: ["pearls-and-champagne", "candlelight-and-conversation", "roses-and-shimmer"],
     faq: [
       {
         question: "Can this be paired with planning services?",
@@ -135,12 +135,12 @@ export const services: ServiceDetail[] = [
       "Collection or breakdown according to the confirmed arrangements",
     ],
     image: {
-      src: "/images/pink-sixteen.webp",
-      alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers",
-      caption: "Balloon installation · Sweet sixteen",
-      position: "50% 60%",
+      src: "/images/flower-wall-launch.webp",
+      alt: "A pink sequin shimmer wall framed in red, pink, coral and yellow roses",
+      caption: "Floral backdrop · Book launch",
+      position: "64% 50%",
     },
-    related: ["pink-balloon-circle", "colorful-sequin-backdrop", "game-night-balloon-moment"],
+    related: ["roses-and-shimmer", "sweet-arrivals", "under-the-lights"],
     faq: [
       {
         question: "How much lead time do installations need?",

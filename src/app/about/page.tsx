@@ -4,7 +4,7 @@ import Image from "next/image";
 import { pageMetadata } from "@/lib/seo";
 import PageHero from "@/components/sections/PageHero";
 export const metadata = pageMetadata(
-  "The Heart Behind Radiant",
+  "The Heart Behind REP",
   "Meet Rickya Fandino and the thoughtful, gracious approach behind Radiant Events in Atlanta.",
   "/about",
 );
@@ -12,7 +12,7 @@ export default function About() {
   return (
     <div>
       <PageHero
-        eyebrow="The heart behind Radiant"
+        eyebrow="The heart behind REP"
         title="Purpose in the process. Grace in the details."
         subtitle="We believe the way you're cared for matters as much as the way your celebration looks."
       />
@@ -35,7 +35,7 @@ export default function About() {
           <p>
             Rickya Fandino loves what celebrations make possible: people coming
             together, stories being honored, and memories that stay long after
-            the room is cleared. Radiant is her way of bringing that love for
+            the room is cleared. Radiant Events Planning (REP) is her way of bringing that love for
             people into thoughtful planning, beautiful design, and gracious
             care.
           </p>
@@ -94,7 +94,7 @@ export default function About() {
         </h2>
         <p>
           Our olive branch is a reminder of the faith and purpose at the heart
-          of Radiant.
+          of REP.
         </p>
         <Link href="/contact" className="button-light">
           Start your event inquiry <ArrowIcon />

@@ -95,13 +95,13 @@ export default async function Occasion({
       </section>
       <section className="section-wrap">
         <p className="eyebrow">A design example from our collection</p>
-        <h2>See the details in a real installation.</h2>
+        <h2>See the details in a real event.</h2>
         <p>
-          This example shows Radiant’s visual approach; your occasion receives
+          This example shows REP’s visual approach; your occasion receives
           its own design and scope.
         </p>
         <Link className="text-link" href={`/portfolio/${o.project}`}>
-          View the installation <ArrowIcon />
+          View the project <ArrowIcon />
         </Link>
       </section>
       <StructuredData

@@ -136,7 +136,7 @@ export default async function ServiceDetailPage({
           <div className="rs-head" data-reveal="">
             <p className="eyebrow">In practice</p>
             <h2>
-              Real Radiant <em>work.</em>
+              Real REP <em>work.</em>
             </h2>
           </div>
           <div className="rs-related" data-reveal="stagger">
