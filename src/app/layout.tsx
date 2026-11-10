@@ -6,6 +6,7 @@ import BrandEntrance from "@/components/BrandEntrance";
 import RadiantMotion from "@/components/RadiantMotion";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import CookieConsent from "@/components/CookieConsent";
 import { siteConfig } from "@/lib/site-config";
 import { shareImage } from "@/lib/seo";
 import { INTRO_KEY } from "@/lib/intro";
@@ -146,6 +147,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <CookieConsent />
       </body>
     </html>
   );
