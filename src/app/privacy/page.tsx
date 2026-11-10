@@ -20,6 +20,9 @@ export default function Privacy() {
           your request, discuss your celebration, and prepare the next steps
           with you.
         </p>
+        <h2 className="text-2xl">Site operation, cookies &amp; preferences</h2>
+        <p>Our hosting provider, Vercel, processes technical request information needed to serve and secure the site, such as connection information and request metadata. We use a necessary admin-session cookie for authorized staff sign-in, short-lived browser session storage for the introductory animation, and local browser storage to remember your cookie preferences. These are not advertising trackers. You may reopen Cookie preferences in the website footer.</p>
+        <p>Analytics and advertising tracking are currently not integrated into this website. Should we introduce them, optional tracking must remain off until you opt in. Rejecting optional cookies does not prevent you from browsing or sending an inquiry. You can withdraw optional consent at any time through Cookie preferences; previously received information may require a separate deletion request.</p>
         <h2 className="text-2xl">The inquiry form</h2>
         <p>
           Your inquiry is submitted directly through this website and stored in
@@ -33,12 +36,13 @@ export default function Privacy() {
           through our email provider, Resend, and are about your inquiry only.
           Sending an inquiry does not sign you up for marketing emails.
         </p>
+        <h2 className="text-2xl">Processing providers and recipients</h2>
+        <p>We use Vercel to host the website and store inquiries and Resend to deliver inquiry-related email. Service providers may process relevant information on our behalf. Our services are based in the United States; visitors in other countries should be aware information may be processed there.</p>
         <h2 className="text-2xl">Consent and how long we keep it</h2>
         <p>
           By ticking the consent box you agree that REP may contact you
           about your inquiry. We keep inquiry records for as long as needed to
-          respond to you and to manage a booking, and you can ask us to delete
-          yours at any time.
+          respond to you and to manage a booking, subject to applicable legal or operational retention requirements. You may request access, correction or deletion, or withdraw inquiry contact consent, through our contact form. We will review such requests under applicable law.
         </p>
         <h2 className="text-2xl">Spam protection</h2>
         <p>
@@ -47,6 +51,8 @@ export default function Privacy() {
           uses a one-way scrambled version of your network address, not the
           address itself, and it is deleted within a couple of days.
         </p>
+        <h2 className="text-2xl">Your choices and rights</h2>
+        <p>Depending on where you live, you may have rights to request access to, correction of, or deletion of your personal information, and to opt out of certain uses. We do not currently use site analytics or advertising pixels. Where applicable, you may contact your local data protection regulator. We do not knowingly solicit personal information from children through the inquiry form.</p>
         <h2 className="text-2xl">What to include</h2>
         <p>
           Please share information relevant to your event. You do not need to
