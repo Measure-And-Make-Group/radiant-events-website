@@ -13,7 +13,7 @@ export default async function AppleIcon() {
       <div style={{ position: "relative", display: "flex", width: "100%", height: "100%", overflow: "hidden", background: "#7b7e53" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={logo as unknown as string}
+          src={`data:image/webp;base64,${logo.toString("base64")}`}
           alt=""
           width={360}
           height={360}
