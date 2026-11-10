@@ -4,16 +4,20 @@ Updated 2026-11-09. Nothing here is invented on the site; open items are either 
 or worded generally until confirmed.
 
 ## Decisions that change what the site says
-- [ ] **Reply window.** The site promises a personal reply "usually within 12 to 24 hours"
-      (homepage, contact page, confirmation email). Confirm, or give the window to use.
+- [x] **Reply window.** "Usually within a few minutes by phone or text" (owner, 2026-11-08).
 - [ ] **Budget ranges** in the inquiry form (currently Under $500 … $5,000+, Need guidance).
 - [x] **Privacy Policy and Terms.** Approved for publication by MMG on 2026-11-08; indexed
       and in the sitemap.
-- [ ] **Portfolio filters by event type.** Filters are by service today. Three projects are
-      published (men's evening event, book launch, birthday game night).
-- [x] **Withdrawn projects.** "A Moment in Pink" (owner rejected the photography, 2026-11-09)
-      and "Color, Confetti & Joy" are no longer published; their URLs redirect to
-      /portfolio. Photos remain in Drive and git history if either returns.
+- [x] **Portfolio filters by event type.** /portfolio is organised as albums, filterable by
+      Showers, Birthdays & milestones, Church & ministry, Launches & brand events, and
+      Garlands & backdrops (installations whose event isn't named), as asked on Sept 28.
+- [x] **Decor folder (shared by bookings@, 2026-11-08).** 15 photos added: the bridal shower
+      ("Pearls & Promise", surname removed from the sign, guest handwriting blurred) and nine
+      standalone installations. The two frames showing the bride's face are not used. The
+      seven videos and "Untitled design.png" are over the Drive connector's limit.
+- [x] **Reinstated projects.** "A Moment in Pink" and "Color, Confetti & Joy" are back
+      (Omar, 2026-11-09 afternoon: show the full range of work). The doll-box photo booth
+      frame stays out because of the toy-brand packaging.
 - [x] **Venue naming.** Social House is credited on the Roswell project (MMG, 2026-11-08).
 - [x] **Client details in photos.** Names, ages, dates, house numbers and host branding were
       removed from every published photo (MMG request, 2026-11-08). Re-check any new photo

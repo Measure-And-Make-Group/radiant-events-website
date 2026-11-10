@@ -54,7 +54,7 @@ export default async function JournalArticlePage({
       />
       <Breadcrumbs
         items={[
-          { label: "Journal", href: "/journal" },
+          { label: "Helpful Reads", href: "/journal" },
           { label: article.title, href: "/journal/" + slug },
         ]}
       />
@@ -99,7 +99,7 @@ export default async function JournalArticlePage({
           href="/journal"
           className="font-sans text-sm uppercase tracking-wide-lg text-aubergine border-b border-tangerine hover:text-tangerine"
         >
-          Back to Journal
+          Back to Helpful Reads
         </Link>
       </div>
     </article>

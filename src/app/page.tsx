@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ExperienceReel from "@/components/ExperienceReel";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ArrowIcon from "@/components/ArrowIcon";
@@ -43,7 +44,10 @@ const specialties = [
 ];
 
 // Curated, not exhaustive: only the strongest approved projects are featured.
-const featuredWork = portfolioProjects.slice(0, 3);
+// The hero already leads with Pearls & Promise, so the collection shows range.
+const featuredWork = ["candlelight-and-conversation", "roses-and-shimmer", "game-night-balloon-moment"]
+  .map((slug) => portfolioProjects.find((p) => p.slug === slug))
+  .filter((p): p is (typeof portfolioProjects)[number] => !!p);
 
 export default function Home() {
   return (
@@ -69,12 +73,19 @@ export default function Home() {
             <Link className="re-cta re-cta-olive" href="/contact">Start your event inquiry <ArrowIcon /></Link>
             <Link className="re-text-link" href="#re-work">Explore our work <ArrowIcon /></Link>
           </div>
+          <a className="re-hello" href="#re-founder">
+            <Image src="/images/rickya-avatar.webp" alt="" width={56} height={56} className="re-hello-photo" />
+            <span>
+              <strong>Hi, I&apos;m Rickya.</strong> Tell me what you&apos;re celebrating. I usually reply by phone or text within minutes.
+              <em>Meet Rickya</em>
+            </span>
+          </a>
         </div>
         <div className="re-opening-media">
           <figure className="re-hero-main">
             <Image
-              src="/images/candlelight-tables-warm.webp"
-              alt="Long banquet tables dressed in black linen with gold chargers, greenery runners and rows of candlelight"
+              src="/images/bridal-backdrop.webp"
+              alt="An ivory pearl balloon garland framing white backdrop panels with a script sign and blush roses, styled for a bridal shower"
               fill
               priority
               sizes="(max-width: 900px) 100vw, 46vw"
@@ -83,13 +94,13 @@ export default function Home() {
           {/* Desktop and tablet only: on phones one photograph tells the story. */}
           <figure className="re-hero-inset" aria-hidden="true">
             <Image
-              src="/images/candlelight-detail-warm.webp"
+              src="/images/bridal-dessert.webp"
               alt=""
               fill
               sizes="(max-width: 900px) 34vw, 15vw"
             />
           </figure>
-          <p className="re-hero-caption">Real REP work · Candlelit tables, Roswell</p>
+          <p className="re-hero-caption">Real REP work · Pearls &amp; Promise bridal shower</p>
         </div>
         <div className="re-opening-bottom">
           <span>ATLANTA · ALPHARETTA · MILTON · NORTH ATLANTA</span>
@@ -159,6 +170,12 @@ export default function Home() {
         <span>WE&apos;LL HELP BRING THE DETAILS TOGETHER.</span>
       </section>
 
+      <ExperienceReel
+        id="home-experience"
+        title={<>Every garland, <em>built by hand.</em></>}
+        intro="A few seconds inside real REP installations, from blush sweet sixteens to navy and gold galas."
+      />
+
       <section className="re-collection" data-reveal id="re-work" aria-labelledby="re-work-title">
         <div className="re-collection-head">
           <div>
@@ -183,7 +200,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="re-founder" data-reveal aria-labelledby="re-founder-title">
+      <section className="re-founder" id="re-founder" data-reveal aria-labelledby="re-founder-title">
         <div className="re-founder-image" data-reveal="mask">
           <Image src="/images/rickya-fandino.webp" alt="Rickya Fandino, founder of Radiant Events Planning" fill sizes="(max-width: 760px) 100vw, 45vw" />
         </div>
