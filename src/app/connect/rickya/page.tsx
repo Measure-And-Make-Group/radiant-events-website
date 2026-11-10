@@ -59,7 +59,8 @@ export default function RickyaCard() {
               for the moments that matter most.
             </p>
             <p className={styles.signature}>
-              Planning with Purpose. Serving with Grace.
+              <span>Planning with Purpose.</span>{" "}
+              <span>Serving with Grace.</span>
             </p>
           </div>
         </header>

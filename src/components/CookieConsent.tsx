@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const KEY = "rep_cookie_choices_v1";
 type Choice = { necessary: true; analytics: boolean; marketing: boolean; updatedAt: string };
@@ -11,6 +12,7 @@ function readChoice(): Choice | null {
   return null;
 }
 export default function CookieConsent() {
+  const pathname = usePathname();
   const [choice, setChoice] = useState<Choice | null>(null);
   const [ready, setReady] = useState(false);
   const [open, setOpen] = useState(false);
@@ -37,7 +39,11 @@ export default function CookieConsent() {
     setAnalytics(a); setMarketing(m); setOpen(false);
     window.dispatchEvent(new CustomEvent("rep:consent-updated", { detail: next }));
   }
-  if (!ready || (choice && !open)) return null;
+  // This card has no optional tracking. Keep preferences available on request
+  // without interrupting a first visit or recording consent on the visitor's behalf.
+  // Revisit this exception before adding any optional tracking to the card.
+  const quietCard = pathname === "/connect/rickya";
+  if (!ready || (!open && (choice || quietCard))) return null;
   return (
     <section aria-label="Privacy and cookie choices" role="region" className="fixed bottom-0 inset-x-0 z-[1000] border-t border-[#929779] bg-[#f8f6ef] text-[#282d22] shadow-[0_-12px_40px_rgba(0,0,0,.18)]" style={{maxHeight:"90dvh",overflowY:"auto"}}>
       <div className="mx-auto max-w-5xl px-5 py-5 sm:px-8">
