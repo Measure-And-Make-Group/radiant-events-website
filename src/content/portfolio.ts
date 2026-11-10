@@ -120,11 +120,10 @@ export const portfolioProjects: PortfolioProject[] = [
     eventType: "Birthdays & milestones",
     occasion: "Sweet sixteen celebration",
     location: "Private residence",
-    image: "/images/pink-sixteen.webp",
-    alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers on a stone patio",
+    image: "/images/pink-arch.webp",
+    alt: "A pink balloon garland in blush, bubblegum and magenta around a gold circular frame on a stone patio",
     headline: ["Sixteen, celebrated", "in every shade of pink."],
     gallery: [
-      { src: "/images/pink-sixteen.webp", alt: "Pink balloon garland and ribbon streamers framing a gold circle, with marquee 16 numbers" },
       { src: "/images/pink-arch.webp", alt: "The pink balloon garland around the gold circular frame before the streamers went up" },
       { src: "/images/pink-install.webp", alt: "The garland mid-installation, with a step ladder still beside the gold frame" },
       { src: "/images/pink-balcony.webp", alt: "Pink balloon clusters along a wrought-iron balcony railing overlooking the garden" },

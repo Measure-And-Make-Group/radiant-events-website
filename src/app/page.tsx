@@ -45,7 +45,7 @@ const specialties = [
 
 // Curated, not exhaustive: only the strongest approved projects are featured.
 // The hero already leads with Pearls & Promise, so the collection shows range.
-const featuredWork = ["candlelight-and-conversation", "roses-and-shimmer", "pink-balloon-circle"]
+const featuredWork = ["candlelight-and-conversation", "roses-and-shimmer", "game-night-balloon-moment"]
   .map((slug) => portfolioProjects.find((p) => p.slug === slug))
   .filter((p): p is (typeof portfolioProjects)[number] => !!p);
 
