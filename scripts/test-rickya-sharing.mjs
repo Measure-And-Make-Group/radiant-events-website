@@ -313,6 +313,14 @@ function watch(p) {
           height: width >= 1024 ? 1000 : 844,
         });
         await page.evaluate(() => scrollTo(0, 0));
+        // A viewport change can request a new Next/Image srcset candidate.
+        // Wait for that responsive image before measuring or taking a screenshot.
+        await page.evaluate(() => new Promise(requestAnimationFrame));
+        await page.waitForFunction(() =>
+          [...document.querySelectorAll("article img")]
+            .filter((image) => image.getBoundingClientRect().width > 0)
+            .every((image) => image.complete && image.naturalWidth > 0),
+        );
         assert.equal(await page.locator(".site-header a").count(), 2);
         assert.equal(
           await page
