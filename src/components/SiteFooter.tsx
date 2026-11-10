@@ -1,3 +1,4 @@
+"use client";
 import ArrowIcon from "@/components/ArrowIcon";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,6 +75,7 @@ export default function SiteFooter() {
             <span>
               &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
             </span>
+            <button type="button" onClick={() => window.dispatchEvent(new Event("rep:cookie-settings"))} className="hover:text-white underline underline-offset-2">Cookie preferences</button>
             {siteConfig.footerLegal.map((link) => (
               <Link
                 key={link.href}
