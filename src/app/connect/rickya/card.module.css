@@ -33,9 +33,15 @@
   white-space: nowrap;
 }
 .shareActions {
-  min-width: 96px;
-  max-width: 55%;
+  min-width: 0;
+  max-width: 60%;
   text-align: right;
+}
+.topButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0 16px;
 }
 .shareStatus {
   display: block;
@@ -123,6 +129,98 @@
 }
 .actions {
   margin-bottom: 32px;
+}
+.inAppNote {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 14px 15px;
+  background: #f5eee6;
+  color: #35412e;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.inAppNote button {
+  min-height: 44px;
+  padding: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.noteFeedback {
+  grid-column: 1 / -1;
+}
+.referral {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 55px;
+  padding: 13px 15px;
+  border-bottom: 1px solid #cfbdb0;
+  color: #35412e;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.referral:hover {
+  background: #f1e5dd;
+}
+.qrDialog {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 16px;
+  overflow-y: auto;
+  background: #fff;
+  color: #35412e;
+}
+.qrDialog[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qrDialog::backdrop {
+  background: #fff;
+}
+.qrDialogContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 680px;
+  margin: auto;
+  text-align: center;
+}
+.qrDialogContent h2 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 28px;
+  line-height: 1.2;
+}
+.modalQR {
+  width: clamp(280px, 80vw, 520px);
+  height: auto;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+.qrDialog .qrClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  min-height: 44px;
+  padding: 10px 24px;
+  background: #35412e;
+  color: #fff;
+  font-size: 14px;
 }
 .primary {
   display: flex;
@@ -287,6 +385,28 @@
   outline-offset: 4px;
 }
 @media (max-width: 700px) {
+  .top {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .top > span {
+    width: 100%;
+  }
+  .shareActions {
+    width: 100%;
+    max-width: none;
+    text-align: left;
+  }
+  .topButtons {
+    justify-content: space-between;
+  }
+  .inAppNote {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .inAppNote button {
+    justify-self: start;
+  }
   .canvas {
     padding: 0;
     background: #fcf8f1;
