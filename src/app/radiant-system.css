@@ -362,7 +362,7 @@ html[data-intro="playing"] body { overflow: hidden; }
 .re-hero-main img { object-fit: cover; object-position: 58% 100%; transform: scale(var(--hero-zoom)); transform-origin: 58% 100%; }
 .re-hero-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43, 43, 38, 0) 68%, rgba(43, 43, 38, 0.32) 100%); pointer-events: none; }
 .re-hero-inset { position: absolute; z-index: 2; left: -11%; bottom: 13%; width: 32%; aspect-ratio: 0.72; margin: 0; border: 8px solid var(--rs-ivory); overflow: hidden; background: var(--rs-sand); box-shadow: 0 30px 50px -30px rgba(43, 43, 38, 0.5); }
-.re-hero-inset img { object-fit: cover; object-position: 100% 60%; }
+.re-hero-inset img { object-fit: cover; object-position: 45% 70%; }
 .re-hero-caption { position: absolute; z-index: 2; right: 22px; bottom: 20px; max-width: 70%; text-align: right; color: var(--rs-ivory); font: 600 10px/1.6 var(--font-montserrat), sans-serif; letter-spacing: 0.17em; text-transform: uppercase; }
 .re-home .re-opening-bottom { left: var(--rs-gutter); right: auto; width: calc(54% - var(--rs-gutter)); }
 .re-home .re-opening-ambience { right: auto; width: 54%; }
@@ -558,6 +558,16 @@ html { scroll-padding-top: 84px; }
 
 /* Roses & Shimmer: its script lettering sits in the left third of the photo,
    so portrait crops anchor left instead of centre. */
-html img[src*="flower-wall"] { object-position: 20% 50%; }
-/* Rose centerpiece: the arrangement sits right of centre. */
-html img[src*="rose-centerpiece"] { object-position: 68% 50%; }
+html img[src*="flower-wall.webp"] { object-position: 20% 50%; }
+/* Book-launch wall (pro shot): the wall and its lettering sit right of centre. */
+html img[src*="flower-wall-launch"] { object-position: 64% 50%; }
+/* Champagne wall: the coupe tower sits right of centre. */
+html img[src*="pearls-champagne-wall"] { object-position: 72% 50%; }
+
+/* Behind-the-scenes loop on project pages. */
+.rs-video-section { padding-top: 0; }
+.rs-video-figure { margin: 0 auto; max-width: 420px; }
+.rs-loop-video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: var(--rs-sand); }
+.rs-video-figure figcaption { margin-top: 14px; text-align: center; }
+/* Pearls centerpiece: keep the roses and candle in frame, not the backdrop lettering. */
+html img[src*="pearls-centerpiece"] { object-position: 50% 82%; }

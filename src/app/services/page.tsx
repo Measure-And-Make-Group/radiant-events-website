@@ -13,8 +13,8 @@ export const metadata = pageMetadata(
 
 const images = [
   {src:"/images/candlelight-hall-warm.webp", alt:"A full room of long banquet tables in black linen and candlelight, coordinated for an evening event in Roswell"},
-  {src:"/images/rose-centerpiece.webp", alt:"A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table"},
-  {src:"/images/flower-wall.webp", alt:"A rose-framed sequin shimmer wall installed as a photo backdrop for a book launch"},
+  {src:"/images/pearls-dessert-table.webp", alt:"Cupcakes with pearl-topped frosting, roses in clear glass and wrapped favor cones on an ivory dessert table"},
+  {src:"/images/flower-wall-launch.webp", alt:"A rose-framed pink sequin shimmer wall installed as a photo backdrop for a book launch"},
 ];
 
 export default function ServicesPage() {

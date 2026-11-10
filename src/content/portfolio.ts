@@ -16,6 +16,8 @@ export type PortfolioProject = {
   image: string;
   alt: string;
   gallery: { src: string; alt: string }[];
+  /** Optional short, silent behind-the-scenes loop. */
+  video?: { src: string; poster: string; caption: string };
   overview: string;
   challenge: string;
   designDirection: string;
@@ -33,6 +35,28 @@ export type PortfolioProject = {
 // Roses & Shimmer (book launch) added 2026-11-09; publication approved by the
 // owner for all photos in the Radiant Drive folder.
 export const portfolioProjects: PortfolioProject[] = [
+  {
+    slug: "pearls-and-champagne",
+    title: "Pearls & Champagne",
+    category: "Tablescapes + Room Styling",
+    occasion: "Bridal shower",
+    headline: ["Pearls, roses", "and a champagne toast."],
+    image: "/images/pearls-centerpiece.webp",
+    alt: "A blush rose and white taper candle centerpiece on an ivory table scattered with pearls, with a pearl balloon backdrop behind",
+    gallery: [
+      { src: "/images/pearls-centerpiece.webp", alt: "A blush rose and white taper candle centerpiece on an ivory table scattered with pearls, with a pearl balloon backdrop behind" },
+      { src: "/images/pearls-champagne-wall.webp", alt: "A boxwood champagne wall with gold shelving, a coupe tower draped in pearls, mini champagne favors and a gold card box" },
+      { src: "/images/pearls-dessert-table.webp", alt: "Cupcakes with pearl-topped frosting, roses in clear glass and wrapped favor cones on an ivory dessert table" },
+      { src: "/images/pearls-guess-table.webp", alt: "A guess-how-many-pearls game with a jar of pearls, bud vases of roses and white taper candles on a pearl-dotted table" },
+    ],
+    overview:
+      "A bridal shower in ivory, blush and pearl: rose and candle centerpieces on pearl-scattered tulle, a champagne wall framed in gold, and a dessert table dressed to match.",
+    challenge:
+      "Keep every station, from the tables to the desserts, games and champagne wall, in one soft and cohesive palette.",
+    designDirection:
+      "Ivory linens layered with pearl-dotted tulle, blush and ivory roses in clear glass, white taper candles and gold accents. Pearl balloons frame the backdrop, while a coupe tower and gold shelving turn the champagne wall into a focal point.",
+    servicesProvided: ["Table and centerpiece styling", "Champagne wall and coupe tower", "Dessert and favor table styling", "Guest activity station", "Pearl balloon backdrop"],
+  },
   {
     slug: "candlelight-and-conversation",
     title: "Candlelight & Conversation",
@@ -61,9 +85,14 @@ export const portfolioProjects: PortfolioProject[] = [
     category: "Balloons + Backdrops",
     occasion: "Book launch celebration",
     headline: ["A shimmer wall,", "framed in roses."],
-    image: "/images/flower-wall.webp",
-    alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering",
-    gallery: [{ src: "/images/flower-wall.webp", alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering" }],
+    image: "/images/flower-wall-launch.webp",
+    alt: "A deep pink sequin shimmer wall framed in red, pink, coral and yellow roses, with script lettering, beside racks of launch apparel",
+    gallery: [
+      { src: "/images/flower-wall-launch.webp", alt: "A deep pink sequin shimmer wall framed in red, pink, coral and yellow roses, with script lettering, beside racks of launch apparel" },
+      { src: "/images/flower-wall.webp", alt: "A sequin shimmer wall in deep pink framed by a dense border of red, pink, coral and yellow roses, with script lettering" },
+      { src: "/images/launch-merch-display.webp", alt: "A bamboo shelf display of the book, mugs, caps, tote bags and shirts in pink and white" },
+    ],
+    video: { src: "/images/flower-wall-install.mp4", poster: "/images/flower-wall-install.webp", caption: "Behind the scenes: the rose frame going up" },
     overview:
       "A signature photo backdrop for a book launch: a shimmering sequin wall framed edge to edge in roses, with the book's title in script lettering.",
     challenge:
@@ -91,6 +120,60 @@ export const portfolioProjects: PortfolioProject[] = [
     designDirection:
       "A vertical balloon composition and graphic game-inspired accents keep the focal area expressive and cohesive.",
     servicesProvided: ["Balloon installation", "Themed focal-area styling"],
+  },
+  {
+    slug: "sweet-arrivals",
+    title: "Sweet Arrivals",
+    category: "Balloons + Backdrops",
+    occasion: "Baby showers",
+    headline: ["Two showers,", "two soft palettes."],
+    image: "/images/baby-bearly-wait.webp",
+    alt: "A blush round backdrop wrapped in pink, cream and caramel balloons with We Can Bearly Wait lettering, baby blocks and a teddy bear",
+    gallery: [
+      { src: "/images/baby-bearly-wait.webp", alt: "A blush round backdrop wrapped in pink, cream and caramel balloons with We Can Bearly Wait lettering, baby blocks and a teddy bear" },
+      { src: "/images/baby-clouds.webp", alt: "Marquee BABY letters beside a white arch with paper clouds and a pastel balloon bouquet held by a teddy bear" },
+    ],
+    overview:
+      "Two baby showers with a teddy bear theme: a blush round backdrop wrapped in organic balloon clusters, and a white arch with paper clouds and a floating balloon bouquet.",
+    challenge:
+      "Create a photo-ready corner that feels sweet and soft rather than busy.",
+    designDirection:
+      "Blush, cream and caramel balloons in organic clusters, script lettering and baby blocks for one shower; paper clouds, marquee BABY letters and a pastel bouquet for the other. An oversized teddy bear ties each scene together.",
+    servicesProvided: ["Balloon garland and bouquet", "Round and arch backdrops", "Marquee letters and baby blocks", "Custom lettering"],
+  },
+  {
+    slug: "under-the-lights",
+    title: "Under the Lights",
+    category: "Styled Moments",
+    occasion: "Marriage proposal",
+    headline: ["A question,", "spelled out in light."],
+    image: "/images/marry-me-marquee.webp",
+    alt: "Giant marquee letters spelling MARRY ME glowing at dusk, with string lights, white balloons and red rose petals",
+    gallery: [{ src: "/images/marry-me-marquee.webp", alt: "Giant marquee letters spelling MARRY ME glowing at dusk, with string lights, white balloons and red rose petals" }],
+    overview:
+      "An outdoor proposal set for dusk: giant marquee letters spelling MARRY ME, string lights overhead, white balloons and a scatter of rose petals.",
+    challenge:
+      "Make one moment unforgettable, and easy to photograph after dark.",
+    designDirection:
+      "Warm marquee bulbs glow against the evening trees, with red rose petals across the patio, white balloon clusters and a red rose bouquet for the question itself.",
+    servicesProvided: ["Marquee letter installation", "Rose petal styling", "Balloon accents", "Evening setup"],
+  },
+  {
+    slug: "gift-wrapped-welcome",
+    title: "A Gift-Wrapped Welcome",
+    category: "Styled Moments",
+    occasion: "Community Christmas celebration",
+    headline: ["An entrance", "wrapped for Christmas."],
+    image: "/images/gift-box-arch.webp",
+    alt: "An entrance arch built from stacked gift-wrapped boxes in red, white and grey patterns beside a lit Christmas tree",
+    gallery: [{ src: "/images/gift-box-arch.webp", alt: "An entrance arch built from stacked gift-wrapped boxes in red, white and grey patterns beside a lit Christmas tree" }],
+    overview:
+      "A holiday entrance built from stacked, gift-wrapped boxes that arch over the doorway beside a twinkling tree.",
+    challenge:
+      "Turn an everyday entrance into the first festive moment guests walk through.",
+    designDirection:
+      "Mixed wrapping papers in gingham, stripes, snowflakes and vintage trucks, stacked at playful angles into two columns and a lintel, with greenery above.",
+    servicesProvided: ["Gift-box arch installation", "Seasonal entrance styling"],
   },
 ];
 export function getProjectBySlug(slug: string) {

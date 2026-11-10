@@ -43,9 +43,9 @@ export const occasions = [
       "Do you have a venue, palette, or inspiration images?",
       "How many guests should the space comfortably welcome?",
     ],
-    project: "roses-and-shimmer",
-    image: "/images/flower-wall.webp",
-    alt: "A rose-framed sequin shimmer wall created as a photo backdrop",
+    project: "pearls-and-champagne",
+    image: "/images/pearls-guess-table.webp",
+    alt: "A bridal shower guest table with a jar of pearls, bud vases of roses and white taper candles",
   },
   {
     slug: "brand-community-gatherings",

@@ -28,8 +28,8 @@ const specialties = [
     text: "For a cohesive setting: palette direction, tablescapes, and decorative details carried through the whole room.",
     best: "A venue and a vision that need one considered look.",
     href: "/services/design-room-styling",
-    image: "/images/rose-centerpiece.webp",
-    alt: "A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table",
+    image: "/images/pearls-dessert-table.webp",
+    alt: "Cupcakes with pearl-topped frosting, roses in clear glass and wrapped favor cones on an ivory dessert table",
   },
   {
     number: "03",
@@ -37,8 +37,8 @@ const specialties = [
     text: "For a photo-ready focal point: custom balloon installations and backdrops, booked on their own or alongside other services.",
     best: "One exceptional moment when the rest is already planned.",
     href: "/services/signature-installations",
-    image: "/images/flower-wall.webp",
-    alt: "A rose-framed sequin shimmer wall created as a photo backdrop for a book launch",
+    image: "/images/flower-wall-launch.webp",
+    alt: "A rose-framed pink sequin shimmer wall created as a photo backdrop for a book launch",
   },
 ];
 
@@ -83,7 +83,7 @@ export default function Home() {
           {/* Desktop and tablet only: on phones one photograph tells the story. */}
           <figure className="re-hero-inset" aria-hidden="true">
             <Image
-              src="/images/candlelight-detail-warm.webp"
+              src="/images/pearls-guess-table.webp"
               alt=""
               fill
               sizes="(max-width: 900px) 34vw, 15vw"

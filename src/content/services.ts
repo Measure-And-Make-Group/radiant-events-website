@@ -48,7 +48,7 @@ export const services: ServiceDetail[] = [
       caption: "Full room set · Roswell",
       position: "50% 55%",
     },
-    related: ["candlelight-and-conversation", "roses-and-shimmer", "game-night-balloon-moment"],
+    related: ["candlelight-and-conversation", "pearls-and-champagne", "roses-and-shimmer"],
     faq: [
       {
         question: "How far in advance should we book?",
@@ -89,12 +89,12 @@ export const services: ServiceDetail[] = [
       "On-site styling and final detail pass before guest arrival",
     ],
     image: {
-      src: "/images/rose-centerpiece.webp",
-      alt: "A blush and ivory rose centerpiece in a frosted pink vase on an ivory satin-draped table",
-      caption: "Table styling · Garden celebration",
-      position: "68% 50%",
+      src: "/images/pearls-champagne-wall.webp",
+      alt: "A boxwood champagne wall with gold shelving, a coupe tower draped in pearls and mini champagne favors",
+      caption: "Champagne wall · Bridal shower",
+      position: "72% 50%",
     },
-    related: ["candlelight-and-conversation", "roses-and-shimmer", "game-night-balloon-moment"],
+    related: ["pearls-and-champagne", "candlelight-and-conversation", "roses-and-shimmer"],
     faq: [
       {
         question: "Can this be paired with planning services?",
@@ -135,12 +135,12 @@ export const services: ServiceDetail[] = [
       "Collection or breakdown according to the confirmed arrangements",
     ],
     image: {
-      src: "/images/flower-wall.webp",
-      alt: "A sequin shimmer wall framed in red, pink, coral and yellow roses",
+      src: "/images/flower-wall-launch.webp",
+      alt: "A pink sequin shimmer wall framed in red, pink, coral and yellow roses",
       caption: "Floral backdrop · Book launch",
-      position: "20% 50%",
+      position: "64% 50%",
     },
-    related: ["roses-and-shimmer", "game-night-balloon-moment", "candlelight-and-conversation"],
+    related: ["roses-and-shimmer", "sweet-arrivals", "under-the-lights"],
     faq: [
       {
         question: "How much lead time do installations need?",
