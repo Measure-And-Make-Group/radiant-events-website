@@ -75,12 +75,12 @@ export default function SiteFooter() {
             <span>
               &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
             </span>
-            <button type="button" onClick={() => window.dispatchEvent(new Event("rep:cookie-settings"))} className="hover:text-white underline underline-offset-2">Cookie preferences</button>
+            <button type="button" onClick={() => window.dispatchEvent(new Event("rep:cookie-settings"))} className="inline-flex min-h-11 items-center hover:text-white underline underline-offset-2">Cookie preferences</button>
             {siteConfig.footerLegal.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="hover:text-white"
+                className="inline-flex min-h-11 items-center hover:text-white"
               >
                 {link.label}
               </Link>
