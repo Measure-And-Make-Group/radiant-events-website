@@ -141,6 +141,21 @@
 .primary:hover {
   background: #35412e;
 }
+.phoneNumber {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 15px 10px;
+  color: #35412e;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.phoneNumber span {
+  font-size: 12px;
+  font-weight: 400;
+}
 .quick {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -158,8 +173,11 @@
   font-size: 13px;
   font-weight: 600;
 }
-.quick a + a {
+.quick a:nth-child(even) {
   border-left: 1px solid #cfbdb0;
+}
+.quick a:nth-child(n + 3) {
+  border-top: 1px solid #cfbdb0;
 }
 .quick a:hover {
   background: #f1e5dd;
