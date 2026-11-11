@@ -13,7 +13,7 @@ export function CardActions() {
       try {
         await navigator.share({
           title: "Rickya Fandino | Radiant Events Planning",
-          text: "Here's Rickya's card — Radiant Events Planning in Atlanta.",
+          text: "Meet Rickya Fandino! Here’s her card so you can connect.",
           url: SHARE_URL,
         });
         return;
