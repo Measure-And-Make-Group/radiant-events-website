@@ -24,16 +24,14 @@ const base = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");
 const out = process.argv[3] || "/tmp/rickya-sharing-qa";
 const stage = process.argv[4] || "local";
 const canonical = "https://www.radianteventsplanning.com/connect/rickya";
-const shareUrl =
-  canonical + "?utm_source=share&utm_medium=web_share&utm_campaign=rickya_card";
+const shareUrl = canonical;
 const qrUrl =
   canonical + "?utm_source=qr&utm_medium=qr&utm_campaign=rickya_card";
 const title = "Rickya Fandino | Radiant Events Planning";
-const shareText = "Here's Rickya's card — Radiant Events Planning in Atlanta.";
+const shareText = "Meet Rickya Fandino! Here’s her card so you can connect.";
 const referral =
-  "Hey! Here's Rickya's card from Radiant Events Planning — she's amazing to work with: " +
-  canonical +
-  "?utm_source=sms_referral&utm_medium=sms&utm_campaign=rickya_card";
+  "I’d love to introduce you to Rickya Fandino, founder of Radiant Events Planning. Here’s her card so you can connect! " +
+  canonical;
 const results = [],
   errors = [];
 const hash = (data) => createHash("sha256").update(data).digest("hex");
@@ -466,7 +464,7 @@ function watch(p) {
     },
   );
   await check(
-    "Native share uses the requested title, text and UTM URL",
+    "Native share uses friendly language and clean canonical URL",
     async () => {
       await page.evaluate(() =>
         Object.defineProperty(navigator, "share", {
@@ -509,7 +507,7 @@ function watch(p) {
     assert.equal(await page.getByRole("status").innerText(), "");
   });
   await check(
-    "Desktop share copies the UTM URL and toast clears after two seconds",
+    "Desktop share copies clean URL and toast clears after two seconds",
     async () => {
       await page.evaluate(() => {
         Object.defineProperty(navigator, "share", {
