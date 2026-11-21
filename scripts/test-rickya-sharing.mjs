@@ -28,8 +28,8 @@ const shareUrl =
   canonical + "?utm_source=share&utm_medium=web_share&utm_campaign=rickya_card";
 const qrUrl =
   canonical + "?utm_source=qr&utm_medium=qr&utm_campaign=rickya_card";
-const title = "Rickya Fandino | Radiant Events Planning";
-const shareText = "Meet Rickya Fandino, founder of Radiant Events Planning and an Atlanta event consultant.";
+const title = "Rickya Fandino | Let's connect";
+const shareText = "Let’s connect! Here’s my card. I’d love to hear what you’re planning.";
 const referral =
   "Hey! I thought you'd like to connect with Rickya. She runs Radiant Events Planning and also offers event consulting. Here's her card: " +
   canonical +
@@ -201,20 +201,29 @@ function watch(p) {
       );
       assert.equal(
         await page.locator('meta[property="og:image"]').getAttribute("content"),
-        canonical + "/rickya-share-preview-v2.jpg",
+        canonical + "/rickya-share-preview-v3.jpg",
+      );
+      assert.equal(
+        await page.locator('meta[name="twitter:image"]').getAttribute("content"),
+        canonical + "/rickya-share-preview-v3.jpg",
+      );
+      assert.equal(
+        await page.locator('meta[name="twitter:card"]').getAttribute("content"),
+        "summary_large_image",
       );
       const image = await ctx.request.get(
-        base + "/connect/rickya/rickya-share-preview-v2.jpg",
+        base + "/connect/rickya/rickya-share-preview-v3.jpg",
       );
       assert.equal(image.status(), 200);
       const bytes = await image.body();
       assert.equal(
         hash(bytes),
-        "60f3c9ac3e8716ede95a8b30f169c07307a0bb25d3141c005a3bf9a961b13cd4",
+        "0b7e3e5dc9e180fb75e8d91c8097c881a56657386139c025c01f55eb2f173700",
       );
       save("og-preview.jpg", bytes);
       for (const agent of [
         "Applebot/0.1",
+        "LinkedInBot/1.0",
         "facebookexternalhit/1.1",
         "Twitterbot/1.0",
         "WhatsApp/2.24.11",
@@ -227,7 +236,7 @@ function watch(p) {
         assert.ok(
           html
             .slice(0, html.indexOf("</head>"))
-            .includes("rickya-share-preview-v2.jpg"),
+            .includes("rickya-share-preview-v3.jpg"),
           agent,
         );
       }
