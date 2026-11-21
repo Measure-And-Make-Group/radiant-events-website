@@ -63,9 +63,9 @@ export default function RickyaCard() {
               <span>Event Consultant</span>
             </p>
             <p className={styles.intro}>
-              I plan and design events through Radiant, and help hosts and
-              teams who are planning their own events make the next decisions
-              with confidence.
+              I have an eye for what makes a room feel inviting, a knack for
+              keeping an event flowing, and a calm presence when plans shift.
+              I care about the little details that make guests feel welcome.
             </p>
             <a
               className={styles.primary}
