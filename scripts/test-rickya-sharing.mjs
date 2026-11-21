@@ -158,6 +158,31 @@ function watch(p) {
   await page.locator("article h1").waitFor();
   await page.evaluate(() => document.fonts.ready);
 
+  await check("iPhone Home Screen gets Rickya’s name and a legible icon", async () => {
+    assert.equal(
+      await page.locator('meta[name="apple-mobile-web-app-title"]').getAttribute("content"),
+      "Rickya",
+    );
+    const icon = page.locator('link[rel="apple-touch-icon"]');
+    assert.equal(await icon.count(), 1);
+    assert.equal(await icon.getAttribute("sizes"), "180x180");
+    const iconUrl = new URL(await icon.getAttribute("href"), base);
+    assert.ok(iconUrl.pathname.startsWith("/connect/rickya/"));
+    const response = await ctx.request.get(iconUrl.href);
+    assert.equal(response.status(), 200);
+    assert.equal(response.headers()["content-type"], "image/png");
+    const { width, height, data } = PNG.sync.read(await response.body());
+    assert.deepEqual([width, height], [180, 180]);
+    let lightPixels = 0;
+    for (let index = 0; index < data.length; index += 4) {
+      assert.equal(data[index + 3], 255, "Icon background is opaque");
+      if (data[index] > 220 && data[index + 1] > 210 && data[index + 2] > 190) {
+        lightPixels += 1;
+      }
+    }
+    assert.ok(lightPixels > width * height * 0.09, "Bright monogram is visible");
+  });
+
   await check("Event photos link back to the Throne Church post", async () => {
     const figure = page.locator("article figure");
     assert.equal(await figure.getByRole("img").count(), 2);
