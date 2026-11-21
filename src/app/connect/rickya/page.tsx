@@ -16,6 +16,7 @@ const shareImageAlt =
 
 export const metadata: Metadata = {
   title: { absolute: CARD_TITLE },
+  appleWebApp: { title: "Rickya", capable: false },
   description,
   alternates: { canonical: "/connect/rickya" },
   openGraph: {
