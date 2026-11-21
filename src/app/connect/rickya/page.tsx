@@ -58,7 +58,10 @@ export default function RickyaCard() {
           <div className={styles.identity}>
             <p className={styles.eyebrow}>Atlanta, Georgia</p>
             <h1>Rickya <em>Fandino</em></h1>
-            <p className={styles.role}>Founder of Radiant Events Planning · Event Consultant</p>
+            <p className={styles.role}>
+              <span>Founder of Radiant Events Planning</span>{" "}
+              <span>Event Consultant</span>
+            </p>
             <p className={styles.intro}>
               I plan and design events through Radiant, and help hosts and
               teams who are planning their own events make the next decisions
@@ -88,14 +91,31 @@ export default function RickyaCard() {
           <h2 id="rickya-work-title">Work with Rickya</h2>
           <div className={styles.services}>
             <section className={styles.planning} aria-labelledby="rickya-radiant-title">
-              <div className={styles.eventPhoto}>
-                <Image
-                  src="/images/candlelight-tables-warm.webp"
-                  alt="Candlelit event styling by Radiant Events Planning"
-                  fill
-                  sizes="(max-width: 680px) 100vw, 510px"
-                />
-              </div>
+              <figure>
+                <div className={styles.eventGallery}>
+                  <div className={styles.eventPhoto}>
+                    <Image
+                      src="/images/rickya-throne-mens-night-room.webp"
+                      alt="Candlelit tables in the event room for Throne Church Men’s Night"
+                      fill
+                      sizes="(max-width: 680px) 58vw, 295px"
+                    />
+                  </div>
+                  <div className={styles.eventPhoto}>
+                    <Image
+                      src="/images/rickya-throne-mens-night-place-setting.webp"
+                      alt="Menu tied with terracotta ribbon at a black and gold place setting"
+                      fill
+                      sizes="(max-width: 680px) 40vw, 195px"
+                    />
+                  </div>
+                </div>
+                <figcaption className={styles.eventCredit}>
+                  <a href="https://www.instagram.com/p/DfngTrRkQwg/" target="_blank" rel="noopener noreferrer">
+                    Throne Church Men’s Night <ArrowIcon />
+                  </a>
+                </figcaption>
+              </figure>
               <div className={styles.serviceContent}>
                 <p className={styles.eyebrow}>Planning &amp; design</p>
                 <h3 id="rickya-radiant-title">Radiant Events Planning</h3>

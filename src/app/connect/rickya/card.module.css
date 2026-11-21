@@ -64,11 +64,11 @@
   margin: 0;
 }
 
-.identity h1 {
+.card .identity h1 {
   font-size: clamp(3rem, 7vw, 6.1rem);
-  line-height: .85;
+  line-height: 1.04;
   letter-spacing: -.055em;
-  margin: 14px 0 16px;
+  margin: 12px 0 20px;
 }
 
 .identity h1 em {
@@ -81,6 +81,10 @@
   font-size: .89rem;
   line-height: 1.5;
   font-weight: 700;
+}
+
+.role span {
+  display: block;
 }
 
 .intro,
@@ -261,8 +265,15 @@
   color: var(--lactic);
 }
 
+.eventGallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 3px;
+  height: clamp(125px, 29vw, 174px);
+  background: var(--paper);
+}
+
 .eventPhoto {
-  min-height: 125px;
   position: relative;
   background: var(--sand);
 }
@@ -270,6 +281,26 @@
 .eventPhoto img {
   object-fit: cover;
   object-position: center 53%;
+}
+
+.eventCredit {
+  padding-inline: clamp(16px, 3vw, 28px);
+  background: var(--lactic);
+}
+
+.eventCredit a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: .74rem;
+  font-weight: 650;
+  text-underline-offset: 3px;
+}
+
+.eventCredit svg {
+  width: 15px;
+  height: 15px;
 }
 
 .serviceContent {
@@ -421,9 +452,10 @@
     padding: 22px clamp(16px, 5vw, 32px);
   }
 
-  .identity h1 {
-    margin-block: 8px 11px;
-    font-size: clamp(2.75rem, 10.8vw, 4.8rem);
+  .card .identity h1 {
+    margin-block: 6px 18px;
+    font-size: clamp(2.45rem, 10.8vw, 4.8rem);
+    line-height: 1.1;
   }
 
   .identity h1 em {
