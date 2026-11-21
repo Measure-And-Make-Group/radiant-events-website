@@ -8,8 +8,11 @@ import { CARD_URL, CARD_TITLE, QR_IMAGE, SMS_REFERRAL_URL } from "./card-links";
 import styles from "./card.module.css";
 
 const description =
-  "Rickya Fandino is the founder of Radiant Events Planning and an Atlanta event consultant. Save her contact, explore her work, or inquire about your event.";
-const shareImage = "/connect/rickya/rickya-share-preview-v2.jpg";
+  "Connect with Rickya Fandino, founder of Radiant Events Planning and an Atlanta event consultant. Save her contact or tell her what you’re planning.";
+const shareImage = "/connect/rickya/rickya-share-preview-v3.jpg";
+
+const shareImageAlt =
+  "Let’s connect with Rickya Fandino, founder of Radiant Events Planning and event consultant.";
 
 export const metadata: Metadata = {
   title: { absolute: CARD_TITLE },
@@ -26,14 +29,14 @@ export const metadata: Metadata = {
       width: 1200,
       height: 630,
       type: "image/jpeg",
-      alt: "Rickya Fandino, founder of Radiant Events Planning and event consultant",
+      alt: shareImageAlt,
     }],
   },
   twitter: {
     card: "summary_large_image",
     title: CARD_TITLE,
     description,
-    images: [shareImage],
+    images: [{ url: shareImage, alt: shareImageAlt }],
   },
 };
 

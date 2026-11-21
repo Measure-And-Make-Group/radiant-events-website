@@ -1,6 +1,6 @@
 export const CARD_URL = "https://www.radianteventsplanning.com/connect/rickya";
-export const CARD_TITLE = "Rickya Fandino | Radiant Events Planning";
-export const SHARE_TEXT = "Meet Rickya Fandino, founder of Radiant Events Planning and an Atlanta event consultant.";
+export const CARD_TITLE = "Rickya Fandino | Let's connect";
+export const SHARE_TEXT = "Let’s connect! Here’s my card. I’d love to hear what you’re planning.";
 export const SHARE_URL = `${CARD_URL}?utm_source=share&utm_medium=web_share&utm_campaign=rickya_card`;
 export const QR_URL = `${CARD_URL}?utm_source=qr&utm_medium=qr&utm_campaign=rickya_card`;
 export const QR_IMAGE = "/connect/rickya/rickya-qr-v2.png";
