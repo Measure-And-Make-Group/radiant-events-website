@@ -29,9 +29,9 @@ const shareUrl =
 const qrUrl =
   canonical + "?utm_source=qr&utm_medium=qr&utm_campaign=rickya_card";
 const title = "Rickya Fandino | Radiant Events Planning";
-const shareText = "Here's Rickya's card — Radiant Events Planning in Atlanta.";
+const shareText = "Meet Rickya Fandino, founder of Radiant Events Planning and an Atlanta event consultant.";
 const referral =
-  "Hey! Here's Rickya's card from Radiant Events Planning — she's amazing to work with: " +
+  "Hey! I thought you'd like to connect with Rickya. She runs Radiant Events Planning and also offers event consulting. Here's her card: " +
   canonical +
   "?utm_source=sms_referral&utm_medium=sms&utm_campaign=rickya_card";
 const results = [],
@@ -87,7 +87,7 @@ function contact(bytes) {
     "N:Fandino;Rickya;;;",
     "FN:Rickya Fandino",
     "ORG:Radiant Events Planning",
-    "TITLE:Founder",
+    "TITLE:Founder and Event Consultant",
     "EMAIL;TYPE=INTERNET,WORK:bookings@radianteventsplanning.com",
     "TEL;TYPE=CELL,VOICE:+19147332756",
     "ADR;TYPE=WORK:;;;Atlanta;GA;;USA",
@@ -98,7 +98,7 @@ function contact(bytes) {
     "item3.URL:https://www.instagram.com/radianteventsplanning",
     "item3.X-ABLabel:Instagram",
     "X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/radianteventsplanning",
-    "NOTE:Event planning\\, coordination\\, styling\\, and signature installations in Atlanta and North Atlanta.",
+    "NOTE:Event planning\\, design\\, coordination\\, and consulting in Atlanta and North Atlanta.",
   ])
     assert.ok(unfolded.split("\r\n").includes(line), line);
   const block = raw.slice(raw.indexOf("PHOTO;"), raw.indexOf("END:VCARD"));
@@ -158,8 +158,22 @@ function watch(p) {
   await page.locator("article h1").waitFor();
   await page.evaluate(() => document.fonts.ready);
 
+  await check("Planning and consulting have separate inquiry actions", async () => {
+    const card = page.locator("article");
+    assert.ok(await card.getByRole("heading", { name: "Radiant Events Planning" }).isVisible());
+    assert.ok(await card.getByRole("heading", { name: "Event consulting" }).isVisible());
+    assert.equal(
+      await card.getByRole("link", { name: "Start an event inquiry" }).getAttribute("href"),
+      "/contact",
+    );
+    assert.equal(
+      await card.getByRole("link", { name: "Ask about consulting" }).getAttribute("href"),
+      "mailto:bookings@radianteventsplanning.com?subject=Event%20consulting%20inquiry",
+    );
+  });
+
   await check(
-    "Title, canonical and existing branded Open Graph preview",
+    "Title, canonical and updated branded Open Graph preview",
     async () => {
       assert.equal(await page.title(), title);
       assert.equal(
@@ -178,18 +192,18 @@ function watch(p) {
       );
       assert.equal(
         await page.locator('meta[property="og:image"]').getAttribute("content"),
-        canonical + "/rickya-share-preview-v1.png",
+        canonical + "/rickya-share-preview-v2.jpg",
       );
       const image = await ctx.request.get(
-        base + "/connect/rickya/rickya-share-preview-v1.png",
+        base + "/connect/rickya/rickya-share-preview-v2.jpg",
       );
       assert.equal(image.status(), 200);
       const bytes = await image.body();
       assert.equal(
         hash(bytes),
-        "a61fa0cbd692f4d0fc738756b2793740254be4b74646742ca2757b5b0910bcd2",
+        "60f3c9ac3e8716ede95a8b30f169c07307a0bb25d3141c005a3bf9a961b13cd4",
       );
-      save("og-preview.png", bytes);
+      save("og-preview.jpg", bytes);
       for (const agent of [
         "Applebot/0.1",
         "facebookexternalhit/1.1",
@@ -204,7 +218,7 @@ function watch(p) {
         assert.ok(
           html
             .slice(0, html.indexOf("</head>"))
-            .includes("rickya-share-preview-v1.png"),
+            .includes("rickya-share-preview-v2.jpg"),
           agent,
         );
       }
