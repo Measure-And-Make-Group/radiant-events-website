@@ -1,7 +1,7 @@
 "use client";
 import styles from "./card.module.css";
 import ArrowIcon from "@/components/ArrowIcon";
-import { SHARE_URL } from "./card-links";
+import { CARD_TITLE, SHARE_TEXT, SHARE_URL } from "./card-links";
 import { CopyFeedback, useCopyLink } from "./CopyFeedback";
 import { QRDialog } from "./QRDialog";
 
@@ -12,8 +12,8 @@ export function CardActions() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Rickya Fandino | Radiant Events Planning",
-          text: "Here's Rickya's card — Radiant Events Planning in Atlanta.",
+          title: CARD_TITLE,
+          text: SHARE_TEXT,
           url: SHARE_URL,
         });
         return;
