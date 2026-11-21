@@ -158,6 +158,15 @@ function watch(p) {
   await page.locator("article h1").waitFor();
   await page.evaluate(() => document.fonts.ready);
 
+  await check("Event photos link back to the Throne Church post", async () => {
+    const figure = page.locator("article figure");
+    assert.equal(await figure.getByRole("img").count(), 2);
+    assert.equal(
+      await figure.getByRole("link", { name: "Throne Church Men’s Night" }).getAttribute("href"),
+      "https://www.instagram.com/p/DfngTrRkQwg/",
+    );
+  });
+
   await check("Planning and consulting have separate inquiry actions", async () => {
     const card = page.locator("article");
     assert.ok(await card.getByRole("heading", { name: "Radiant Events Planning" }).isVisible());
@@ -376,6 +385,18 @@ function watch(p) {
             .every((i) => i.complete && i.naturalWidth > 0),
         }));
         assert.ok(metrics.scrollWidth <= width);
+        const identitySpacing = await page.locator("article h1").evaluate((heading) => {
+          const title = heading.nextElementSibling;
+          const computed = getComputedStyle(heading);
+          return {
+            gap: title.getBoundingClientRect().top - heading.getBoundingClientRect().bottom,
+            leading: parseFloat(computed.lineHeight) / parseFloat(computed.fontSize),
+            roleLines: [...title.children].map((line) => getComputedStyle(line).display),
+          };
+        });
+        assert.ok(identitySpacing.gap >= 16, "Keep the name clear of the role");
+        assert.ok(identitySpacing.leading >= 1, "Keep wrapped name lines from overlapping");
+        assert.deepEqual(identitySpacing.roleLines, ["block", "block"]);
         assert.deepEqual(metrics.small, []);
         assert.ok(metrics.images);
         save(`${width}-metrics.json`, metrics);
